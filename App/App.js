@@ -46,10 +46,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f44336',
   },
   welcome: {
+    fontFamily: 'ProximaNova-Black',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color:'#FFF'
+    color:'#000',
+    fontWeight: '300'
   },
   instructions: {
     textAlign: 'center',
