@@ -11,7 +11,6 @@ export default StyleSheet.create({
 	},
 	topper: {
 		flex: 2,
-		backgroundColor: '#DC1E2D',
 		width: '100%',
 		height: '100%',
 		justifyContent: 'center',
