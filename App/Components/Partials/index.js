@@ -1,5 +1,7 @@
 import Button from './Button';
+import CustomNavBar from './CustomNavBar';
 
 export {
-	Button
+	Button,
+	CustomNavBar
 };

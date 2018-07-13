@@ -1,13 +1,34 @@
 import React from 'react';
+import { View, Text } from 'react-native';
 import { Scene, Router, Stack } from 'react-native-router-flux';
-import { IntroComponent } from '@templates';
+import {
+	IntroComponent,
+	WelcomeScreenComponent,
+	LoginComponent
+} from '@templates';
+import { CustomNavBar } from '@partials';
+
+
+const styles = {
+	navigationStyle: {
+		backgroundColor: '#DC1E2D',
+		height: 56
+	}
+};
 
 const routerComponent = () => {
 	return (
 		<Router>
-			<Stack key="root" hideNavBar>
+			<Stack key="root" hideNavBar navBar={CustomNavBar}>
 				<Stack key="auth">
-					<Scene key="intro" component={IntroComponent} initial />
+					<Scene
+						key="WelcomeScreen"
+						component={WelcomeScreenComponent}
+						initial
+						hideNavBar
+					/>
+					<Scene key="Intro" component={IntroComponent} hideNavBar />
+					<Scene key="Login" component={LoginComponent} title="Masuk"/>
 				</Stack>
 			</Stack>
 		</Router>

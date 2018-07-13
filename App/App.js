@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { StatusBar, UIManager, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { WelcomeScreenComponent } from '@templates';
+import AyoRouter from './Router';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -30,6 +30,6 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    return <WelcomeScreenComponent />;
+    return <AyoRouter />;
   }
 }
