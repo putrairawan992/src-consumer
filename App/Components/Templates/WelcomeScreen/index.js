@@ -17,16 +17,17 @@ class WelcomeScreenComponent extends Component {
 					location={[0, 1]}
 				>
 					<Image source={ayoImg} style={styles.topperImg} />
+					<View style={styles.buttonContainer}>
+						<Button
+							style={styles.buttonStyle}
+							textStyle={styles.textStyle}
+							onPress={this.redirectLogin.bind(this)}
+						>
+							MASUK
+						</Button>
+						<Button style={{ marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }}>DAFTAR</Button>
+					</View>
 				</LinearGradient>
-				<View style={styles.bottom}>
-					<Button onPress={this.redirectLogin.bind(this)}>MASUK</Button>
-					<Button
-						style={styles.buttonStyle}
-						textStyle={styles.textStyle}
-					>
-						DAFTAR
-					</Button>
-				</View>
 			</View>
 		);
 	}
