@@ -8,7 +8,8 @@ const styles = {
 		backgroundColor: '#DC1E2D',
 		justifyContent: 'center',
 		borderRadius: 6,
-		height: 50
+		height: 50,
+		margin: 10
 	},
 	textStyle: {
 		fontFamily: 'ProximaNova-Regular',
