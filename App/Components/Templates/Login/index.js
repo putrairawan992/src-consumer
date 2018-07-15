@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { Input, Button, LightText, LinkText } from '@partials';
 import styles from './styles';
 
@@ -24,7 +25,7 @@ class LoginComponent extends Component {
 					secureTextEntry
 				/>
 				</View>
-				<Button>MASUK</Button>
+				<Button onPress={() => { Actions.main(); }}>MASUK</Button>
 				<View style={styles.phoneRow}>
 				<LightText>Pengguna Baru</LightText>
 				<LinkText style={{ marginLeft: 0 }}>Daftar disini</LinkText>

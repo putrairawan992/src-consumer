@@ -4,7 +4,8 @@ import { Scene, Router, Stack } from 'react-native-router-flux';
 import {
 	IntroComponent,
 	WelcomeScreenComponent,
-	LoginComponent
+	LoginComponent,
+	MainConsumerComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -28,7 +29,10 @@ const routerComponent = () => {
 						hideNavBar
 					/>
 					<Scene key="Intro" component={IntroComponent} hideNavBar />
-					<Scene key="Login" component={LoginComponent} title="Masuk"/>
+					<Scene key="Login" component={LoginComponent} title="Masuk" />
+				</Stack>
+				<Stack key="main" type="reset">
+					<Scene key="MainConsumer" component={MainConsumerComponent} hideNavBar initial />
 				</Stack>
 			</Stack>
 		</Router>
