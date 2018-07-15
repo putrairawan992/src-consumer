@@ -16,7 +16,7 @@ const styles = {
 		color: '#000',
 		backgroundColor: '#FFF',
 		padding: 16,
-		fontSize: 18,
+		fontSize: 16,
 		textAlign: 'left',
 		margin: 10,
 		flex: 1
