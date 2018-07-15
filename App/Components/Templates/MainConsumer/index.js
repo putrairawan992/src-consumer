@@ -13,7 +13,6 @@ class MainConsumerComponent extends Component {
 		return (
 			<ScrollableTabView
 				tabBarPosition={'bottom'}
-				locked
 				renderTabBar={() => <CustomTabBar />}
 			>
 				<DashboardComponent tabLabel="home" />
