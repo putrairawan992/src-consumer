@@ -7,6 +7,7 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		backgroundColor: '#fff',
-		alignContent: 'center'
+		alignContent: 'center',
+		position: 'relative'
 	}
 });

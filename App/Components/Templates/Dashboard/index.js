@@ -9,6 +9,7 @@ const personFace = require('@images/person-face.jpeg');
 
 class DashboardComponent extends Component {
 	render() {
+		console.log(globalStyles.page);
 		return (
 			<View style={styles.container}>
 				<LinearGradient

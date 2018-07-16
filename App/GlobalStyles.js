@@ -9,6 +9,7 @@ export default StyleSheet.create({
         backgroundColor: '#DC1E2D',
         justifyContent: 'flex-start',
         alignItems: 'center',
+        position: 'relative'
        
 
 	},
@@ -50,7 +51,7 @@ export default StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
 		elevation: 5,
-        top: PAGE_HEIGHT/2.76,
+        top: (PAGE_WIDTH > 720 ? (PAGE_HEIGHT / 2.55) : (PAGE_HEIGHT / 2.75)),
         alignSelf: 'center',
         position: 'absolute',
         alignItems: 'center',
@@ -61,7 +62,7 @@ export default StyleSheet.create({
 		width: 90,
 		borderRadius: 9,
 		elevation: 8,
-		top: PAGE_HEIGHT/2.76 - 10,
+		top: (PAGE_WIDTH > 720 ? (PAGE_HEIGHT / 2.55 - 10) : (PAGE_HEIGHT / 2.75 - 10)),
 		position: 'absolute',
 	    alignSelf: 'center',
 	    alignItems: 'center',
@@ -76,5 +77,9 @@ export default StyleSheet.create({
 		fontFamily: 'ProximaNova-Regular',
 		color: '#fff',
 		fontSize: 12
+	},
+	page: {
+		height: PAGE_HEIGHT,
+		width: PAGE_WIDTH
 	}
 });
