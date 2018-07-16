@@ -4,6 +4,8 @@ import Input from './Input';
 import LightText from './LightText';
 import LinkText from './LinkText';
 import CustomTabBar from './CustomTabBar';
+import MenuButton from './MenuButton';
+import NewsCard from './NewsCard';
 
 export {
 	Button,
@@ -11,5 +13,7 @@ export {
 	Input,
 	LightText,
 	LinkText,
-	CustomTabBar
+	CustomTabBar,
+	MenuButton,
+	NewsCard
 };

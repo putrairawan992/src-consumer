@@ -4,10 +4,8 @@ const PAGE_HEIGHT = Dimensions.get('window').height;
 
 export default StyleSheet.create({
 	container: {
-		flex: 1,
 		flexDirection: 'column',
 		backgroundColor: '#fff',
-		alignContent: 'center',
-		position: 'relative'
+		alignContent: 'center'
 	}
 });
