@@ -26,7 +26,7 @@ class LoginComponent extends Component {
 					secureTextEntry
 				/>
 				</View>
-				<Button onPress={() => { Actions.main(); }}>MASUK</Button>
+				<Button onPress={() => { Actions.MainConsumer(); }}>MASUK</Button>
 				<View style={globalStyles.phoneRow}>
 				<LightText>Pengguna Baru</LightText>
 				<LinkText style={{ marginLeft: 0 }}>Daftar disini</LinkText>

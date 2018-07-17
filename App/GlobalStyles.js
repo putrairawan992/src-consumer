@@ -133,5 +133,14 @@ export default StyleSheet.create({
 	},
 	phoneRow: {
 		flexDirection: 'row'
+	},
+	singlePageText: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 16,
+        color: 'rgba(0,0,0,0.6)',
+        textAlign: 'center',
+        lineHeight: 28,
+        maxWidth: '70%',
+        paddingBottom: 41
 	}
 });

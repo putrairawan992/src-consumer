@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import { Input, Button, LinkText } from '@partials';
 import styles from './styles';
@@ -91,7 +92,7 @@ class OtpResetPasswordComponent extends Component {
 						keyboardType={'numeric'}
 					/>
 				</View>
-				<Button style={{ margin: 8, marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }}>KIRIM</Button>
+				<Button style={{ margin: 8, marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }} onPress={this.redirectSuccessResetPassword.bind(this)}>KIRIM</Button>
 				<LinkText style={{ marginLeft: 0, marginTop: 30, color: '#FFF' }} >Kirim Ulang Kode Verifikasi</LinkText>
 			</LinearGradient>
 		);
@@ -113,6 +114,10 @@ class OtpResetPasswordComponent extends Component {
 			if (previousField !== null && previousField !== undefined)
 				this.focusNextField(previousField);
 		}
+	}
+
+	redirectSuccessResetPassword() {
+       Actions.SuccessResetPassword();
 	}
 
 }

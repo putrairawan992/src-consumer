@@ -7,10 +7,10 @@ import {
 	LoginComponent,
 	MainConsumerComponent,
 	ForgotPasswordComponent,
-	OtpResetPasswordComponent
+	OtpResetPasswordComponent,
+	SuccessResetPasswordComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
-
 
 const styles = {
 	navigationStyle: {
@@ -23,21 +23,35 @@ const routerComponent = () => {
 	return (
 		<Router>
 			<Stack key="root" hideNavBar navBar={CustomNavBar}>
-				<Stack key="auth">
-					<Scene
-						key="WelcomeScreen"
-						component={WelcomeScreenComponent}
-						initial
-						hideNavBar
-					/>
-					<Scene key="Intro" component={IntroComponent} hideNavBar />
-					<Scene key="Login" component={LoginComponent} title="Masuk" />
-				</Stack>
-				<Stack key="main" type="reset">
-					<Scene key="MainConsumer" component={MainConsumerComponent} hideNavBar initial />
-					<Scene key="ForgotPassword" component={ForgotPasswordComponent} title="Lupa kata sandi" />
-					<Scene key="OtpResetPassword" component={OtpResetPasswordComponent} hideNavBar />
-				</Stack>
+				<Scene
+					key="WelcomeScreen"
+					component={WelcomeScreenComponent}
+					initial
+					hideNavBar
+				/>
+				<Scene key="Intro" component={IntroComponent} hideNavBar />
+				<Scene key="Login" component={LoginComponent} title="Masuk" />
+				<Scene
+					key="MainConsumer"
+					component={MainConsumerComponent}
+					hideNavBar
+					type="reset"
+				/>
+				<Scene
+					key="ForgotPassword"
+					component={ForgotPasswordComponent}
+					title="Lupa kata sandi"
+				/>
+				<Scene
+					key="OtpResetPassword"
+					component={OtpResetPasswordComponent}
+					hideNavBar
+				/>
+				<Scene
+					key="SuccessResetPassword"
+					component={SuccessResetPasswordComponent}
+					hideNavBar
+				/>
 			</Stack>
 		</Router>
 	);

@@ -6,7 +6,8 @@ import NotificationComponent from './Notification';
 import ProfileComponent from './Profile';
 import MainConsumerComponent from './MainConsumer';
 import ForgotPasswordComponent from './ForgotPassword';
-import OtpResetPasswordComponent from './OtpResetPassword'
+import OtpResetPasswordComponent from './OtpResetPassword';
+import SuccessResetPasswordComponent from './SuccessResetPassword';
 
 export {
 	IntroComponent,
@@ -17,5 +18,6 @@ export {
 	ProfileComponent,
 	MainConsumerComponent,
 	ForgotPasswordComponent,
-	OtpResetPasswordComponent
+	OtpResetPasswordComponent,
+	SuccessResetPasswordComponent
 };
