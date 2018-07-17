@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { Input, Button } from '@partials';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
@@ -20,9 +21,13 @@ class ForgotPasswordComponent extends Component {
 					flexItem={{ flex: 3 }}
 				/>
 				</View>
-				<Button>KIRIM</Button>
+				<Button onPress={this.redirectOtp.bind(this)}>KIRIM</Button>
 			</View>
 		);
+	}
+
+	redirectOtp() {
+        Actions.OtpResetPassword();
 	}
 }
 

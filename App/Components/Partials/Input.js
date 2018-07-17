@@ -24,6 +24,15 @@ const styles = {
 };
 
 class Input extends Component {
+	componentDidMount() {
+		if (this.props.onRef != null) {
+			this.props.onRef(this);
+		}
+	}
+	focus() {
+		this.textInput.focus();
+	}
+
 	render() {
 		return (
 			<View style={[styles.containerStyle, this.props.flexItem]}>
@@ -37,7 +46,8 @@ class Input extends Component {
 					placeholderTextColor={'rgba(0,0,0,0.6)'}
 					editable={this.props.editable}
 					keyboardType={this.props.keyboardType}
-
+					maxLength={this.props.maxLength}
+					ref={input => (this.textInput = input)}
 				/>
 			</View>
 		);

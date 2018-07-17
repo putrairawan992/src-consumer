@@ -6,7 +6,8 @@ import {
 	WelcomeScreenComponent,
 	LoginComponent,
 	MainConsumerComponent,
-	ForgotPasswordComponent
+	ForgotPasswordComponent,
+	OtpResetPasswordComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -35,6 +36,7 @@ const routerComponent = () => {
 				<Stack key="main" type="reset">
 					<Scene key="MainConsumer" component={MainConsumerComponent} hideNavBar initial />
 					<Scene key="ForgotPassword" component={ForgotPasswordComponent} title="Lupa kata sandi" />
+					<Scene key="OtpResetPassword" component={OtpResetPasswordComponent} hideNavBar />
 				</Stack>
 			</Stack>
 		</Router>
