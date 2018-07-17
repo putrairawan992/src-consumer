@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 const styles = {
 	container: {
@@ -19,9 +19,11 @@ const styles = {
 class LinkText extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
+           <TouchableWithoutFeedback style={styles.container} onPress={this.props.onPress}>
+			<View>
 				<Text style={[styles.textStyle, this.props.style]}>{this.props.children}</Text>
 			</View>
+		  </TouchableWithoutFeedback>
 		);
 	}
 }

@@ -5,7 +5,8 @@ import {
 	IntroComponent,
 	WelcomeScreenComponent,
 	LoginComponent,
-	MainConsumerComponent
+	MainConsumerComponent,
+	ForgotPasswordComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -33,6 +34,7 @@ const routerComponent = () => {
 				</Stack>
 				<Stack key="main" type="reset">
 					<Scene key="MainConsumer" component={MainConsumerComponent} hideNavBar initial />
+					<Scene key="ForgotPassword" component={ForgotPasswordComponent} title="Lupa kata sandi" />
 				</Stack>
 			</Stack>
 		</Router>

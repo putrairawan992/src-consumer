@@ -5,6 +5,7 @@ import DashboardComponent from './Dashboard';
 import NotificationComponent from './Notification';
 import ProfileComponent from './Profile';
 import MainConsumerComponent from './MainConsumer';
+import ForgotPasswordComponent from './ForgotPassword';
 
 export {
 	IntroComponent,
@@ -13,5 +14,6 @@ export {
 	DashboardComponent,
 	NotificationComponent,
 	ProfileComponent,
-	MainConsumerComponent
+	MainConsumerComponent,
+	ForgotPasswordComponent
 };
