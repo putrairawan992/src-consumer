@@ -13,7 +13,7 @@ class MainConsumerComponent extends Component {
 		return (
 			<ScrollableTabView
 				tabBarPosition={'bottom'}
-				renderTabBar={() => <CustomTabBar />}
+				renderTabBar={() => <CustomTabBar titles={['Beranda', 'Notifikasi', 'Akun Saya']} />}
 			>
 				<DashboardComponent tabLabel="home" />
 				<NotificationComponent tabLabel="notifications-none" />
