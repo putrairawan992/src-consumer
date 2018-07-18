@@ -17,7 +17,7 @@ class MainConsumerComponent extends Component {
 			>
 				<DashboardComponent tabLabel="home" />
 				<NotificationComponent tabLabel="notifications-none" />
-				<ProfileComponent tabLabel="person-outline" />
+				<ProfileComponent tabLabel="account-circle" />
 			</ScrollableTabView>
 		);
 	}

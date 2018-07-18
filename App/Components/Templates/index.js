@@ -8,6 +8,7 @@ import MainConsumerComponent from './MainConsumer';
 import ForgotPasswordComponent from './ForgotPassword';
 import OtpResetPasswordComponent from './OtpResetPassword';
 import SuccessResetPasswordComponent from './SuccessResetPassword';
+import EditProfileComponent from './EditProfile';
 
 export {
 	IntroComponent,
@@ -19,5 +20,6 @@ export {
 	MainConsumerComponent,
 	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
-	SuccessResetPasswordComponent
+	SuccessResetPasswordComponent,
+	EditProfileComponent
 };

@@ -26,7 +26,8 @@ export default StyleSheet.create({
 		borderColor: '#FFF'
 	},
 	detailContainer: {
-		alignItems: 'center'
+		alignItems: 'center',
+		paddingTop: 32
 	},
 	detailText: {
 		fontFamily: 'ProximaNova-Bold',
@@ -35,6 +36,7 @@ export default StyleSheet.create({
 		paddingTop: 8
 	},
 	mainContainer: {
+		flexDirection: 'column',
 		position: 'relative'
 	},
 	imgPadder: {
@@ -142,5 +144,11 @@ export default StyleSheet.create({
         lineHeight: 28,
         maxWidth: '70%',
         paddingBottom: 41
+	},
+	listContainer: {
+		marginTop: 80,
+		flexDirection: 'column',
+		borderTopWidth: 1,
+		borderColor: '#ececec'
 	}
 });
