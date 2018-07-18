@@ -7,6 +7,7 @@ import CustomTabBar from './CustomTabBar';
 import MenuButton from './MenuButton';
 import NewsCard from './NewsCard';
 import MenuListButton from './MenuListButton';
+import Select from './Select';
 
 export {
 	Button,
@@ -17,5 +18,6 @@ export {
 	CustomTabBar,
 	MenuButton,
 	NewsCard,
-	MenuListButton
+	MenuListButton,
+	Select
 };

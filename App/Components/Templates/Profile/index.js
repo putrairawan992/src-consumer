@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, Image, Text } from 'react-native';
 import { MenuListButton, LinkText } from '@partials';
 import LinearGradient from 'react-native-linear-gradient';
+import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
 
@@ -52,7 +53,7 @@ class ProfileComponent extends Component {
 					</View>
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.listContainer}>
-							<MenuListButton>Ubah Profil</MenuListButton>
+							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
 							<MenuListButton>Ubah Kata Sandi</MenuListButton>
                             <MenuListButton>Keluar</MenuListButton>
 						</View>
@@ -61,6 +62,10 @@ class ProfileComponent extends Component {
 				<LinkText style={{ alignSelf: 'center'}}>Delete my account</LinkText>
 			</View>
 		);
+	}
+
+	redirectEditProfile() {
+		Actions.EditProfile();
 	}
 }
 

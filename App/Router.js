@@ -8,7 +8,8 @@ import {
 	MainConsumerComponent,
 	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
-	SuccessResetPasswordComponent
+	SuccessResetPasswordComponent,
+	EditProfileComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -22,7 +23,7 @@ const styles = {
 const routerComponent = () => {
 	return (
 		<Router>
-			<Stack key="root" hideNavBar navBar={CustomNavBar}>
+			<Stack key="root" navBar={CustomNavBar}>
 				<Scene
 					key="WelcomeScreen"
 					component={WelcomeScreenComponent}
@@ -51,6 +52,11 @@ const routerComponent = () => {
 					key="SuccessResetPassword"
 					component={SuccessResetPasswordComponent}
 					hideNavBar
+				/>
+				<Scene
+					key="EditProfile"
+					component={EditProfileComponent}
+					title="Edit Profil"
 				/>
 			</Stack>
 		</Router>
