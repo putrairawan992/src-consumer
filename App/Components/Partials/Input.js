@@ -9,7 +9,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	inputStyle: {
-		fontFamily: 'ProximaNova-Bold',
+		fontFamily: 'ProximaNova-Regular',
 		borderRadius: 5,
 		borderWidth: 2,
 		borderColor: '#ECECEC',

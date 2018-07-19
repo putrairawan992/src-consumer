@@ -4,7 +4,7 @@ const PAGE_HEIGHT = Dimensions.get('window').height;
 
 export default StyleSheet.create({
 	container: {
-		flex: 1,
+		flexGrow: 1,
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		alignItems: 'center',

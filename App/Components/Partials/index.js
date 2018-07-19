@@ -8,6 +8,7 @@ import MenuButton from './MenuButton';
 import NewsCard from './NewsCard';
 import MenuListButton from './MenuListButton';
 import Select from './Select';
+import Datepicker from './Datepicker';
 
 export {
 	Button,
@@ -19,5 +20,6 @@ export {
 	MenuButton,
 	NewsCard,
 	MenuListButton,
-	Select
+	Select,
+	Datepicker
 };

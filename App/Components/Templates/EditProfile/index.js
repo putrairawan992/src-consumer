@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
-import { Input, Select } from '@partials';
+import { Input, Select, Datepicker, Button } from '@partials';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
@@ -17,6 +17,14 @@ const items = [
 	}
 ];
 
+const formatDate = () => {
+	date = new Date();
+	var day = ('0' + date.getDate()).slice(-2);
+	var month = ('0' + (date.getMonth() + 1)).slice(-2);
+	var year = date.getFullYear();
+	return year + '-' + month + '-' + day;
+};
+
 class EditProfileComponent extends Component {
 	state = {
 		value: '',
@@ -24,7 +32,8 @@ class EditProfileComponent extends Component {
 			{ label: 'Laki - Laki', value: 0 },
 			{ label: 'Perempuan', value: 1 }
 		],
-		city: '1'
+		city: '1',
+		date: formatDate()
 	};
 	types = [];
 
@@ -70,7 +79,7 @@ class EditProfileComponent extends Component {
 						}}
 					/>
 				</View>
-				<View style={globalStyles.row}>
+				<View style={globalStyles.phoneRow}>
 					<Select
 						items={items}
 						value={this.state.city}
@@ -79,6 +88,24 @@ class EditProfileComponent extends Component {
 						}
 					/>
 				</View>
+				<View style={globalStyles.phoneRow}>
+					<Datepicker date={this.state.date} />
+				</View>
+				<View style={globalStyles.phoneRow}>
+					<Input placeholder="Nomor KTP" />
+				</View>
+				<View style={globalStyles.phoneRow}>
+				<Input
+					value="+62"
+					editable={false}
+				/>
+				<Input
+					placeholder="Nomor Ponsel"
+					keyboardType={'phone-pad'}
+					flexItem={{ flex: 3 }}
+				/>
+				</View>
+				<Button>KIRIM</Button>
 			</ScrollView>
 		);
 	}
