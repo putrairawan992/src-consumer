@@ -9,6 +9,7 @@ import ForgotPasswordComponent from './ForgotPassword';
 import OtpResetPasswordComponent from './OtpResetPassword';
 import SuccessResetPasswordComponent from './SuccessResetPassword';
 import EditProfileComponent from './EditProfile';
+import NewsListComponent from './NewsList';
 
 export {
 	IntroComponent,
@@ -21,5 +22,6 @@ export {
 	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
 	SuccessResetPasswordComponent,
-	EditProfileComponent
+	EditProfileComponent,
+	NewsListComponent
 };

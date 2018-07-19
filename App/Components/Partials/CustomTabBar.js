@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fcfcfc'
+    backgroundColor: '#ffffff'
   },
   tabs: {
     height: 60,
