@@ -19,7 +19,7 @@ class Datepicker extends Component {
 				date={this.props.date}
 				mode="date"
 				placeholder="Tanggal Lahir"
-				format="YYYY-MM-DD"
+				format="DD-MM-YYYY"
 				confirmBtnText="Confirm"
 				cancelBtnText="Cancel"
 				androidMode="spinner"
