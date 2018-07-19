@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 0,
     borderRightWidth: 0,
-    borderColor: 'rgba(0,0,0,0.05)'
+    borderColor: 'rgba(0,0,0,0.05)',
+    backgroundColor: '#fff'
   }
 });
 

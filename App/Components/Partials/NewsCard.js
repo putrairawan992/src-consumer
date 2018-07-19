@@ -9,13 +9,13 @@ class NewsCard extends Component {
 			<View style={globalStyles.newsFeedCard}>
 			  <View>
 				<Image
-					source={this.props.image}
+					source={this.props.item.image}
 					style={globalStyles.newsFeedImage}
 				/>
 				</View>
 				<View style={globalStyles.articlePreview}>
 					<Text style={globalStyles.newsFeedText}>
-						{this.props.children}
+						{this.props.item.children}
 					</Text>
 					<Text style={globalStyles.newsDate}>
 						10 Minutes Ago

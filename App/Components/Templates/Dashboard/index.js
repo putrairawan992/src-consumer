@@ -13,6 +13,11 @@ const coinImage = require('@images/icon-coin.png');
 const qrImage = require('@images/icon-qr.png');
 const locationImage = require('@images/icon-location.png');
 
+const itemDummy = {
+   image: exampleNews,
+   children: 'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
+};
+
 class DashboardComponent extends Component {
 	render() {
 		console.log(globalStyles.page);
@@ -86,18 +91,9 @@ class DashboardComponent extends Component {
 							</ScrollView>
 						</View>
 						<View style={globalStyles.newsFeedContainer}>
-							<NewsCard image={exampleNews}>
-								It’s always a great time to get “Back to Cool”
-								and enjoy a picnic with family and friends.
-							</NewsCard>
-							<NewsCard image={exampleNews}>
-								It’s always a great time to get “Back to Cool”
-								and enjoy a picnic with family and friends.
-							</NewsCard>
-							<NewsCard image={exampleNews}>
-								It’s always a great time to get “Back to Cool”
-								and enjoy a picnic with family and friends.
-							</NewsCard>
+							<NewsCard item={itemDummy} />
+							<NewsCard item={itemDummy} />
+							<NewsCard item={itemDummy} />
 						</View>
 					</View>
 				</ScrollView>
