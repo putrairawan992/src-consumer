@@ -54,7 +54,7 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
-							<MenuListButton>Ubah Kata Sandi</MenuListButton>
+							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
                             <MenuListButton>Keluar</MenuListButton>
 						</View>
 					</View>
@@ -66,6 +66,10 @@ class ProfileComponent extends Component {
 
 	redirectEditProfile() {
 		Actions.EditProfile();
+	}
+
+	redirectChangePassword() {
+		Actions.ForgotPassword({ title: 'Atur ulang kata sandi'});
 	}
 }
 

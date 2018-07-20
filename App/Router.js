@@ -9,7 +9,8 @@ import {
 	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
 	SuccessResetPasswordComponent,
-	EditProfileComponent
+	EditProfileComponent,
+	ChangePasswordComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -57,6 +58,11 @@ const routerComponent = () => {
 					key="EditProfile"
 					component={EditProfileComponent}
 					title="Edit Profil"
+				/>
+				<Scene
+					key="ChangePassword"
+					component={ChangePasswordComponent}
+					title="Ubah kata sandi"
 				/>
 			</Stack>
 		</Router>

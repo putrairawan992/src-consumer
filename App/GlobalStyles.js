@@ -150,5 +150,14 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		borderTopWidth: 1,
 		borderColor: '#ececec'
+	},
+	centeredText: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 16,
+        color: 'rgba(0,0,0,0.6)',
+        textAlign: 'center',
+        lineHeight: 28,
+        maxWidth: '70%',
+        paddingBottom: 41
 	}
 });

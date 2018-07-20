@@ -5,20 +5,21 @@ import { Input, Button } from '@partials';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 
-class ForgotPasswordComponent extends Component {
+class ChangePasswordComponent extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text style={globalStyles.centeredText}>Masukkan Nomor Handphone Anda untuk mereset password akun</Text>
+				<Text style={globalStyles.centeredText}>
+					Masukkan kata sandi baru untuk akun anda
+				</Text>
 				<View style={globalStyles.phoneRow}>
 				<Input
-					value="+62"
-					editable={false}
+					placeholder="Kata sandi"
 				/>
+				</View>
+				<View style={globalStyles.phoneRow}>
 				<Input
-					placeholder="Nomor Ponsel"
-					keyboardType={'phone-pad'}
-					flexItem={{ flex: 3 }}
+					placeholder="Konfirmasi kata sandi"
 				/>
 				</View>
 				<Button onPress={this.redirectOtp.bind(this)}>KIRIM</Button>
@@ -27,8 +28,8 @@ class ForgotPasswordComponent extends Component {
 	}
 
 	redirectOtp() {
-        Actions.OtpResetPassword();
+		Actions.OtpResetPassword();
 	}
 }
 
-export default ForgotPasswordComponent;
+export default ChangePasswordComponent;
