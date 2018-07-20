@@ -35,6 +35,9 @@ class OtpResetPasswordComponent extends Component {
 							this.inputs['1'] = ref;
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '2', null);
+						}}
 					/>
 					<Input
 						style={styles.singularInputStyle}
@@ -46,6 +49,9 @@ class OtpResetPasswordComponent extends Component {
 							this.inputs['2'] = ref;
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '3', '1');
+						}}
 					/>
 					<Input
 						style={styles.singularInputStyle}
@@ -57,6 +63,9 @@ class OtpResetPasswordComponent extends Component {
 							this.inputs['3'] = ref;
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '4', '2');
+						}}
 					/>
 					<Input
 						style={styles.singularInputStyle}
@@ -68,6 +77,9 @@ class OtpResetPasswordComponent extends Component {
 							this.inputs['4'] = ref;
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '5', '3');
+						}}
 					/>
 					<Input
 						style={styles.singularInputStyle}
@@ -79,6 +91,9 @@ class OtpResetPasswordComponent extends Component {
 							this.inputs['5'] = ref;
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '6', '4');
+						}}
 					/>
 					<Input
 						style={styles.singularInputStyle}
@@ -90,10 +105,28 @@ class OtpResetPasswordComponent extends Component {
 							this.nextHandler(num, null, '5');
 						}}
 						keyboardType={'numeric'}
+						onKeyPress={(e) => {
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, null, '5');
+						}}
 					/>
 				</View>
-				<Button style={{ margin: 8, marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }} onPress={this.redirectSuccessResetPassword.bind(this)}>KIRIM</Button>
-				<LinkText style={{ marginLeft: 0, marginTop: 30, color: '#FFF' }} >Kirim Ulang Kode Verifikasi</LinkText>
+				<Button
+					style={{
+						margin: 8,
+						marginTop: 21,
+						backgroundColor: 'transparent',
+						borderWidth: 1,
+						borderColor: '#fff'
+					}}
+					onPress={this.redirectSuccessResetPassword.bind(this)}
+				>
+					KIRIM
+				</Button>
+				<LinkText
+					style={{ marginLeft: 0, marginTop: 30, color: '#FFF' }}
+				>
+					Kirim Ulang Kode Verifikasi
+				</LinkText>
 			</LinearGradient>
 		);
 	}
@@ -104,22 +137,27 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	nextHandler(num, nextField, previousField) {
-		console.log(num, nextField, previousField);
 		if (num && num.length === 1) {
 			if (nextField !== null && nextField !== undefined) {
 				this.focusNextField(nextField);
 			} //function call. '2' ref to next input ref
 		} else if (!num || num.length === 0) {
-			console.log('called');
 			if (previousField !== null && previousField !== undefined)
 				this.focusNextField(previousField);
 		}
 	}
 
 	redirectSuccessResetPassword() {
-       Actions.SuccessResetPassword();
+		Actions.SuccessResetPassword();
 	}
 
+	handleKeyPress(textValue, keyValue, nextStep, previousStep) {
+		if (keyValue == 'Backspace') {
+			if (previousStep) {
+				this.focusNextField(previousStep);
+			}
+		}
+	}
 }
 
 export default OtpResetPasswordComponent;

@@ -47,6 +47,7 @@ class Input extends Component {
 					editable={this.props.editable}
 					keyboardType={this.props.keyboardType}
 					maxLength={this.props.maxLength}
+					onKeyPress={this.props.onKeyPress}
 					ref={input => (this.textInput = input)}
 				/>
 			</View>
