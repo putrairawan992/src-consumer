@@ -59,7 +59,7 @@ class ProfileComponent extends Component {
 						</View>
 					</View>
 				</ScrollView>
-				<LinkText style={{ alignSelf: 'center'}}>Delete my account</LinkText>
+				<LinkText style={{ alignSelf: 'center'}} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
 			</View>
 		);
 	}
@@ -70,6 +70,10 @@ class ProfileComponent extends Component {
 
 	redirectChangePassword() {
 		Actions.ForgotPassword({ title: 'Atur ulang kata sandi', isReset: true });
+	}
+
+	redirectDelete() {
+		Actions.DeleteAccount();
 	}
 }
 

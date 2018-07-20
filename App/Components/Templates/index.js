@@ -12,6 +12,7 @@ import EditProfileComponent from './EditProfile';
 import NewsListComponent from './NewsList';
 import ChangePasswordComponent from './ChangePassword';
 import RegisterComponent from './Register';
+import DeleteAccountComponent from './DeleteAccount';
 
 export {
 	IntroComponent,
@@ -27,5 +28,6 @@ export {
 	EditProfileComponent,
 	NewsListComponent,
 	ChangePasswordComponent,
-	RegisterComponent
+	RegisterComponent,
+	DeleteAccountComponent
 };

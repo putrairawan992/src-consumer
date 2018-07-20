@@ -11,7 +11,8 @@ import {
 	SuccessResetPasswordComponent,
 	EditProfileComponent,
 	ChangePasswordComponent,
-	RegisterComponent
+	RegisterComponent,
+	DeleteAccountComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -69,6 +70,11 @@ const routerComponent = () => {
 					key="Register"
 					component={RegisterComponent}
 					title="Daftar"
+				/>
+				<Scene
+					key="DeleteAccount"
+					component={DeleteAccountComponent}
+					title="Hapus akun"
 				/>
 			</Stack>
 		</Router>

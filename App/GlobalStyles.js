@@ -159,5 +159,12 @@ export default StyleSheet.create({
         lineHeight: 28,
         maxWidth: '70%',
         paddingBottom: 41
+	},
+	leftedText: {
+       fontFamily: 'ProximaNova-Regular',
+       fontSize: 14,
+       color: '#000',
+       lineHeight: 20,
+       paddingBottom: 10
 	}
 });
