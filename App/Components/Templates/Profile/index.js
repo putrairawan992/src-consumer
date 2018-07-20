@@ -69,7 +69,7 @@ class ProfileComponent extends Component {
 	}
 
 	redirectChangePassword() {
-		Actions.ForgotPassword({ title: 'Atur ulang kata sandi'});
+		Actions.ForgotPassword({ title: 'Atur ulang kata sandi', isReset: true });
 	}
 }
 

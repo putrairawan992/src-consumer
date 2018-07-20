@@ -18,7 +18,7 @@ class OtpResetPasswordComponent extends Component {
 			<LinearGradient
 				colors={['#DC1E2D', '#B11522']}
 				location={[0, 1]}
-				style={styles.container}
+				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#d3d3d3' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
 					Masukkan 6 Digit Kode Verifikasi yang dikirim melalui +62
