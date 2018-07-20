@@ -25,7 +25,7 @@ class WelcomeScreenComponent extends Component {
 						>
 							MASUK
 						</Button>
-						<Button style={{ marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }}>DAFTAR</Button>
+						<Button style={{ marginTop: 21, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff' }} onPress={this.redirectRegister.bind(this)}>DAFTAR</Button>
 					</View>
 				</LinearGradient>
 			</View>
@@ -34,6 +34,10 @@ class WelcomeScreenComponent extends Component {
 
 	redirectLogin() {
 		Actions.Login();
+	}
+
+	redirectRegister() {
+		Actions.Register();
 	}
 }
 

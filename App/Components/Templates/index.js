@@ -11,6 +11,7 @@ import SuccessResetPasswordComponent from './SuccessResetPassword';
 import EditProfileComponent from './EditProfile';
 import NewsListComponent from './NewsList';
 import ChangePasswordComponent from './ChangePassword';
+import RegisterComponent from './Register';
 
 export {
 	IntroComponent,
@@ -25,5 +26,6 @@ export {
 	SuccessResetPasswordComponent,
 	EditProfileComponent,
 	NewsListComponent,
-	ChangePasswordComponent
+	ChangePasswordComponent,
+	RegisterComponent
 };

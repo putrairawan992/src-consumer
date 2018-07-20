@@ -10,6 +10,7 @@ import MenuListButton from './MenuListButton';
 import Select from './Select';
 import Datepicker from './Datepicker';
 import ScrollSegment from './ScrollSegment';
+import Checkbox from './Checkbox';
 
 export {
 	Button,
@@ -23,5 +24,6 @@ export {
 	MenuListButton,
 	Select,
 	Datepicker,
-	ScrollSegment
+	ScrollSegment,
+	Checkbox
 };

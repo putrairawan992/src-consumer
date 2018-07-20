@@ -10,7 +10,8 @@ import {
 	OtpResetPasswordComponent,
 	SuccessResetPasswordComponent,
 	EditProfileComponent,
-	ChangePasswordComponent
+	ChangePasswordComponent,
+	RegisterComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -63,6 +64,11 @@ const routerComponent = () => {
 					key="ChangePassword"
 					component={ChangePasswordComponent}
 					title="Ubah kata sandi"
+				/>
+				<Scene
+					key="Register"
+					component={RegisterComponent}
+					title="Daftar"
 				/>
 			</Stack>
 		</Router>
