@@ -90,8 +90,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'row'
 	},
-	horizontalSlider: { flexDirection: 'row', height: 180, backgroundColor: '#ececec', padding: 5, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#d3d3d3' },
-	sliderImg: { height: 160, width: 380, margin: 5, borderRadius: 5 },
+	horizontalSlider: { height: (PAGE_WIDTH >= 720 ? 360:180), borderWidth: 1, borderColor: '#d3d3d3', alignItems: 'center', justifyContent: 'center', flex:1 },
+	sliderImg: { height: '100%', flex: 1,width: '102%', resizeMode: 'cover', alignSelf: 'center' },
 	newsFeedContainer: {
 		flexDirection: 'column'
 	},

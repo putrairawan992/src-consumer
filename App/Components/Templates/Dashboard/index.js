@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Image, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Swiper from 'react-native-swiper';
 import { MenuButton, NewsCard } from '@partials';
 import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../../GlobalStyles';
@@ -8,15 +9,16 @@ import styles from './styles';
 
 const ayoImg = require('@images/home-logo.png');
 const personFace = require('@images/person-face.jpeg');
-const exampleImage = require('@images/example-banner.jpg');
+const exampleImage = require('@images/example-banner.png');
 const exampleNews = require('@images/news-example.png');
 const coinImage = require('@images/icon-coin.png');
 const qrImage = require('@images/icon-qr.png');
 const locationImage = require('@images/icon-location.png');
 
 const itemDummy = {
-   image: exampleNews,
-   children: 'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
+	image: exampleNews,
+	children:
+		'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
 };
 
 class DashboardComponent extends Component {
@@ -65,32 +67,36 @@ class DashboardComponent extends Component {
 							<MenuButton iconName="credit-card">
 								KUPON SAYA
 							</MenuButton>
-							<MenuButton iconName="code" image={qrImage}>KODE QR</MenuButton>
-							<MenuButton iconName="location-on" onPress={this.redirectNearby.bind(this)} image={locationImage}>
+							<MenuButton iconName="code" image={qrImage}>
+								KODE QR
+							</MenuButton>
+							<MenuButton
+								iconName="location-on"
+								onPress={this.redirectNearby.bind(this)}
+								image={locationImage}
+							>
 								TERDEKAT
 							</MenuButton>
 						</View>
+                      <View style={{ flexDirection: 'row' }} >
+						<Swiper
+							style={globalStyles.horizontalSlider} dotColor="#fff" activeDotColor="#DC1E2D"
+						>
+							<Image
+								source={exampleImage}
+								style={globalStyles.sliderImg}
+							/>
+							<Image
+								source={exampleImage}
+								style={globalStyles.sliderImg}
+							/>
+							<Image
+								source={exampleImage}
+								style={globalStyles.sliderImg}
+							/>
+						</Swiper>
+					</View>
 
-						<View style={globalStyles.horizontalSlider}>
-							<ScrollView
-								horizontal
-								pagingEnabled
-								showsHorizontalScrollIndicator={false}
-							>
-								<Image
-									source={exampleImage}
-									style={globalStyles.sliderImg}
-								/>
-								<Image
-									source={exampleImage}
-									style={globalStyles.sliderImg}
-								/>
-								<Image
-									source={exampleImage}
-									style={globalStyles.sliderImg}
-								/>
-							</ScrollView>
-						</View>
 						<View style={globalStyles.newsFeedContainer}>
 							<NewsCard item={itemDummy} />
 							<NewsCard item={itemDummy} />
@@ -103,7 +109,7 @@ class DashboardComponent extends Component {
 	}
 
 	redirectNearby() {
-       Actions.Nearby();
+		Actions.Nearby();
 	}
 }
 
