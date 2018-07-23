@@ -12,11 +12,10 @@ const styles = {
 		margin: 10
 	},
 	textStyle: {
-		fontFamily: 'ProximaNova-Regular',
+		fontFamily: 'ProximaNova-Bold',
 		alignSelf: 'center',
 		color: '#fff',
-		fontSize: 14,
-		fontWeight: 'bold'
+		fontSize: 14
 	}
 };
 

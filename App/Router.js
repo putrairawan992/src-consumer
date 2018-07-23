@@ -81,6 +81,7 @@ const routerComponent = () => {
 					key="Nearby"
 					component={NearbyComponent}
 					title="Toko terdekat"
+					withIcon={'map'}
 				/>
 			</Stack>
 		</Router>

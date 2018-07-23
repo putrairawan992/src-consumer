@@ -5,7 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 const styles = {
 	buttonStyle: {
 		alignItems: "center",
-		alignSelf: "stretch",
+		alignSelf: "center",
 		backgroundColor: "#DC1E2D",
 		justifyContent: "center",
 		borderRadius: 16,
@@ -14,7 +14,9 @@ const styles = {
 		shadowOffset: { width: 5, height: 2 },
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
-		elevation: 5
+		elevation: 5,
+		width: 80,
+		height: 80
 	},
 	textStyle: {
 		fontFamily: "ProximaNova-Regular",

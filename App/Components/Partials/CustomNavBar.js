@@ -15,17 +15,20 @@ const styles = StyleSheet.create({
     height: 56,
     flexDirection: 'row',
     backgroundColor: '#DC1E2D',
-    justifyContent: 'flex-start'
+    justifyContent: 'space-between',
+    alignItems: 'center'
 
   },
   navBarItem: {
-    paddingRight: 32,
-    justifyContent: 'center'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   navBarItemText: {
     fontFamily: 'ProximaNova-Bold',
     color: '#fff',
-    fontSize: 20
+    fontSize: 20,
+    paddingLeft: 30
   }
 
 });
@@ -42,6 +45,7 @@ export default class CustomNavBar extends React.Component {
           style={[styles.navBarItem]}
         >
           <Icon name="keyboard-arrow-left" size={36} color="#fff"/>
+          <Text style={styles.navBarItemText}>{this.props.title}</Text>
         </TouchableOpacity>
       );
     // if (Actions.currentScene === 'customNavBar1') {
@@ -81,47 +85,27 @@ export default class CustomNavBar extends React.Component {
   _renderMiddle() {
     return (
       <View style={styles.navBarItem}>
-        <Text style={styles.navBarItemText}>{this.props.title}</Text>
+        
       </View>
     );
   }
 
   _renderRight() {
-    // return (
-    //   <View
-    //     style={[
-    //       styles.navBarItem,
-    //       { flexDirection: 'row', justifyContent: 'flex-end' }
-    //     ]}
-    //   >
-    //     <TouchableOpacity
-    //       onPress={() => console.log('Share')}
-    //       style={{ paddingRight: 10 }}
-    //     >
-    //       <Image
-    //         style={{ width: 30, height: 50 }}
-    //         resizeMode="contain"
-    //         source={{
-    //           uri:
-    //             'https://cdn3.iconfinder.com/data/icons/glypho-free/64/share-512.png'
-    //         }}
-    //       />
-    //     </TouchableOpacity>
-    //     <TouchableOpacity
-    //       onPress={() => console.log('Search')}
-    //       style={{ paddingRight: 10 }}
-    //     >
-    //       <Image
-    //         style={{ width: 30, height: 50 }}
-    //         resizeMode="contain"
-    //         source={{
-    //           uri:
-    //             'https://maxcdn.icons8.com/Share/icon/p1em/Very_Basic//search1600.png'
-    //         }}
-    //       />
-    //     </TouchableOpacity>
-    //   </View>
-    // );
+    return (
+      <View
+        style={[
+          styles.navBarItem,
+          { flexDirection: 'row', justifyContent: 'flex-end' }
+        ]}
+      >
+        <TouchableOpacity
+          onPress={() => console.log('Search')}
+          style={{ paddingRight: 10 }}
+        >
+          <Icon name={this.props.withIcon} size={38} color="#fff" />
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   render() {
@@ -129,7 +113,7 @@ export default class CustomNavBar extends React.Component {
       <View style={[styles.container]}>
         {this._renderLeft()}
         {this._renderMiddle()}
-        {this._renderRight()}
+        {(this.props.withIcon ? this._renderRight() : null)}
       </View>
     );
   }

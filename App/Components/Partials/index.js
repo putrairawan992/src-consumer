@@ -11,6 +11,7 @@ import Select from './Select';
 import Datepicker from './Datepicker';
 import ScrollSegment from './ScrollSegment';
 import Checkbox from './Checkbox';
+import NearbyCard from './NearbyCard';
 
 export {
 	Button,
@@ -25,5 +26,6 @@ export {
 	Select,
 	Datepicker,
 	ScrollSegment,
-	Checkbox
+	Checkbox,
+	NearbyCard
 };
