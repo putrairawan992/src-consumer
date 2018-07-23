@@ -62,7 +62,7 @@ class DashboardComponent extends Component {
 					</View>
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.menuRow}>
-							<MenuButton iconName="attach-money" image={coinImage}>
+							<MenuButton iconName="credit-card">
 								KUPON SAYA
 							</MenuButton>
 							<MenuButton iconName="code" image={qrImage}>KODE QR</MenuButton>
