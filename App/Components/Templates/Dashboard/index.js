@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Image, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { MenuButton, NewsCard } from '@partials';
 import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../../GlobalStyles';
@@ -65,7 +66,7 @@ class DashboardComponent extends Component {
 								KUPON SAYA
 							</MenuButton>
 							<MenuButton iconName="code" image={qrImage}>KODE QR</MenuButton>
-							<MenuButton iconName="location-on" image={locationImage}>
+							<MenuButton iconName="location-on" onPress={this.redirectNearby.bind(this)} image={locationImage}>
 								TERDEKAT
 							</MenuButton>
 						</View>
@@ -99,6 +100,10 @@ class DashboardComponent extends Component {
 				</ScrollView>
 			</View>
 		);
+	}
+
+	redirectNearby() {
+       Actions.Nearby();
 	}
 }
 

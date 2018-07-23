@@ -13,6 +13,7 @@ import NewsListComponent from './NewsList';
 import ChangePasswordComponent from './ChangePassword';
 import RegisterComponent from './Register';
 import DeleteAccountComponent from './DeleteAccount';
+import NearbyComponent from './Nearby';
 
 export {
 	IntroComponent,
@@ -29,5 +30,6 @@ export {
 	NewsListComponent,
 	ChangePasswordComponent,
 	RegisterComponent,
-	DeleteAccountComponent
+	DeleteAccountComponent,
+	NearbyComponent
 };

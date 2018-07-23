@@ -12,7 +12,8 @@ import {
 	EditProfileComponent,
 	ChangePasswordComponent,
 	RegisterComponent,
-	DeleteAccountComponent
+	DeleteAccountComponent,
+	NearbyComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -75,6 +76,11 @@ const routerComponent = () => {
 					key="DeleteAccount"
 					component={DeleteAccountComponent}
 					title="Hapus akun"
+				/>
+				<Scene
+					key="Nearby"
+					component={NearbyComponent}
+					title="Toko terdekat"
 				/>
 			</Stack>
 		</Router>
