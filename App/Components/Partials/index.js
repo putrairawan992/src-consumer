@@ -12,6 +12,8 @@ import Datepicker from './Datepicker';
 import ScrollSegment from './ScrollSegment';
 import Checkbox from './Checkbox';
 import NearbyCard from './NearbyCard';
+import CustomMapView from './CustomMapView';
+import AddressCard from './AddressCard';
 
 export {
 	Button,
@@ -27,5 +29,7 @@ export {
 	Datepicker,
 	ScrollSegment,
 	Checkbox,
-	NearbyCard
+	NearbyCard,
+	CustomMapView,
+	AddressCard
 };

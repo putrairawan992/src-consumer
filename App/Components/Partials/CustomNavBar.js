@@ -99,7 +99,7 @@ export default class CustomNavBar extends React.Component {
         ]}
       >
         <TouchableOpacity
-          onPress={() => console.log('Search')}
+          onPress={this.props.rightPress}
           style={{ paddingRight: 10 }}
         >
           <Icon name={this.props.withIcon} size={38} color="#fff" />

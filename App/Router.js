@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Scene, Router, Stack } from 'react-native-router-flux';
+import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
 	WelcomeScreenComponent,
@@ -13,7 +13,8 @@ import {
 	ChangePasswordComponent,
 	RegisterComponent,
 	DeleteAccountComponent,
-	NearbyComponent
+	NearbyComponent,
+	NearbyMapViewComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -82,6 +83,12 @@ const routerComponent = () => {
 					component={NearbyComponent}
 					title="Toko terdekat"
 					withIcon={'map'}
+					rightPress={() => { Actions.NearbyMapView(); }}
+				/>
+				<Scene
+					key="NearbyMapView"
+					component={NearbyMapViewComponent}
+					title="Toko terdekat"
 				/>
 			</Stack>
 		</Router>

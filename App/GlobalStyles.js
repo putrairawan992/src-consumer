@@ -166,5 +166,44 @@ export default StyleSheet.create({
        color: '#000',
        lineHeight: 20,
        paddingBottom: 10
+	},
+	detailCardContainer: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		paddingHorizontal: 20,
+		marginTop: 21
+	},
+	shopName: {
+		fontFamily: 'ProximaNova-Bold',
+		fontSize: 14,
+		lineHeight: 20,
+		color: '#000'
+	},
+	descriptionName: {
+		fontFamily: 'ProximaNova-Regular',
+		color: '#000',
+		fontSize: 12,
+		lineHeight: 16,
+		marginTop: 5
+	},
+	labelButton: {
+		backgroundColor: '#DC1E2D',
+		paddingVertical: 6,
+		paddingHorizontal: 22,
+		height: 'auto',
+		borderRadius: 13,
+		margin: 5,
+		marginLeft: 0
+	},
+	redButtonText: {
+		color: '#fff',
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 12
+	},
+	rangeText: {
+		color: '#000',
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 14,
+		marginRight: 5
 	}
 });
