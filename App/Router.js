@@ -16,7 +16,8 @@ import {
 	NearbyComponent,
 	NearbyMapViewComponent,
 	ShopDetailComponent,
-	MyCardComponent
+	MyCardComponent,
+	NewsDetailComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 
@@ -101,6 +102,11 @@ const routerComponent = () => {
 					key="MyCard"
 					component={MyCardComponent}
 					title="Kartu Saya"
+				/>
+				<Scene
+					key="NewsDetail"
+					component={NewsDetailComponent}
+					title="Detil Berita"
 				/>
 			</Stack>
 		</Router>
