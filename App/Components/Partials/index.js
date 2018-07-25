@@ -14,6 +14,7 @@ import Checkbox from './Checkbox';
 import NearbyCard from './NearbyCard';
 import CustomMapView from './CustomMapView';
 import AddressCard from './AddressCard';
+import NotificationSegment from './NotificationSegment';
 
 export {
 	Button,
@@ -31,5 +32,6 @@ export {
 	Checkbox,
 	NearbyCard,
 	CustomMapView,
-	AddressCard
+	AddressCard,
+	NotificationSegment
 };
