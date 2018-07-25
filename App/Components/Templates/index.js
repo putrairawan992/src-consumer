@@ -15,6 +15,7 @@ import RegisterComponent from './Register';
 import DeleteAccountComponent from './DeleteAccount';
 import NearbyComponent from './Nearby';
 import NearbyMapViewComponent from './NearbyMapView';
+import ShopDetailComponent from './ShopDetail';
 
 export {
 	IntroComponent,
@@ -33,5 +34,6 @@ export {
 	RegisterComponent,
 	DeleteAccountComponent,
 	NearbyComponent,
-	NearbyMapViewComponent
+	NearbyMapViewComponent,
+	ShopDetailComponent
 };
