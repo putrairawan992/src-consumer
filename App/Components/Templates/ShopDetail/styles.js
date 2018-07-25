@@ -34,7 +34,7 @@ export default StyleSheet.create({
         color: '#000'
 	},
 	bannerImage: {
-		height: 144,
+		height: PAGE_WIDTH >= 720 ? 288 : 144,
 		resizeMode: 'cover',
 		width: '100%',
 		borderRadius: 8,

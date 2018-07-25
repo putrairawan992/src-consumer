@@ -64,8 +64,8 @@ class DashboardComponent extends Component {
 					</View>
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.menuRow}>
-							<MenuButton iconName="credit-card">
-								KUPON SAYA
+							<MenuButton iconName="credit-card" onPress={this.redirectCard.bind(this)} >
+								KARTU SAYA
 							</MenuButton>
 							<MenuButton iconName="code" image={qrImage}>
 								KODE QR
@@ -110,6 +110,10 @@ class DashboardComponent extends Component {
 
 	redirectNearby() {
 		Actions.Nearby();
+	}
+
+	redirectCard() {
+		Actions.MyCard();
 	}
 }
 
