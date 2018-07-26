@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
+import { connect } from 'react-redux';
 import { Input, Select, Datepicker, Button, Checkbox } from '@partials';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
+import * as actions from './actions';
 import globalStyles from '../../../GlobalStyles';
 
 const items = [
@@ -29,8 +30,8 @@ class RegisterComponent extends Component {
 	state = {
 		value: '',
 		types: [
-			{ label: 'Laki - Laki', value: 0 },
-			{ label: 'Perempuan', value: 1 }
+			{ label: 'Laki - Laki', value: 'male' },
+			{ label: 'Perempuan', value: 'female' }
 		],
 		city: '1',
 		date: formatDate(),
@@ -39,11 +40,25 @@ class RegisterComponent extends Component {
 	};
 	types = [];
 
+	// method from actions
+
+	onNameChange(text) {
+		this.props.registerNameChanged(text);
+	}
+
+	onGenderChange(text) {
+		this.props.registerGenderChanged(text);
+	}
+
 	render() {
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Nama" />
+					<Input
+						placeholder="Nama"
+						onChangeText={this.onNameChange.bind(this)}
+						value={this.props.name}
+					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Text style={{ margin: 10, flex: 1 }}>Jenis Kelamin</Text>
@@ -66,9 +81,7 @@ class RegisterComponent extends Component {
 							fontSize: 14,
 							lineHeight: 20
 						}}
-						onPress={value => {
-							this.setState({ value: value });
-						}}
+						onPress={this.onGenderChange.bind(this)}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
@@ -131,4 +144,22 @@ class RegisterComponent extends Component {
 	}
 }
 
-export default RegisterComponent;
+const mapStateToProps = state => {
+	return {
+		name: state.signUpReducer.name,
+		phone: state.signUpReducer.phone,
+		password: state.signUpReducer.password,
+		password_confirmation: state.signUpReducer.password_confirmation,
+		gender: state.signUpReducer.gender,
+		birth_date: state.signUpReducer.birth_date,
+		id_number: state.signUpReducer.id_number,
+		city: state.signUpReducer.city,
+		reference_code: state.signUpReducer.reference_code,
+		is_smoking: state.signUpReducer.is_smoking
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	actions
+)(RegisterComponent);

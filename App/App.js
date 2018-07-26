@@ -7,15 +7,35 @@
  */
 
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import { StatusBar, UIManager, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { CommonService } from '@services';
+import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
 
 type Props = {};
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 export default class App extends Component<Props> {
   componentDidMount() {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
+    // debug network
+    // To see all the requests in the chrome Dev tools in the network tab.
+    XMLHttpRequest = GLOBAL.originalXMLHttpRequest
+      ? GLOBAL.originalXMLHttpRequest
+      : GLOBAL.XMLHttpRequest;
+
+    // fetch logger
+    global._fetch = fetch;
+    global.fetch = function(uri, options, ...args) {
+      return global._fetch(uri, options, ...args).then(response => {
+        console.log('Fetch', { request: { uri, options, ...args }, response });
+        return response;
+      });
+    };
     setTimeout(() => {
       SplashScreen.hide();
       StatusBar.setBackgroundColor('#DC1E2D');
@@ -30,6 +50,10 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    return <AyoRouter />;
+    return (
+      <Provider store={store}>
+        <AyoRouter />
+      </Provider>
+    );
   }
 }
