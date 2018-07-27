@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text } from 'react-native';
+import globalStyles from  '../../GlobalStyles';
 
 const styles = {
 	containerStyle: {
@@ -20,12 +21,6 @@ const styles = {
 		fontSize: 16,
 		textAlign: 'left',
 		width: '100%'
-	},
-	validationText: {
-		flexDirection: 'row',
-		marginTop: 10,
-		color: '#DC1E2D',
-		justifyContent: 'flex-start'
 	}
 };
 
@@ -57,7 +52,7 @@ class Input extends Component {
 					ref={input => (this.textInput = input)}
 				/>
 				{this.props.error ? (
-					<Text style={styles.validationText}>
+					<Text style={globalStyles.validationText}>
 						{this.props.error}
 					</Text>
 				) : null}

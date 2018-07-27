@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Picker, View } from 'react-native';
+import { Picker, View, Text } from 'react-native';
+import globalStyles from '../../GlobalStyles';
 
 const styles = {
   containerStyle: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     fontFamily: 'ProximaNova-Bold',
@@ -15,11 +16,16 @@ const styles = {
     padding: 16,
     fontSize: 16,
     textAlign: 'left',
+    flex: 1,
     margin: 10
   },
   inputStyle: {
     width: '100%',
     height: 20
+  },
+  baseStyle: {
+    flexDirection: 'column',
+    width: '100%'
   }
 };
 
@@ -33,19 +39,28 @@ class Select extends Component {
 
   render() {
     return (
-      <View
-        style={styles.containerStyle}
-      >
-        <Picker
-          style={styles.inputStyle}
-          selectedValue={this.props.value}
-          onValueChange={this.props.onValueChange}
-        >
-          {this.props.placeholder ? <Picker.Item value='' label={this.props.placeholder} /> : null}
-          {this.props.items.map((i, index) => (
-            <Picker.Item key={index} label={i[this.props.iteratorLabel]} value={i[this.props.iteratorKey]} />
-          ))}
-        </Picker>
+      <View style={styles.baseStyle}>
+        <View style={styles.containerStyle}>
+          <Picker
+            style={styles.inputStyle}
+            selectedValue={this.props.value}
+            onValueChange={this.props.onValueChange}
+          >
+            {this.props.placeholder ? (
+              <Picker.Item value="" label={this.props.placeholder} />
+            ) : null}
+            {this.props.items.map((i, index) => (
+              <Picker.Item
+                key={index}
+                label={i[this.props.iteratorLabel]}
+                value={i[this.props.iteratorKey]}
+              />
+            ))}
+          </Picker>
+        </View>
+        {this.props.error ? (
+          <Text style={[globalStyles.validationText, { marginLeft: 10 }]}>{this.props.error}</Text>
+        ) : null}
       </View>
     );
   }

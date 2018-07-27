@@ -13,7 +13,9 @@ import {
 	REGISTER_IS_TERM_CONDITION_APPROVED,
 	PROVINCES_RETRIEVED,
 	PROVINCES_FAILED,
-	REGISTER_PROVINCE_CHANGED
+	REGISTER_PROVINCE_CHANGED,
+	CITIES_RETRIEVED,
+	CITIES_FAIL
 } from './types';
 
 export const registerNameChanged = text => {
@@ -43,6 +45,7 @@ export const registerProvinceChanged = text => {
 		payload: text
 	};
 };
+
 
 export const registerBirthdateChanged = text => {
 	return {
@@ -107,7 +110,19 @@ export const getProvinceLists = () => {
 				dispatch({ type: PROVINCES_RETRIEVED, payload: provinces });
 			})
 			.catch(err => {
-				dispatch({ type: PROVINCES_FAILED, payload: err });
+				console.debug('fail API',err);
+			});
+	};
+};
+
+export const getCityLists = (provinceId = null) => {
+	return dispatch => {
+		CommonService.getCities(provinceId)
+			.then(cities => {
+				dispatch({ type: CITIES_RETRIEVED, payload: cities });
+			})
+			.catch(err => {
+				console.debug('fail API',err);
 			});
 	};
 };

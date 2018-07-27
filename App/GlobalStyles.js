@@ -205,5 +205,11 @@ export default StyleSheet.create({
 		fontFamily: 'ProximaNova-Regular',
 		fontSize: 14,
 		marginRight: 5
+	},
+	validationText: {
+		flexDirection: 'row',
+		marginTop: 10,
+		color: '#DC1E2D',
+		justifyContent: 'flex-start'
 	}
 });

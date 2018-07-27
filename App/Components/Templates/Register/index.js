@@ -40,7 +40,8 @@ class RegisterComponent extends Component {
 		isSmoking: true,
 		term: true,
 		nameError: '',
-		passwordError: ''
+		passwordError: '',
+		cityError: ''
 	};
 
 	// method from actions
@@ -53,18 +54,32 @@ class RegisterComponent extends Component {
 		this.props.registerGenderChanged(text);
 	}
 
-	onProvinceChange(value,index) {
+	onProvinceChange(value, index) {
 		this.props.registerProvinceChanged(value);
+		this.props.getCityLists(value);
+	}
+
+	onCityChange(value, index) {
+		this.props.registerCityChanged(value);
 	}
 
 	submitRegister() {
-		const nameError = validateClass('name', this.props.name, validation, 'name');
+		const nameError = validateClass(
+			'name',
+			this.props.name,
+			validation,
+			'name'
+		);
+		const cityError = validateClass('city', this.props.city_id, validation, 'city');
+		const provinceError = validateClass('province', this.props.province_id, validation, 'province');
 		this.setState({
-			nameError: nameError
+			nameError: nameError,
+			cityError: cityError,
+			provinceError: provinceError
 		});
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.props.getProvinceLists();
 	}
 
@@ -107,12 +122,14 @@ class RegisterComponent extends Component {
 					<Select
 						items={this.props.provinces}
 						placeholder="Pilih Provinsi"
-						iteratorKey={'name'}
+						iteratorKey={'id'}
 						iteratorLabel={'name'}
-						value={this.props.province}
+						value={this.props.province_id}
 						onValueChange={this.onProvinceChange.bind(this)}
+						error={this.state.provinceError}
 					/>
 				</View>
+				{this.renderCitySelect()}
 				<View style={globalStyles.phoneRow}>
 					<Datepicker date={this.state.date} />
 				</View>
@@ -162,6 +179,24 @@ class RegisterComponent extends Component {
 			</ScrollView>
 		);
 	}
+
+	renderCitySelect() {
+		if (this.props.province_id && this.props.cities.length > 1) {
+			return (
+				<View style={globalStyles.phoneRow}>
+				<Select
+					items={this.props.cities}
+					placeholder="Pilih Kota"
+					iteratorKey={'id'}
+					iteratorLabel={'name'}
+					value={this.props.city_id}
+					onValueChange={this.onCityChange.bind(this)}
+					error={this.state.cityError}
+				/>
+				</View>
+			);
+		}
+	}
 }
 
 const mapStateToProps = state => {
@@ -173,11 +208,12 @@ const mapStateToProps = state => {
 		gender: state.signUpReducer.gender,
 		birth_date: state.signUpReducer.birth_date,
 		id_number: state.signUpReducer.id_number,
-		city: state.signUpReducer.city,
+		city_id: state.signUpReducer.city_id,
 		reference_code: state.signUpReducer.reference_code,
 		is_smoking: state.signUpReducer.is_smoking,
 		provinces: state.signUpReducer.provinces,
-		province: state.signUpReducer.province
+		province_id: state.signUpReducer.province_id,
+		cities: state.signUpReducer.cities
 	};
 };
 

@@ -10,7 +10,8 @@ import {
 	REGISTER_REFERENCE_CODE_CHANGED,
 	REGISTER_IS_SMOKING,
 	PROVINCES_RETRIEVED,
-	REGISTER_PROVINCE_CHANGED
+	REGISTER_PROVINCE_CHANGED,
+	CITIES_RETRIEVED
 } from './types';
 
 const INITIAL_STATE = {
@@ -21,11 +22,12 @@ const INITIAL_STATE = {
 	gender: '',
 	birth_date: '',
 	id_number: '',
-	province: '',
-	city: '',
+	province_id: '',
+	city_id: '',
 	reference_code: '',
 	is_smoking: 0,
-	provinces: []
+	provinces: [],
+	cities: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,16 +46,18 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, birth_date: action.payload };
 		case REGISTER_KTP_CHANGED:
 			return { ...state, id_number: action.payload };
-		case REGISTER_CITY_CHANGED:
-			return { ...state, password: action.payload };
 		case REGISTER_PROVINCE_CHANGED:
-			return { ...state, province: action.payload };
+			return { ...state, province_id: action.payload, cities: [] };
 		case REGISTER_REFERENCE_CODE_CHANGED:
 			return { ...state, reference_code: action.payload };
 		case REGISTER_IS_SMOKING:
 			return { ...state, is_smoking: action.payload };
 		case PROVINCES_RETRIEVED:
 			return { ...state, provinces: action.payload.data };
+		case CITIES_RETRIEVED:
+			return { ...state, cities: action.payload.data };
+		case REGISTER_CITY_CHANGED:
+			return { ...state, city_id: action.payload };
 		default:
 			return state;
 	}

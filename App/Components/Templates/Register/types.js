@@ -11,4 +11,6 @@ export const REGISTER_IS_SMOKING = 'register_is_smoking';
 export const REGISTER_IS_TERM_CONDITION_APPROVED = 'register_is_term_condition_approved';
 export const PROVINCES_RETRIEVED = 'register_provinces_retrieved';
 export const PROVINCES_FAIL = 'register_provinces_fail';
-export const REGISTER_PROVINCE_CHANGED = 'register_province_changed'
+export const REGISTER_PROVINCE_CHANGED = 'register_province_changed';
+export const CITIES_RETRIEVED = 'register_cities_retrieved';
+export const CITIES_FAIL = 'register_cities_fail';

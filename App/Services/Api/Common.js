@@ -1,9 +1,13 @@
 import request from '@helpers/api';
 
-const getCities = () => {
+const getCities = (provinceId = null, page = null) => {
 	return request({
 		url: 'general/city',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			page: page ? page : 'all',
+			province_id: provinceId
+		}
 	});
 };
 
@@ -12,14 +16,14 @@ const getProvinces = (page = null) => {
 		url: 'general/province',
 		method: 'GET',
 		params: {
-			page: (page) ? page : 'all'
+			page: page ? page : 'all'
 		}
-	})
-}
+	});
+};
 
 const CommonService = {
 	getCities,
 	getProvinces
-}
+};
 
 export default CommonService;
