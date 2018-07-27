@@ -7,8 +7,19 @@ const getCities = () => {
 	});
 };
 
+const getProvinces = (page = null) => {
+	return request({
+		url: 'general/province',
+		method: 'GET',
+		params: {
+			page: (page) ? page : 'all'
+		}
+	})
+}
+
 const CommonService = {
-	getCities
+	getCities,
+	getProvinces
 }
 
 export default CommonService;

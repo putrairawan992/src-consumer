@@ -53,11 +53,19 @@ class RegisterComponent extends Component {
 		this.props.registerGenderChanged(text);
 	}
 
+	onProvinceChange(value,index) {
+		this.props.registerProvinceChanged(value);
+	}
+
 	submitRegister() {
 		const nameError = validateClass('name', this.props.name, validation, 'name');
 		this.setState({
 			nameError: nameError
 		});
+	}
+
+	componentDidMount () {
+		this.props.getProvinceLists();
 	}
 
 	render() {
@@ -97,11 +105,12 @@ class RegisterComponent extends Component {
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Select
-						items={items}
-						value={this.state.city}
-						onValueChange={(itemValue, itemIndex) =>
-							this.setState({ city: itemValue })
-						}
+						items={this.props.provinces}
+						placeholder="Pilih Provinsi"
+						iteratorKey={'name'}
+						iteratorLabel={'name'}
+						value={this.props.province}
+						onValueChange={this.onProvinceChange.bind(this)}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
@@ -166,7 +175,9 @@ const mapStateToProps = state => {
 		id_number: state.signUpReducer.id_number,
 		city: state.signUpReducer.city,
 		reference_code: state.signUpReducer.reference_code,
-		is_smoking: state.signUpReducer.is_smoking
+		is_smoking: state.signUpReducer.is_smoking,
+		provinces: state.signUpReducer.provinces,
+		province: state.signUpReducer.province
 	};
 };
 

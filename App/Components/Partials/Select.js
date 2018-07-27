@@ -41,8 +41,9 @@ class Select extends Component {
           selectedValue={this.props.value}
           onValueChange={this.props.onValueChange}
         >
+          {this.props.placeholder ? <Picker.Item value='' label={this.props.placeholder} /> : null}
           {this.props.items.map((i, index) => (
-            <Picker.Item key={index} label={i.label} value={i.value} />
+            <Picker.Item key={index} label={i[this.props.iteratorLabel]} value={i[this.props.iteratorKey]} />
           ))}
         </Picker>
       </View>
