@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 
 const styles = {
 	containerStyle: {
-		flexDirection: 'row',
+		flexDirection: 'column',
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'flex-start',
+		margin: 10
 	},
 	inputStyle: {
 		fontFamily: 'ProximaNova-Regular',
@@ -18,8 +19,13 @@ const styles = {
 		padding: 16,
 		fontSize: 16,
 		textAlign: 'left',
-		margin: 10,
-		flex: 1
+		width: '100%'
+	},
+	validationText: {
+		flexDirection: 'row',
+		marginTop: 10,
+		color: '#DC1E2D',
+		justifyContent: 'flex-start'
 	}
 };
 
@@ -50,6 +56,11 @@ class Input extends Component {
 					onKeyPress={this.props.onKeyPress}
 					ref={input => (this.textInput = input)}
 				/>
+				{this.props.error ? (
+					<Text style={styles.validationText}>
+						{this.props.error}
+					</Text>
+				) : null}
 			</View>
 		);
 	}

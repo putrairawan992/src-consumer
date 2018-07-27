@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Input, Select, Datepicker, Button, Checkbox } from '@partials';
 import styles from './styles';
 import * as actions from './actions';
+import validation from './validation';
+import validateClass from '@helpers/validator';
 import globalStyles from '../../../GlobalStyles';
 
 const items = [
@@ -36,9 +38,10 @@ class RegisterComponent extends Component {
 		city: '1',
 		date: formatDate(),
 		isSmoking: true,
-		term: true
+		term: true,
+		nameError: '',
+		passwordError: ''
 	};
-	types = [];
 
 	// method from actions
 
@@ -50,6 +53,13 @@ class RegisterComponent extends Component {
 		this.props.registerGenderChanged(text);
 	}
 
+	submitRegister() {
+		const nameError = validateClass('name', this.props.name, validation, 'name');
+		this.setState({
+			nameError: nameError
+		});
+	}
+
 	render() {
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
@@ -58,6 +68,7 @@ class RegisterComponent extends Component {
 						placeholder="Nama"
 						onChangeText={this.onNameChange.bind(this)}
 						value={this.props.name}
+						error={this.state.nameError}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
@@ -138,7 +149,7 @@ class RegisterComponent extends Component {
 						}
 					/>
 				</View>
-				<Button>KIRIM</Button>
+				<Button onPress={this.submitRegister.bind(this)}>KIRIM</Button>
 			</ScrollView>
 		);
 	}
