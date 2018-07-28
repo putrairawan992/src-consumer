@@ -41,7 +41,12 @@ class RegisterComponent extends Component {
 		term: true,
 		nameError: '',
 		passwordError: '',
-		cityError: ''
+		passwordConfirmationError: '',
+		cityError: '',
+		dateError: '',
+		phoneError: '',
+		idNumberError: '',
+		isTermError: ''
 	};
 
 	// method from actions
@@ -50,8 +55,36 @@ class RegisterComponent extends Component {
 		this.props.registerNameChanged(text);
 	}
 
+	onPhoneChange(text) {
+		this.props.registerPhoneChanged(text);
+	}
+
+	onDateChange(date) {
+		this.props.registerBirthdateChanged(date);
+	}
+
 	onGenderChange(text) {
 		this.props.registerGenderChanged(text);
+	}
+
+	onKtpChange(text) {
+		this.props.registerKtpChanged(text);
+	}
+
+	onPasswordChange(text) {
+		this.props.registerPasswordChanged(text);
+	}
+
+	onPasswordConfirmationChange(text) {
+		this.props.registerPasswordConfirmationChanged(text);
+	}
+
+	onSmokingChange(value) {
+		this.props.registerIsSmoking(value);
+	}
+
+	onTermChange(value) {
+		this.props.registerIsTermAndConditionApproved(value);
 	}
 
 	onProvinceChange(value, index) {
@@ -72,15 +105,31 @@ class RegisterComponent extends Component {
 		);
 		const cityError = validateClass('city', this.props.city_id, validation, 'city');
 		const provinceError = validateClass('province', this.props.province_id, validation, 'province');
+		const phoneError = validateClass('phone', this.props.phone, validation, 'phone');
+		const dateError = validateClass('date', this.props.birth_date, validation, 'date');
+		const idNumberError = validateClass('idNumber', this.props.id_number, validation, 'idNumber');
+		const passwordError = validateClass('password', this.props.password, validation, 'password');
+		const isTermError = validateClass('isTerm', this.props.is_approved, validation, 'isTerm');
+		const passwordConfirmationError = validateClass('passwordConfirmation', this.props.password_confirmation, validation, 'passwordConfirmation')
 		this.setState({
 			nameError: nameError,
 			cityError: cityError,
-			provinceError: provinceError
+			provinceError: provinceError,
+			phoneError: phoneError,
+			dateError: dateError,
+			idNumberError: idNumberError,
+			passwordError: passwordError,
+			passwordConfirmationError: passwordConfirmationError,
+			isTermError: isTermError
 		});
 	}
 
 	componentDidMount() {
 		this.props.getProvinceLists();
+	}
+
+	componentWillUnmount() {
+		this.props.registerPageUnmount();
 	}
 
 	render() {
@@ -131,10 +180,12 @@ class RegisterComponent extends Component {
 				</View>
 				{this.renderCitySelect()}
 				<View style={globalStyles.phoneRow}>
-					<Datepicker date={this.state.date} />
+					<Datepicker date={this.props.birth_date} onDateChange={this.onDateChange.bind(this)} error={this.state.dateError} />
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Nomor KTP" />
+					<Input placeholder="Nomor KTP" onChangeText={this.onKtpChange.bind(this)}
+						value={this.props.id_number}
+						error={this.state.idNumberError} />
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input value="+62" editable={false} />
@@ -142,14 +193,22 @@ class RegisterComponent extends Component {
 						placeholder="Nomor Ponsel"
 						keyboardType={'phone-pad'}
 						flexItem={{ flex: 3 }}
+						onChangeText={this.onPhoneChange.bind(this)}
+						value={this.props.phone}
+						error={this.state.phoneError}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Kata sandi" secureTextEntry />
+					<Input placeholder="Kata sandi" onChangeText={this.onPasswordChange.bind(this)}
+						value={this.props.password}
+						error={this.state.passwordError} secureTextEntry />
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
 						placeholder="Konfirmasi kata sandi"
+						onChangeText={this.onPasswordConfirmationChange.bind(this)}
+						value={this.props.password_confirmation}
+						error={this.state.passwordConfirmationError}
 						secureTextEntry
 					/>
 				</View>
@@ -158,21 +217,19 @@ class RegisterComponent extends Component {
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Checkbox
-						status={this.state.isSmoking}
+						status={this.props.is_smoking}
 						type="smoking"
-						onPress={() =>
-							this.setState({ isSmoking: !this.state.isSmoking })
+						onPress={this.onSmokingChange.bind(this)
 						}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Checkbox
 						title="Saya telah membaca dan menyetujui"
-						status={this.state.term}
+						status={this.props.is_approved}
 						type="term"
-						onPress={() =>
-							this.setState({ term: !this.state.term })
-						}
+						onPress={this.onTermChange.bind(this)}
+						error={this.state.isTermError}
 					/>
 				</View>
 				<Button onPress={this.submitRegister.bind(this)}>KIRIM</Button>
@@ -213,7 +270,8 @@ const mapStateToProps = state => {
 		is_smoking: state.signUpReducer.is_smoking,
 		provinces: state.signUpReducer.provinces,
 		province_id: state.signUpReducer.province_id,
-		cities: state.signUpReducer.cities
+		cities: state.signUpReducer.cities,
+		is_approved: state.signUpReducer.is_approved
 	};
 };
 

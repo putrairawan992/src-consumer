@@ -15,7 +15,8 @@ import {
 	PROVINCES_FAILED,
 	REGISTER_PROVINCE_CHANGED,
 	CITIES_RETRIEVED,
-	CITIES_FAIL
+	CITIES_FAIL,
+	REGISTER_PAGE_UNMOUNT
 } from './types';
 
 export const registerNameChanged = text => {
@@ -102,6 +103,13 @@ export const registerIsTermAndConditionApproved = value => {
 		payload: value
 	};
 };
+
+export const registerPageUnmount = () => {
+	return {
+		type: REGISTER_PAGE_UNMOUNT,
+	};
+};
+
 
 export const getProvinceLists = () => {
 	return dispatch => {

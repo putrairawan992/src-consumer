@@ -16,8 +16,7 @@ const styles = {
     padding: 16,
     fontSize: 16,
     textAlign: 'left',
-    flex: 1,
-    margin: 10
+    flex: 1
   },
   inputStyle: {
     width: '100%',
@@ -25,7 +24,8 @@ const styles = {
   },
   baseStyle: {
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
+    padding: 10
   }
 };
 
@@ -59,7 +59,7 @@ class Select extends Component {
           </Picker>
         </View>
         {this.props.error ? (
-          <Text style={[globalStyles.validationText, { marginLeft: 10 }]}>{this.props.error}</Text>
+          <Text style={[globalStyles.validationText]}>{this.props.error}</Text>
         ) : null}
       </View>
     );

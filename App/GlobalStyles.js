@@ -209,7 +209,7 @@ export default StyleSheet.create({
 	validationText: {
 		flexDirection: 'row',
 		marginTop: 10,
-		color: '#DC1E2D',
+		color: '#cc0000',
 		justifyContent: 'flex-start'
 	}
 });

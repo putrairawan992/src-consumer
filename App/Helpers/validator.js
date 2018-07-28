@@ -4,6 +4,9 @@ export default function validateClass(fieldName, value, validation, field) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
   // Line 8-9 creates an object based on the field name and field value
+  if (value === false) {
+    value = '';
+  }
   var formValues = {};
   formValues[fieldName] = value;
 

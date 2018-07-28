@@ -6,7 +6,7 @@ const styles = {
 	containerStyle: {
 		flexDirection: 'column',
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
 		margin: 10
 	},

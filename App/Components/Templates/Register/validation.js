@@ -3,16 +3,24 @@ const validation = {
     presence: {
       allowEmpty: false,
       message: '^Nama tidak boleh kosong.'
-    },
+    }
   },
-  
+
   password: {
     presence: {
-      message: 'Password tidak boleh kosong.'
+      allowEmpty: false,
+      message: '^Password tidak boleh kosong.'
     },
     format: {
-      pattern: "^(?=.*[A-Z])(?=.*\d){8,15}",
-      message: 'Password harus memiliki 1 digit angka, 1 huruf kapital, minimum 8 karakter dan maksimum 15 karakter.'
+      pattern: '^(?=.*?[A-Z])(?=.*?[0-9]).{8,15}$',
+      message:
+        '^Password harus memiliki 1 digit angka, 1 huruf kapital, minimum 8 karakter dan maksimum 15 karakter.'
+    }
+  },
+  passwordConfirmation: {
+    presence: {
+      allowEmpty: false,
+      message: '^Konfirmasi password tidak boleh kosong.'
     }
   },
   city: {
@@ -26,7 +34,35 @@ const validation = {
       allowEmpty: false,
       message: '^Provinsi tidak boleh kosong.'
     }
+  },
+  date: {
+    presence: {
+      allowEmpty: false,
+      message: '^Tanggal lahir tidak boleh kosong.'
+    }
+  },
+  idNumber: {
+    presence: {
+      allowEmpty: false,
+      message: '^Nomor KTP tidak boleh kosong.'
+    }
+  },
+  phone: {
+    presence: {
+      allowEmpty: false,
+      message: '^Nomor handphone tidak boleh kosong.'
+    },
+    length: {
+      maximum: 13,
+      tooLong: '^Nomor handphone maksimum 13 digit.'
+    }
+  },
+  isTerm: {
+    presence: {
+      allowEmpty: false,
+      message: '^Anda harus menyetujui syarat dan ketentuan.'
+    }
   }
-}
+};
 
 export default validation;

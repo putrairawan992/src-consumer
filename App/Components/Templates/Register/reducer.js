@@ -11,7 +11,9 @@ import {
 	REGISTER_IS_SMOKING,
 	PROVINCES_RETRIEVED,
 	REGISTER_PROVINCE_CHANGED,
-	CITIES_RETRIEVED
+	CITIES_RETRIEVED,
+	REGISTER_PAGE_UNMOUNT,
+	REGISTER_IS_TERM_CONDITION_APPROVED
 } from './types';
 
 const INITIAL_STATE = {
@@ -25,7 +27,8 @@ const INITIAL_STATE = {
 	province_id: '',
 	city_id: '',
 	reference_code: '',
-	is_smoking: 0,
+	is_smoking: false,
+	is_approved: false,
 	provinces: [],
 	cities: []
 };
@@ -51,13 +54,17 @@ export default (state = INITIAL_STATE, action) => {
 		case REGISTER_REFERENCE_CODE_CHANGED:
 			return { ...state, reference_code: action.payload };
 		case REGISTER_IS_SMOKING:
-			return { ...state, is_smoking: action.payload };
+			return { ...state, is_smoking: !state.is_smoking };
+		case REGISTER_IS_TERM_CONDITION_APPROVED:
+			return { ...state, is_approved: !state.is_approved };
 		case PROVINCES_RETRIEVED:
 			return { ...state, provinces: action.payload.data };
 		case CITIES_RETRIEVED:
 			return { ...state, cities: action.payload.data };
 		case REGISTER_CITY_CHANGED:
 			return { ...state, city_id: action.payload };
+		case REGISTER_PAGE_UNMOUNT:
+			return INITIAL_STATE ;
 		default:
 			return state;
 	}

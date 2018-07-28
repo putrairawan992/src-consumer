@@ -14,3 +14,4 @@ export const PROVINCES_FAIL = 'register_provinces_fail';
 export const REGISTER_PROVINCE_CHANGED = 'register_province_changed';
 export const CITIES_RETRIEVED = 'register_cities_retrieved';
 export const CITIES_FAIL = 'register_cities_fail';
+export const REGISTER_PAGE_UNMOUNT = 'register_page_unmount';
