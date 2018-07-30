@@ -49,7 +49,9 @@ class Datepicker extends Component {
 						},
 						placeholderText: {
 							alignSelf: 'flex-start',
-							fontFamily: 'ProximaNova-Regular'
+							fontFamily: 'ProximaNova-Regular',
+							color: 'rgba(0,0,0,0.6)',
+							fontSize: 16
 						}
 						// ... You can check the source to find the other keys.
 					}}

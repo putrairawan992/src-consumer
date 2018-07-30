@@ -14,6 +14,7 @@ const styles = {
     color: '#000',
     backgroundColor: '#FFF',
     padding: 16,
+    paddingLeft: 10,
     fontSize: 16,
     textAlign: 'left',
     flex: 1

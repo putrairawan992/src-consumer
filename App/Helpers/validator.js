@@ -24,9 +24,7 @@ export default function validateClass(fieldName, value, validation, field) {
 
   // The formValues and validated against the formFields
   // the variable result hold the error messages of the field
-  console.log(formValues,formFields);
   const result = validate(formValues, formFields);
-  console.log(result);
 
   // If there is an error message, return it!
   if (result) {

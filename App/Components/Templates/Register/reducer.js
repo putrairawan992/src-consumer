@@ -21,7 +21,7 @@ const INITIAL_STATE = {
 	phone: '',
 	password: '',
 	password_confirmation: '',
-	gender: '',
+	gender: 'male',
 	birth_date: '',
 	id_number: '',
 	province_id: '',

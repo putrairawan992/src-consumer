@@ -80,15 +80,6 @@ class EditProfileComponent extends Component {
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Select
-						items={items}
-						value={this.state.city}
-						onValueChange={(itemValue, itemIndex) =>
-							this.setState({ city: itemValue })
-						}
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
 					<Datepicker date={this.state.date} />
 				</View>
 				<View style={globalStyles.phoneRow}>
