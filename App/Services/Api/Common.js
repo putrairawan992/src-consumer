@@ -21,9 +21,18 @@ const getProvinces = (page = null) => {
 	});
 };
 
+const signUp = (payload) => {
+	return request({
+		url: 'customer/user',
+		method: 'POST',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
-	getProvinces
+	getProvinces,
+	signUp
 };
 
 export default CommonService;

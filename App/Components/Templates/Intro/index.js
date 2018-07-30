@@ -38,7 +38,7 @@ class IntroComponent extends Component {
 	}
 
 	triggerOnDone() {
-		console.log('called');
+		
 	}
 
 	renderCustomButton() {

@@ -13,7 +13,9 @@ import {
 	REGISTER_PROVINCE_CHANGED,
 	CITIES_RETRIEVED,
 	REGISTER_PAGE_UNMOUNT,
-	REGISTER_IS_TERM_CONDITION_APPROVED
+	REGISTER_IS_TERM_CONDITION_APPROVED,
+	SIGN_UP_PROCCESS,
+	SIGN_UP_FAIL
 } from './types';
 
 const INITIAL_STATE = {
@@ -30,7 +32,8 @@ const INITIAL_STATE = {
 	is_smoking: false,
 	is_approved: false,
 	provinces: [],
-	cities: []
+	cities: [],
+	baseLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -63,6 +66,10 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, cities: action.payload.data };
 		case REGISTER_CITY_CHANGED:
 			return { ...state, city_id: action.payload };
+		case SIGN_UP_PROCCESS:
+			return { ...state, baseLoading: true };
+		case SIGN_UP_FAIL:
+			return { ...state, baseLoading: false };
 		case REGISTER_PAGE_UNMOUNT:
 			return INITIAL_STATE ;
 		default:

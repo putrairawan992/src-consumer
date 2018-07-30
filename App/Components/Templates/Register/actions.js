@@ -16,7 +16,9 @@ import {
 	REGISTER_PROVINCE_CHANGED,
 	CITIES_RETRIEVED,
 	CITIES_FAIL,
-	REGISTER_PAGE_UNMOUNT
+	REGISTER_PAGE_UNMOUNT,
+	SIGN_UP_PROCCESS,
+	SIGN_UP_FAIL
 } from './types';
 
 export const registerNameChanged = text => {
@@ -46,7 +48,6 @@ export const registerProvinceChanged = text => {
 		payload: text
 	};
 };
-
 
 export const registerBirthdateChanged = text => {
 	return {
@@ -106,31 +107,33 @@ export const registerIsTermAndConditionApproved = value => {
 
 export const registerPageUnmount = () => {
 	return {
-		type: REGISTER_PAGE_UNMOUNT,
+		type: REGISTER_PAGE_UNMOUNT
 	};
 };
 
-
 export const getProvinceLists = () => {
 	return dispatch => {
-		CommonService.getProvinces()
-			.then(provinces => {
-				dispatch({ type: PROVINCES_RETRIEVED, payload: provinces });
-			})
-			.catch(err => {
-				console.debug('fail API',err);
-			});
+		CommonService.getProvinces().then(provinces => {
+			dispatch({ type: PROVINCES_RETRIEVED, payload: provinces });
+		});
 	};
 };
 
 export const getCityLists = (provinceId = null) => {
 	return dispatch => {
-		CommonService.getCities(provinceId)
-			.then(cities => {
-				dispatch({ type: CITIES_RETRIEVED, payload: cities });
-			})
-			.catch(err => {
-				console.debug('fail API',err);
+		CommonService.getCities(provinceId).then(cities => {
+			dispatch({ type: CITIES_RETRIEVED, payload: cities });
+		});
+	};
+};
+
+export const submitSignUp = payload => {
+	return dispatch => {
+		dispatch({ type: SIGN_UP_PROCCESS });
+		CommonService.signUp(payload)
+			.then(status => {})
+			.catch(error => {
+				dispatch({ type: SIGN_UP_FAIL });
 			});
 	};
 };

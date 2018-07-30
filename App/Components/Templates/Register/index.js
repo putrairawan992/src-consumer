@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
-import { Input, Select, Datepicker, Button, Checkbox } from '@partials';
+import { Input, Select, Datepicker, Button, Checkbox, Loader } from '@partials';
 import styles from './styles';
 import * as actions from './actions';
 import validation from './validation';
@@ -103,14 +103,54 @@ class RegisterComponent extends Component {
 			validation,
 			'name'
 		);
-		const cityError = validateClass('city', this.props.city_id, validation, 'city');
-		const provinceError = validateClass('province', this.props.province_id, validation, 'province');
-		const phoneError = validateClass('phone', this.props.phone, validation, 'phone');
-		const dateError = validateClass('date', this.props.birth_date, validation, 'date');
-		const idNumberError = validateClass('idNumber', this.props.id_number, validation, 'idNumber');
-		const passwordError = validateClass('password', this.props.password, validation, 'password');
-		const isTermError = validateClass('isTerm', this.props.is_approved, validation, 'isTerm');
-		const passwordConfirmationError = validateClass('passwordConfirmation', this.props.password_confirmation, validation, 'passwordConfirmation')
+		const cityError = validateClass(
+			'city',
+			this.props.city_id,
+			validation,
+			'city'
+		);
+		const provinceError = validateClass(
+			'province',
+			this.props.province_id,
+			validation,
+			'province'
+		);
+		const phoneError = validateClass(
+			'phone',
+			this.props.phone,
+			validation,
+			'phone'
+		);
+		const dateError = validateClass(
+			'date',
+			this.props.birth_date,
+			validation,
+			'date'
+		);
+		const idNumberError = validateClass(
+			'idNumber',
+			this.props.id_number,
+			validation,
+			'idNumber'
+		);
+		const passwordError = validateClass(
+			'password',
+			this.props.password,
+			validation,
+			'password'
+		);
+		const isTermError = validateClass(
+			'isTerm',
+			this.props.is_approved,
+			validation,
+			'isTerm'
+		);
+		const passwordConfirmationError = validateClass(
+			'passwordConfirmation',
+			this.props.password_confirmation,
+			validation,
+			'passwordConfirmation'
+		);
 		this.setState({
 			nameError: nameError,
 			cityError: cityError,
@@ -133,8 +173,19 @@ class RegisterComponent extends Component {
 			city_id: this.props.city_id,
 			is_smoking: this.props.is_smoking
 		};
-
-		console.log('check payload',payload);
+		if (
+			!nameError &&
+			!cityError &&
+			!provinceError &&
+			!phoneError &&
+			!dateError &&
+			!idNumberError &&
+			!passwordError &&
+			!passwordConfirmationError &&
+			!isTermError
+		) {
+			this.props.submitSignUp(payload);
+		}
 	}
 
 	componentDidMount() {
@@ -168,7 +219,7 @@ class RegisterComponent extends Component {
 						buttonColor={'#DC1E2D'}
 						buttonSize={14}
 						selectedButtonColor={'#DC1E2D'}
-						animation={true}
+						animation={false}
 						style={{ flex: 1, margin: 10 }}
 						buttonWrapStyle={{ marginRight: 20 }}
 						labelStyle={{
@@ -193,12 +244,19 @@ class RegisterComponent extends Component {
 				</View>
 				{this.renderCitySelect()}
 				<View style={globalStyles.phoneRow}>
-					<Datepicker date={this.props.birth_date} onDateChange={this.onDateChange.bind(this)} error={this.state.dateError} />
+					<Datepicker
+						date={this.props.birth_date}
+						onDateChange={this.onDateChange.bind(this)}
+						error={this.state.dateError}
+					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Nomor KTP" onChangeText={this.onKtpChange.bind(this)}
+					<Input
+						placeholder="Nomor KTP"
+						onChangeText={this.onKtpChange.bind(this)}
 						value={this.props.id_number}
-						error={this.state.idNumberError} />
+						error={this.state.idNumberError}
+					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input value="+62" editable={false} />
@@ -212,14 +270,20 @@ class RegisterComponent extends Component {
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Kata sandi" onChangeText={this.onPasswordChange.bind(this)}
+					<Input
+						placeholder="Kata sandi"
+						onChangeText={this.onPasswordChange.bind(this)}
 						value={this.props.password}
-						error={this.state.passwordError} secureTextEntry />
+						error={this.state.passwordError}
+						secureTextEntry
+					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
 						placeholder="Konfirmasi kata sandi"
-						onChangeText={this.onPasswordConfirmationChange.bind(this)}
+						onChangeText={this.onPasswordConfirmationChange.bind(
+							this
+						)}
 						value={this.props.password_confirmation}
 						error={this.state.passwordConfirmationError}
 						secureTextEntry
@@ -232,8 +296,7 @@ class RegisterComponent extends Component {
 					<Checkbox
 						status={this.props.is_smoking}
 						type="smoking"
-						onPress={this.onSmokingChange.bind(this)
-						}
+						onPress={this.onSmokingChange.bind(this)}
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
@@ -246,6 +309,7 @@ class RegisterComponent extends Component {
 					/>
 				</View>
 				<Button onPress={this.submitRegister.bind(this)}>KIRIM</Button>
+				<Loader visible={this.props.baseLoading} text="Mendaftarkan" />
 			</ScrollView>
 		);
 	}
@@ -254,15 +318,15 @@ class RegisterComponent extends Component {
 		if (this.props.province_id && this.props.cities.length > 1) {
 			return (
 				<View style={globalStyles.phoneRow}>
-				<Select
-					items={this.props.cities}
-					placeholder="Pilih Kota"
-					iteratorKey={'id'}
-					iteratorLabel={'name'}
-					value={this.props.city_id}
-					onValueChange={this.onCityChange.bind(this)}
-					error={this.state.cityError}
-				/>
+					<Select
+						items={this.props.cities}
+						placeholder="Pilih Kota"
+						iteratorKey={'id'}
+						iteratorLabel={'name'}
+						value={this.props.city_id}
+						onValueChange={this.onCityChange.bind(this)}
+						error={this.state.cityError}
+					/>
 				</View>
 			);
 		}
@@ -284,7 +348,8 @@ const mapStateToProps = state => {
 		provinces: state.signUpReducer.provinces,
 		province_id: state.signUpReducer.province_id,
 		cities: state.signUpReducer.cities,
-		is_approved: state.signUpReducer.is_approved
+		is_approved: state.signUpReducer.is_approved,
+		baseLoading: state.signUpReducer.baseLoading
 	};
 };
 

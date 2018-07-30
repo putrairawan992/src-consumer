@@ -15,6 +15,7 @@ import NearbyCard from './NearbyCard';
 import CustomMapView from './CustomMapView';
 import AddressCard from './AddressCard';
 import NotificationSegment from './NotificationSegment';
+import Loader from './Loader';
 
 export {
 	Button,
@@ -33,5 +34,6 @@ export {
 	NearbyCard,
 	CustomMapView,
 	AddressCard,
-	NotificationSegment
+	NotificationSegment,
+	Loader
 };

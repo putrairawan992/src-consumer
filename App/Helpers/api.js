@@ -9,6 +9,7 @@
 
 import axios from 'axios';
 import constants from './constants';
+import ServerValidation from '@helpers/ServerValidation';
 
 /**
  * Create an Axios Client with defaults
@@ -32,9 +33,13 @@ const request = options => {
     if (error.response) {
       // Request was made but server responded with something
       // other than 2xx
-      console.debug('Status:', error.response.status);
-      console.debug('Data:', error.response.data);
-      console.debug('Headers:', error.response.headers);
+      // console.debug('Status:', error.response.status);
+      // console.debug('Data:', error.response.data);
+      // console.debug('Headers:', error.response.headers);
+      // if validation error
+      if (error.response.status === 422 && error.config.method == 'post') {
+         ServerValidation(error.response.data.errors);
+      }
     } else {
       // Something else happened while setting up the request
       // triggered the error
