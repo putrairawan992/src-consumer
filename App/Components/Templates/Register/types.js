@@ -16,4 +16,5 @@ export const CITIES_RETRIEVED = 'register_cities_retrieved';
 export const CITIES_FAIL = 'register_cities_fail';
 export const REGISTER_PAGE_UNMOUNT = 'register_page_unmount';
 export const SIGN_UP_PROCCESS = 'sign_up_proccess';
+export const SIGN_UP_SUCCESS = 'sign_up_success';
 export const SIGN_UP_FAIL = 'sign_up_fail';

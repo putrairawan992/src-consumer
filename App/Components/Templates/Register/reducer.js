@@ -15,6 +15,7 @@ import {
 	REGISTER_PAGE_UNMOUNT,
 	REGISTER_IS_TERM_CONDITION_APPROVED,
 	SIGN_UP_PROCCESS,
+	SIGN_UP_SUCCESS,
 	SIGN_UP_FAIL
 } from './types';
 
@@ -68,6 +69,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, city_id: action.payload };
 		case SIGN_UP_PROCCESS:
 			return { ...state, baseLoading: true };
+		case SIGN_UP_SUCCESS:
+			return { ...state, baseLoading: false }; 
 		case SIGN_UP_FAIL:
 			return { ...state, baseLoading: false };
 		case REGISTER_PAGE_UNMOUNT:

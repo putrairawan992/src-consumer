@@ -1,3 +1,4 @@
+import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
 import {
 	REGISTER_NAME_CHANGED,
@@ -18,6 +19,7 @@ import {
 	CITIES_FAIL,
 	REGISTER_PAGE_UNMOUNT,
 	SIGN_UP_PROCCESS,
+	SIGN_UP_SUCCESS,
 	SIGN_UP_FAIL
 } from './types';
 
@@ -131,8 +133,11 @@ export const submitSignUp = payload => {
 	return dispatch => {
 		dispatch({ type: SIGN_UP_PROCCESS });
 		CommonService.signUp(payload)
-			.then(status => {})
-			.catch(error => {
+			.then(() => {
+               dispatch({ type: SIGN_UP_SUCCESS });
+               Actions.OtpResetPassword({ hideNavBar: false, title:'Kode Verifikasi' });
+			})
+			.catch(() => {
 				dispatch({ type: SIGN_UP_FAIL });
 			});
 	};
