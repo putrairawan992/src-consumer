@@ -55,10 +55,6 @@ const validation = {
     presence: {
       allowEmpty: false,
       message: '^Nomor handphone tidak boleh kosong.'
-    },
-    length: {
-      maximum: 13,
-      tooLong: '^Nomor handphone maksimum 13 digit.'
     }
   },
   isTerm: {

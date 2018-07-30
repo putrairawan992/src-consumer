@@ -162,17 +162,6 @@ class RegisterComponent extends Component {
 			passwordConfirmationError: passwordConfirmationError,
 			isTermError: isTermError
 		});
-		const payload = {
-			name: this.props.name,
-			phone: '0' + this.props.phone,
-			password: this.props.password,
-			password_confirmation: this.props.password_confirmation,
-			gender: this.props.gender,
-			birth_date: this.props.birth_date,
-			id_number: this.props.id_number,
-			city_id: this.props.city_id,
-			is_smoking: this.props.is_smoking
-		};
 		if (
 			!nameError &&
 			!cityError &&
@@ -184,6 +173,17 @@ class RegisterComponent extends Component {
 			!passwordConfirmationError &&
 			!isTermError
 		) {
+			const payload = {
+				name: this.props.name,
+				phone: '0' + this.props.phone,
+				password: this.props.password,
+				password_confirmation: this.props.password_confirmation,
+				gender: this.props.gender,
+				birth_date: this.props.birth_date,
+				id_number: this.props.id_number,
+				city_id: this.props.city_id,
+				is_smoking: this.props.is_smoking
+			};
 			this.props.submitSignUp(payload);
 		}
 	}
