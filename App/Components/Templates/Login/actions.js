@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
-import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_PROCCESS, SIGN_IN_SUCCESS, SIGN_IN_FAIL } from './types';
+import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_PROCCESS, SIGN_IN_SUCCESS, SIGN_IN_FAIL, LOGIN_PAGE_UNMOUNT } from './types';
 
 export const loginPhoneChanged = text => {
 	return {
@@ -13,6 +13,12 @@ export const loginPasswordChanged = text => {
 	return {
 		type: LOGIN_PASSWORD_CHANGED,
 		payload: text
+	};
+};
+
+export const loginPageUnmount = () => {
+	return {
+		type: LOGIN_PAGE_UNMOUNT
 	};
 };
 

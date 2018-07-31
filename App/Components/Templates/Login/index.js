@@ -22,6 +22,10 @@ class LoginComponent extends Component {
 		this.props.loginPasswordChanged(text);
 	}
 
+	componentWillUnmount() {
+		this.props.loginPageUnmount();
+	}
+
 	submitLogin() {
 		const phoneError = validateClass(
 			'phone',

@@ -1,4 +1,4 @@
-import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_SUCCESS, SIGN_IN_PROCCESS, SIGN_IN_FAIL } from './types';
+import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_SUCCESS, SIGN_IN_PROCCESS, SIGN_IN_FAIL, LOGIN_PAGE_UNMOUNT } from './types';
 
 const INITIAL_STATE = {
 	phone: '',
@@ -12,6 +12,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, phone: action.payload };
 		case LOGIN_PASSWORD_CHANGED:
 			return { ...state, password: action.payload };
+		case LOGIN_PAGE_UNMOUNT:
+			return INITIAL_STATE;
 		case SIGN_IN_PROCCESS:
 			return { ...state, baseLoading: true };
 		case SIGN_IN_SUCCESS:
