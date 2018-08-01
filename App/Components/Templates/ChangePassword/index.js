@@ -6,6 +6,9 @@ import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 
 class ChangePasswordComponent extends Component {
+	redirectOtp() {
+		Actions.OtpResetPassword();
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -25,10 +28,6 @@ class ChangePasswordComponent extends Component {
 				<Button onPress={this.redirectOtp.bind(this)}>KIRIM</Button>
 			</View>
 		);
-	}
-
-	redirectOtp() {
-		Actions.OtpResetPassword();
 	}
 }
 
