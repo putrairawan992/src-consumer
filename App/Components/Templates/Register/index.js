@@ -3,28 +3,17 @@ import { View, Text, ScrollView } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { Input, Select, Datepicker, Button, Checkbox, Loader } from '@partials';
+import validateClass from '@helpers/validator';
 import styles from './styles';
 import * as actions from './actions';
 import validation from './validation';
-import validateClass from '@helpers/validator';
 import globalStyles from '../../../GlobalStyles';
 
-const items = [
-	{
-		label: 'Jakarta',
-		value: '1'
-	},
-	{
-		label: 'Bandung',
-		value: '2'
-	}
-];
-
 const formatDate = () => {
-	date = new Date();
-	var day = ('0' + date.getDate()).slice(-2);
-	var month = ('0' + (date.getMonth() + 1)).slice(-2);
-	var year = date.getFullYear();
+	const date = new Date();
+	const day = ('0' + date.getDate()).slice(-2);
+	const month = ('0' + (date.getMonth() + 1)).slice(-2);
+	const year = date.getFullYear();
 	return year + '-' + month + '-' + day;
 };
 
@@ -48,6 +37,14 @@ class RegisterComponent extends Component {
 		idNumberError: '',
 		isTermError: ''
 	};
+
+	componentDidMount() {
+		this.props.getProvinceLists();
+	}
+
+	componentWillUnmount() {
+		this.props.registerPageUnmount();
+	}
 
 	// method from actions
 
@@ -87,12 +84,12 @@ class RegisterComponent extends Component {
 		this.props.registerIsTermAndConditionApproved(value);
 	}
 
-	onProvinceChange(value, index) {
+	onProvinceChange(value) {
 		this.props.registerProvinceChanged(value);
 		this.props.getCityLists(value);
 	}
 
-	onCityChange(value, index) {
+	onCityChange(value) {
 		this.props.registerCityChanged(value);
 	}
 
@@ -175,7 +172,7 @@ class RegisterComponent extends Component {
 		) {
 			const payload = {
 				name: this.props.name,
-				phone: '0' + this.props.phone,
+				phone: '+62' + this.props.phone,
 				password: this.props.password,
 				password_confirmation: this.props.password_confirmation,
 				gender: this.props.gender,
@@ -188,12 +185,22 @@ class RegisterComponent extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.props.getProvinceLists();
-	}
-
-	componentWillUnmount() {
-		this.props.registerPageUnmount();
+	renderCitySelect() {
+		if (this.props.province_id && this.props.cities.length > 1) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Select
+						items={this.props.cities}
+						placeholder="Pilih Kota"
+						iteratorKey={'id'}
+						iteratorLabel={'name'}
+						value={this.props.city_id}
+						onValueChange={this.onCityChange.bind(this)}
+						error={this.state.cityError}
+					/>
+				</View>
+			);
+		}
 	}
 
 	render() {
@@ -312,24 +319,6 @@ class RegisterComponent extends Component {
 				<Loader visible={this.props.baseLoading} text="Mendaftarkan" />
 			</ScrollView>
 		);
-	}
-
-	renderCitySelect() {
-		if (this.props.province_id && this.props.cities.length > 1) {
-			return (
-				<View style={globalStyles.phoneRow}>
-					<Select
-						items={this.props.cities}
-						placeholder="Pilih Kota"
-						iteratorKey={'id'}
-						iteratorLabel={'name'}
-						value={this.props.city_id}
-						onValueChange={this.onCityChange.bind(this)}
-						error={this.state.cityError}
-					/>
-				</View>
-			);
-		}
 	}
 }
 

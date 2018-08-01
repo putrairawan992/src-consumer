@@ -4,6 +4,9 @@
         "arrow-body-style": 0,
         "import/no-extraneous-dependencies": 0,
         "import/no-unresolved": 0,
-        "max-len":0
+        "max-len":0,
+        "prefer-template":0,
+        "object-shorthand":0,
+        "react/jsx-boolean-value":0
     }
 }
