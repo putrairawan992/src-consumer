@@ -1,12 +1,12 @@
 import request from '@helpers/api';
-import constants from '@helpers/constants'
+import constants from '@helpers/constants';
 
 const getCities = (provinceId = null, page = null) => {
 	return request({
 		url: 'api/general/city',
 		method: 'GET',
 		params: {
-			page: page ? page : 'all',
+			page: page || 'all',
 			province_id: provinceId
 		}
 	});
@@ -17,7 +17,7 @@ const getProvinces = (page = null) => {
 		url: 'api/general/province',
 		method: 'GET',
 		params: {
-			page: page ? page : 'all'
+			page: page || 'all'
 		}
 	});
 };
