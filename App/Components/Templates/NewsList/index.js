@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { ScrollSegment, NewsCard } from '@partials';
-import styles from './styles';
 
 const exampleNews = require('@images/news-example.png');
 
@@ -77,7 +76,7 @@ class NewsListComponent extends Component {
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <ScrollSegment />
-          <FlatList data={items} style={{ borderTopWidth:1, borderColor:'#ececec' }} contentContainerStyle={{ paddingBottom: 52 }} renderItem={this.renderItem} />
+          <FlatList data={items} style={{ borderTopWidth: 1, borderColor: '#ececec' }} contentContainerStyle={{ paddingBottom: 52 }} renderItem={this.renderItem} />
       </View>
     );
   }
