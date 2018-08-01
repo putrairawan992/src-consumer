@@ -67,7 +67,7 @@ class ShopDetailComponent extends Component {
 						justifyContent: 'center'
 					}}
 				>
-					<CustomMapView containerStyle={{ flex: 1, height: 180,marginTop: 10 }} />
+					<CustomMapView containerStyle={{ flex: 1, height: 180, marginTop: 10 }} />
 				</View>
 			</ScrollView>
 		);
