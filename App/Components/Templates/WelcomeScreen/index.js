@@ -8,6 +8,15 @@ import styles from './styles';
 const ayoImg = require('@images/ayo-wscreen.png');
 
 class WelcomeScreenComponent extends Component {
+	
+	redirectLogin() {
+		Actions.Login();
+	}
+
+	redirectRegister() {
+		Actions.Register();
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -30,14 +39,6 @@ class WelcomeScreenComponent extends Component {
 				</LinearGradient>
 			</View>
 		);
-	}
-
-	redirectLogin() {
-		Actions.Login();
-	}
-
-	redirectRegister() {
-		Actions.Register();
 	}
 }
 
