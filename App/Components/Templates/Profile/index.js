@@ -9,6 +9,18 @@ import styles from './styles';
 const personFace = require('@images/person-face.jpeg');
 
 class ProfileComponent extends Component {
+	redirectEditProfile() {
+		Actions.EditProfile();
+	}
+
+	redirectChangePassword() {
+		Actions.ForgotPassword({ title: 'Atur ulang kata sandi', isReset: true });
+	}
+
+	redirectDelete() {
+		Actions.DeleteAccount();
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -58,21 +70,9 @@ class ProfileComponent extends Component {
 						</View>
 					</View>
 				</ScrollView>
-				<LinkText style={{ alignSelf: 'center'}} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
+				<LinkText style={{ alignSelf: 'center' }} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
 			</View>
 		);
-	}
-
-	redirectEditProfile() {
-		Actions.EditProfile();
-	}
-
-	redirectChangePassword() {
-		Actions.ForgotPassword({ title: 'Atur ulang kata sandi', isReset: true });
-	}
-
-	redirectDelete() {
-		Actions.DeleteAccount();
 	}
 }
 
