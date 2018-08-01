@@ -13,10 +13,8 @@ import {
 	REGISTER_IS_SMOKING,
 	REGISTER_IS_TERM_CONDITION_APPROVED,
 	PROVINCES_RETRIEVED,
-	PROVINCES_FAILED,
 	REGISTER_PROVINCE_CHANGED,
 	CITIES_RETRIEVED,
-	CITIES_FAIL,
 	REGISTER_PAGE_UNMOUNT,
 	SIGN_UP_PROCCESS,
 	SIGN_UP_SUCCESS,
@@ -135,7 +133,7 @@ export const submitSignUp = payload => {
 		CommonService.signUp(payload)
 			.then(() => {
                dispatch({ type: SIGN_UP_SUCCESS });
-               Actions.OtpResetPassword({ hideNavBar: false, title:'Kode Verifikasi' });
+               Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi' });
 			})
 			.catch(() => {
 				dispatch({ type: SIGN_UP_FAIL });

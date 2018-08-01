@@ -74,7 +74,7 @@ export default (state = INITIAL_STATE, action) => {
 		case SIGN_UP_FAIL:
 			return { ...state, baseLoading: false };
 		case REGISTER_PAGE_UNMOUNT:
-			return INITIAL_STATE ;
+			return INITIAL_STATE;
 		default:
 			return state;
 	}
