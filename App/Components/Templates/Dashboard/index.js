@@ -11,7 +11,6 @@ const ayoImg = require('@images/home-logo.png');
 const personFace = require('@images/person-face.jpeg');
 const exampleImage = require('@images/example-banner.png');
 const exampleNews = require('@images/news-example.png');
-const coinImage = require('@images/icon-coin.png');
 const qrImage = require('@images/icon-qr.png');
 const locationImage = require('@images/icon-location.png');
 
@@ -22,6 +21,14 @@ const itemDummy = {
 };
 
 class DashboardComponent extends Component {
+	redirectNearby() {
+		Actions.Nearby();
+	}
+
+	redirectCard() {
+		Actions.MyCard();
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -105,14 +112,6 @@ class DashboardComponent extends Component {
 				</ScrollView>
 			</View>
 		);
-	}
-
-	redirectNearby() {
-		Actions.Nearby();
-	}
-
-	redirectCard() {
-		Actions.MyCard();
 	}
 }
 
