@@ -6,11 +6,10 @@
  * @license MIT
  *
  */
-
-import axios from 'axios';
-import constants from './constants';
 import ServerValidation from '@helpers/ServerValidation';
 import CustomAlert from '@helpers/CustomAlert';
+import axios from 'axios';
+import constants from './constants';
 
 /**
  * Create an Axios Client with defaults
@@ -38,10 +37,10 @@ const request = options => {
       // console.debug('Data:', error.response.data);
       // console.debug('Headers:', error.response.headers);
       // if validation error
-      if (error.response.status === 422 && error.config.method == 'post') {
+      if (error.response.status === 422 && error.config.method === 'post') {
          ServerValidation(error.response.data.errors);
       }
-      if (error.response.status === 401 && error.config.method == 'post' && error.response.data.error === 'invalid_credentials') {
+      if (error.response.status === 401 && error.config.method === 'post' && error.response.data.error === 'invalid_credentials') {
          CustomAlert(null, 'Nomor Ponsel / Password salah.', [{ text: 'OK' }]);
       }
     } else {
