@@ -13,6 +13,35 @@ class OtpResetPasswordComponent extends Component {
 		this.inputs = {};
 	}
 
+	//Helper function
+	focusNextField(nextField) {
+		this.inputs[nextField].focus();
+	}
+
+	nextHandler(num, nextField, previousField) {
+		if (num && num.length === 1) {
+			if (nextField !== null && nextField !== undefined) {
+				this.focusNextField(nextField);
+			} //function call. '2' ref to next input ref
+		} else if (!num || num.length === 0) {
+			if (previousField !== null && previousField !== undefined) {
+				this.focusNextField(previousField);
+			}
+		}
+	}
+
+	redirectSuccessResetPassword() {
+		Actions.SuccessResetPassword();
+	}
+
+	handleKeyPress(textValue, keyValue, nextStep, previousStep) {
+		if (keyValue === 'Backspace') {
+			if (previousStep) {
+				this.focusNextField(previousStep);
+			}
+		}
+	}
+
 	render() {
 		return (
 			<LinearGradient
@@ -129,34 +158,6 @@ class OtpResetPasswordComponent extends Component {
 				</LinkText>
 			</LinearGradient>
 		);
-	}
-
-	//Helper function
-	focusNextField(nextField) {
-		this.inputs[nextField].focus();
-	}
-
-	nextHandler(num, nextField, previousField) {
-		if (num && num.length === 1) {
-			if (nextField !== null && nextField !== undefined) {
-				this.focusNextField(nextField);
-			} //function call. '2' ref to next input ref
-		} else if (!num || num.length === 0) {
-			if (previousField !== null && previousField !== undefined)
-				this.focusNextField(previousField);
-		}
-	}
-
-	redirectSuccessResetPassword() {
-		Actions.SuccessResetPassword();
-	}
-
-	handleKeyPress(textValue, keyValue, nextStep, previousStep) {
-		if (keyValue == 'Backspace') {
-			if (previousStep) {
-				this.focusNextField(previousStep);
-			}
-		}
 	}
 }
 
