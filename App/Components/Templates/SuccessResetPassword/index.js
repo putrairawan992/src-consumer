@@ -8,13 +8,13 @@ const successImg = require('@images/sucess-icon.png');
 
 class SuccessResetPasswordComponent extends Component {
 	render() {
-		return(
+		return (
 			<View style={styles.container}>
 				<Image source={successImg} style={styles.successImg} />
 				<Text style={[globalStyles.singlePageText, { marginTop: 31 }]}>Password akun anda telah sukses direset</Text>
 				<Button>OKE</Button>
 			</View>
-		)
+		);
 	}
 }
 
