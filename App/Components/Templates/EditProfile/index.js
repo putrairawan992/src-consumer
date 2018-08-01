@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
-import { Input, Select, Datepicker, Button } from '@partials';
+import { Input, Datepicker, Button } from '@partials';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 
-const items = [
-	{
-		label: 'Jakarta',
-		value: '1'
-	},
-	{
-		label: 'Bandung',
-		value: '2'
-	}
-];
-
 const formatDate = () => {
-	date = new Date();
-	var day = ('0' + date.getDate()).slice(-2);
-	var month = ('0' + (date.getMonth() + 1)).slice(-2);
-	var year = date.getFullYear();
+	const date = new Date();
+	const day = ('0' + date.getDate()).slice(-2);
+	const month = ('0' + (date.getMonth() + 1)).slice(-2);
+	const year = date.getFullYear();
 	return year + '-' + month + '-' + day;
 };
 
