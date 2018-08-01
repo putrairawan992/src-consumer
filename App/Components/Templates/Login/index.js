@@ -3,27 +3,28 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Input, Button, LightText, LinkText, Loader } from '@partials';
+import validateClass from '@helpers/validator';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 import * as actions from './actions';
 import validation from './validation';
-import validateClass from '@helpers/validator';
 
 class LoginComponent extends Component {
 	state = {
 		phoneError: '',
 		passwordError: ''
 	};
+	
+	componentWillUnmount() {
+		this.props.loginPageUnmount();
+	}
+
 	onPhoneChange(text) {
 		this.props.loginPhoneChanged(text);
 	}
 
 	onPasswordChange(text) {
 		this.props.loginPasswordChanged(text);
-	}
-
-	componentWillUnmount() {
-		this.props.loginPageUnmount();
 	}
 
 	submitLogin() {
@@ -46,11 +47,15 @@ class LoginComponent extends Component {
 
 		if (!phoneError && !passwordError) {
 			const payload = {
-				username: '0' + this.props.phone,
+				username: '+62' + this.props.phone,
 				password: this.props.password
 			};
 			this.props.submitSignIn(payload);
 		}
+	}
+
+	redirectForgotPassword() {
+		Actions.ForgotPassword();
 	}
 
 	render() {
@@ -95,10 +100,6 @@ class LoginComponent extends Component {
 				<Loader visible={this.props.baseLoading} text="Login" />
 			</View>
 		);
-	}
-
-	redirectForgotPassword() {
-		Actions.ForgotPassword();
 	}
 }
 

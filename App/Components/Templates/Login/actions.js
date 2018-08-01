@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
-import { setAuthorization, getAuthorization } from '@helpers/Storage';
+import { setAuthorization } from '@helpers/Storage';
 import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_PROCCESS, SIGN_IN_SUCCESS, SIGN_IN_FAIL, LOGIN_PAGE_UNMOUNT } from './types';
 
 export const loginPhoneChanged = text => {
