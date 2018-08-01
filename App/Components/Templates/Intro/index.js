@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import styles from './styles';
 
