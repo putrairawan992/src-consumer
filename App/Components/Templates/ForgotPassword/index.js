@@ -6,6 +6,17 @@ import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 
 class ForgotPasswordComponent extends Component {
+	redirectOtp() {
+		Actions.OtpResetPassword();
+	}
+
+	redirectFullOtp() {
+		Actions.OtpResetPassword({
+			hideNavBar: false,
+			title: 'Kode verifikasi'
+		});
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -31,17 +42,6 @@ class ForgotPasswordComponent extends Component {
 				</Button>
 			</View>
 		);
-	}
-
-	redirectOtp() {
-		Actions.OtpResetPassword();
-	}
-
-	redirectFullOtp() {
-		Actions.OtpResetPassword({
-			hideNavBar: false,
-			title: 'Kode verifikasi'
-		});
 	}
 }
 
