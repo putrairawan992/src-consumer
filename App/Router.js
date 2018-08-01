@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
@@ -20,13 +19,6 @@ import {
 	NewsDetailComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
-
-const styles = {
-	navigationStyle: {
-		backgroundColor: '#DC1E2D',
-		height: 56
-	}
-};
 
 const routerComponent = () => {
 	return (

@@ -1,16 +1,17 @@
 import { StyleSheet, Dimensions } from 'react-native';
+
 const PAGE_WIDTH = Dimensions.get('window').width;
 const PAGE_HEIGHT = Dimensions.get('window').height;
 
 export default StyleSheet.create({
 	profileInfo: {
-        flexDirection: 'column',
-        backgroundColor: '#DC1E2D',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        position: 'relative',
-        height: 310
-       
+		flexDirection: 'column',
+		backgroundColor: '#DC1E2D',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		position: 'relative',
+		height: 310
+
 
 	},
 	logoImg: {
@@ -54,22 +55,22 @@ export default StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
 		elevation: 5,
-        top: 280,
-        alignSelf: 'center',
-        position: 'absolute',
-        alignItems: 'center',
-        padding: 14
+		top: 280,
+		alignSelf: 'center',
+		position: 'absolute',
+		alignItems: 'center',
+		padding: 14
 	},
 	couponChildren: {
 		height: 18,
 		width: 90,
 		borderRadius: 9,
 		elevation: 8,
-		top: 280-10,
+		top: 280 - 10,
 		position: 'absolute',
-	    alignSelf: 'center',
-	    alignItems: 'center',
-	    padding: 2
+		alignSelf: 'center',
+		alignItems: 'center',
+		padding: 2
 	},
 	couponContainerText: {
 		fontFamily: 'ProximaNova-Regular',
@@ -90,8 +91,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'row'
 	},
-	horizontalSlider: { height: (PAGE_WIDTH >= 720 ? 360:180), borderWidth: 1, borderColor: '#d3d3d3', alignItems: 'center', justifyContent: 'center', flex:1 },
-	sliderImg: { height: '100%', flex: 1,width: '102%', resizeMode: 'cover', alignSelf: 'center' },
+	horizontalSlider: { height: (PAGE_WIDTH >= 720 ? 360 : 180), borderWidth: 1, borderColor: '#d3d3d3', alignItems: 'center', justifyContent: 'center', flex: 1 },
+	sliderImg: { height: '100%', flex: 1, width: '102%', resizeMode: 'cover', alignSelf: 'center' },
 	newsFeedContainer: {
 		flexDirection: 'column'
 	},
@@ -109,17 +110,17 @@ export default StyleSheet.create({
 		borderRadius: 4
 	},
 	newsFeedText: {
-       fontFamily: 'ProximaNova-Bold',
-       fontSize: 14,
-       color:'#000',
-       lineHeight: 17
+		fontFamily: 'ProximaNova-Bold',
+		fontSize: 14,
+		color: '#000',
+		lineHeight: 17
 	},
 	articlePreview: {
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		paddingLeft: 12,
 		width: 0,
-	    flexGrow: 1
+		flexGrow: 1
 	},
 	newsDate: {
 		fontFamily: 'ProximaNova-Regular',
@@ -137,13 +138,13 @@ export default StyleSheet.create({
 		flexDirection: 'row'
 	},
 	singlePageText: {
-        fontFamily: 'ProximaNova-Regular',
-        fontSize: 16,
-        color: 'rgba(0,0,0,0.6)',
-        textAlign: 'center',
-        lineHeight: 28,
-        maxWidth: '70%',
-        paddingBottom: 41
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 16,
+		color: 'rgba(0,0,0,0.6)',
+		textAlign: 'center',
+		lineHeight: 28,
+		maxWidth: '70%',
+		paddingBottom: 41
 	},
 	listContainer: {
 		marginTop: 80,
@@ -152,20 +153,20 @@ export default StyleSheet.create({
 		borderColor: '#ececec'
 	},
 	centeredText: {
-        fontFamily: 'ProximaNova-Regular',
-        fontSize: 16,
-        color: 'rgba(0,0,0,0.6)',
-        textAlign: 'center',
-        lineHeight: 28,
-        maxWidth: '70%',
-        paddingBottom: 41
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 16,
+		color: 'rgba(0,0,0,0.6)',
+		textAlign: 'center',
+		lineHeight: 28,
+		maxWidth: '70%',
+		paddingBottom: 41
 	},
 	leftedText: {
-       fontFamily: 'ProximaNova-Regular',
-       fontSize: 14,
-       color: '#000',
-       lineHeight: 20,
-       paddingBottom: 10
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 14,
+		color: '#000',
+		lineHeight: 20,
+		paddingBottom: 10
 	},
 	detailCardContainer: {
 		flex: 1,
