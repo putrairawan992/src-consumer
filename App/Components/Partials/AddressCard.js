@@ -50,7 +50,7 @@ class AddressCard extends Component {
 					</View>
 				</View>
 				<View style={{ flex: 1 }}>
-                   <Icon name="keyboard-arrow-right" size={36} color="#ececec"/>
+                   <Icon name="keyboard-arrow-right" size={36} color="#ececec" />
 				</View>
 			</View>
 		);

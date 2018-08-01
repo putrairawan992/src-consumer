@@ -1,6 +1,4 @@
 import {
-  Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -44,7 +42,7 @@ export default class CustomNavBar extends React.Component {
           onPress={Actions.pop}
           style={[styles.navBarItem]}
         >
-          <Icon name="keyboard-arrow-left" size={36} color="#fff"/>
+          <Icon name="keyboard-arrow-left" size={36} color="#fff" />
           <Text style={styles.navBarItemText}>{this.props.title}</Text>
         </TouchableOpacity>
       );
@@ -84,9 +82,7 @@ export default class CustomNavBar extends React.Component {
 
   _renderMiddle() {
     return (
-      <View style={styles.navBarItem}>
-        
-      </View>
+      <View style={styles.navBarItem} />
     );
   }
 

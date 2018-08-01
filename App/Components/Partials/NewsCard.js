@@ -5,6 +5,10 @@ import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../GlobalStyles';
 
 class NewsCard extends Component {
+	redirectNewsDetail() {
+		Actions.NewsDetail();
+	}
+
 	render() {
 		return (
 			<TouchableWithoutFeedback onPress={this.redirectNewsDetail.bind(this)}>
@@ -38,10 +42,6 @@ class NewsCard extends Component {
 				</View>
 			</TouchableWithoutFeedback>
 		);
-	}
-
-	redirectNewsDetail() {
-		Actions.NewsDetail()
 	}
 }
 

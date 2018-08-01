@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text } from 'react-native';
-import globalStyles from  '../../GlobalStyles';
+import globalStyles from '../../GlobalStyles';
 
 const styles = {
 	containerStyle: {

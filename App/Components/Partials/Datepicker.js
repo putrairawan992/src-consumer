@@ -12,6 +12,20 @@ const styles = {
 };
 
 class Datepicker extends Component {
+	renderCalendar() {
+		return (
+			<Icon
+				name="perm-contact-calendar"
+				size={40}
+				style={{
+					position: 'absolute',
+					right: 0,
+					top: 0
+				}}
+			/>
+		);
+	}
+
 	render() {
 		return (
 			<View style={styles.baseStyle}>
@@ -62,20 +76,6 @@ class Datepicker extends Component {
 					</Text>
 				) : null}
 			</View>
-		);
-	}
-
-	renderCalendar() {
-		return (
-			<Icon
-				name="perm-contact-calendar"
-				size={40}
-				style={{
-					position: 'absolute',
-					right: 0,
-					top: 0
-				}}
-			/>
 		);
 	}
 }

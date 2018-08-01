@@ -34,6 +34,13 @@ const styles = {
 };
 
 class MenuButton extends Component {
+	renderImage() {
+		if (this.props.image) {
+			return <Image source={this.props.image} style={styles.imageIcon} />;
+		}
+		return <Icon name={this.props.iconName} size={35} color='#fff' />;
+	}
+
 	render() {
 		return (
 			<TouchableWithoutFeedback onPress={this.props.onPress}>
@@ -51,14 +58,6 @@ class MenuButton extends Component {
 				</View>
 			</TouchableWithoutFeedback>
 		);
-	}
-
-	renderImage() {
-		if (this.props.image) {
-			return <Image source={this.props.image} style={styles.imageIcon} />;
-		} else {
-			return <Icon name={this.props.iconName} size={35} color='#fff' />;
-		}
 	}
 }
 

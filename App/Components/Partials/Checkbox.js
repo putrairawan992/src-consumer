@@ -22,6 +22,30 @@ const styles = {
 };
 
 class Checkbox extends Component {
+	renderText() {
+		if (this.props.type === 'term') {
+			return (
+				<View style={styles.customText}>
+					<Text>Saya telah membaca dan menyetujui</Text>
+					<LinkText style={{ marginLeft: 0, marginTop: 0, marginBottom: 0 }}>
+						Syarat & Ketentuan
+					</LinkText>
+					{this.props.error ? (
+						<Text style={[globalStyles.validationText]}>
+							{this.props.error}
+						</Text>
+					) : null}
+				</View>
+			);
+		} else if (this.props.type === 'smoking') {
+			return (
+				<View style={styles.customText}>
+					<Text>Ya, Saya Merokok</Text>
+				</View>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<View
@@ -42,30 +66,6 @@ class Checkbox extends Component {
 				{this.renderText()}
 			</View>
 		);
-	}
-
-	renderText() {
-		if (this.props.type == 'term') {
-			return (
-				<View style={styles.customText}>
-					<Text>Saya telah membaca dan menyetujui</Text>
-					<LinkText style={{ marginLeft: 0, marginTop: 0, marginBottom: 0 }}>
-						Syarat & Ketentuan
-					</LinkText>
-					{this.props.error ? (
-						<Text style={[globalStyles.validationText]}>
-							{this.props.error}
-						</Text>
-					) : null}
-				</View>
-			);
-		} else if (this.props.type == 'smoking') {
-			return (
-				<View style={styles.customText}>
-					<Text>Ya, Saya Merokok</Text>
-				</View>
-			);
-		}
 	}
 }
 

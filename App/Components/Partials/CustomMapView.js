@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const styles = StyleSheet.create({
@@ -37,6 +37,16 @@ class CustomMapView extends Component {
 			}
 		]
 	};
+	renderMarker() {
+		return this.state.markers.map((marker, idx) => (
+			<Marker
+				key={idx.toString()}
+				coordinate={marker.coordinate}
+				image={require('@images/map-marker.png')}
+			/>
+		));
+	}
+
 	render() {
 		return (
 			<View style={[styles.container, this.props.containerStyle]}>
@@ -56,17 +66,6 @@ class CustomMapView extends Component {
 				</MapView>
 			</View>
 		);
-	}
-
-	renderMarker() {
-		return this.state.markers.map((marker, idx) => (
-			<Marker
-				key={idx.toString()}
-				coordinate={marker.coordinate}
-				image={require('@images/map-marker.png')}
-			>
-			</Marker>
-		));
 	}
 }
 

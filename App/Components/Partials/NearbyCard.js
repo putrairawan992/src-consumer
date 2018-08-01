@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Button } from '@partials';
 import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../GlobalStyles';
+
 const PAGE_WIDTH = Dimensions.get('window').width;
 
 const styles = {
@@ -37,6 +38,9 @@ const styles = {
 const shopExample = require('@images/shop-example.png');
 
 class NearbyCard extends Component {
+	redirectDetail() {
+		Actions.ShopDetail();
+	}
 	render() {
 		return (
 			<TouchableWithoutFeedback onPress={this.redirectDetail.bind(this)}>
@@ -101,10 +105,6 @@ class NearbyCard extends Component {
 				</View>
 			</TouchableWithoutFeedback>
 		);
-	}
-
-	redirectDetail() {
-      Actions.ShopDetail();
 	}
 }
 

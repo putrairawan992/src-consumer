@@ -19,11 +19,11 @@ const styles = {
 class LinkText extends Component {
 	render() {
 		return (
-           <TouchableWithoutFeedback style={styles.container} onPress={this.props.onPress}>
-			<View>
-				<Text style={[styles.textStyle, this.props.style]}>{this.props.children}</Text>
-			</View>
-		  </TouchableWithoutFeedback>
+			<TouchableWithoutFeedback style={styles.container} onPress={this.props.onPress}>
+				<View>
+					<Text style={[styles.textStyle, this.props.style]}>{this.props.children}</Text>
+				</View>
+			</TouchableWithoutFeedback>
 		);
 	}
 }
