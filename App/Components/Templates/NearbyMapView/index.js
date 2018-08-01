@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native';
+import { FlatList, Dimensions } from 'react-native';
 import { CustomMapView, AddressCard } from '@partials';
-import styles from './styles';
+
 const PAGE_WIDTH = Dimensions.get('window').width;
 
 const items = [
@@ -72,10 +72,10 @@ class NearbyMapViewComponent extends Component {
 		if (item.item.id !== 0) {
 			return <AddressCard />;
 		}
-		else {
-			return <CustomMapView containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />;
-		}
+
+		return <CustomMapView containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />;
 	}
+
 	render() {
 		return (
 			<FlatList
