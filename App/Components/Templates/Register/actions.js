@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
+import { setAuthorization } from '@helpers/Storage';
 import {
 	REGISTER_NAME_CHANGED,
 	REGISTER_GENDER_CHANGED,
@@ -132,8 +133,15 @@ export const submitSignUp = payload => {
 		dispatch({ type: SIGN_UP_PROCCESS });
 		CommonService.signUp(payload)
 			.then(() => {
-               dispatch({ type: SIGN_UP_SUCCESS });
-               Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi' });
+				const loginPayload = {
+					username: payload.phone,
+					password: payload.password
+				};
+				CommonService.signIn(loginPayload).then(async (loginResponse) => {
+					await setAuthorization(loginResponse);
+					dispatch({ type: SIGN_UP_SUCCESS });
+					Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: payload.phone });
+				});
 			})
 			.catch(() => {
 				dispatch({ type: SIGN_UP_FAIL });

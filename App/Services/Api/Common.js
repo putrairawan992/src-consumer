@@ -38,11 +38,20 @@ const signIn = (payload) => {
 	});
 };
 
+const resendActivationCode = (payload) => {
+	return request({
+		url: 'api/general/otp/send',
+		method: 'POST',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
 	signUp,
-	signIn
+	signIn,
+	resendActivationCode
 };
 
 export default CommonService;

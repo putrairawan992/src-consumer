@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
-import { Input, Button, LinkText } from '@partials';
+import { Input, Button, LinkText, Loader } from '@partials';
+import { CommonService } from '@services';
+import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
 
 class OtpResetPasswordComponent extends Component {
@@ -11,6 +13,14 @@ class OtpResetPasswordComponent extends Component {
 
 		this.focusNextField = this.focusNextField.bind(this);
 		this.inputs = {};
+	}
+
+	state = {
+		firstInput: '',
+		secondInput: '',
+		thirdInput: '',
+		fourthInput: '',
+		baseLoading: false
 	}
 
 	//Helper function
@@ -42,6 +52,26 @@ class OtpResetPasswordComponent extends Component {
 		}
 	}
 
+	submitCode() {
+		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) { }
+		else {
+			CustomAlert(null, 'Lengkapi kode verifikasi anda.', [{ text: 'OK' }]);
+		}
+	}
+
+	resendActivationCode() {
+		this.setState({ baseLoading: true });
+		const resendPayload = {
+			type: 'verify-account'
+		};
+		CommonService.resendActivationCode(resendPayload).then(() => {
+			CustomAlert(null, 'Kode verifikasi telah terikirim.', [{ text: 'OK' }]);
+			this.setState({ baseLoading: false });
+		}).catch(() => {
+			this.setState({ baseLoading: false });
+		});
+	}
+
 	render() {
 		return (
 			<LinearGradient
@@ -50,14 +80,14 @@ class OtpResetPasswordComponent extends Component {
 				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#d3d3d3' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
-					Masukkan 6 Digit Kode Verifikasi yang dikirim melalui +62
-					812 87 11 XXX
+					Masukkan 6 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
 				</Text>
 				<View style={styles.inputContainerStyle}>
 					<Input
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
+							this.setState({ firstInput: num });
 							this.nextHandler(num, '2');
 						}}
 						onRef={ref => {
@@ -72,6 +102,7 @@ class OtpResetPasswordComponent extends Component {
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
+							this.setState({ secondInput: num });
 							this.nextHandler(num, '3', '1');
 						}}
 						onRef={ref => {
@@ -86,6 +117,7 @@ class OtpResetPasswordComponent extends Component {
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
+							this.setState({ thirdInput: num });
 							this.nextHandler(num, '4', '2');
 						}}
 						onRef={ref => {
@@ -100,42 +132,15 @@ class OtpResetPasswordComponent extends Component {
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
-							this.nextHandler(num, '5', '3');
+							this.setState({ fourthInput: num });
+							this.nextHandler(num, null, '3');
 						}}
 						onRef={ref => {
 							this.inputs['4'] = ref;
 						}}
 						keyboardType={'numeric'}
 						onKeyPress={(e) => {
-							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '5', '3');
-						}}
-					/>
-					<Input
-						style={styles.singularInputStyle}
-						maxLength={1}
-						onChangeText={num => {
-							this.nextHandler(num, '6', '4');
-						}}
-						onRef={ref => {
-							this.inputs['5'] = ref;
-						}}
-						keyboardType={'numeric'}
-						onKeyPress={(e) => {
-							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, '6', '4');
-						}}
-					/>
-					<Input
-						style={styles.singularInputStyle}
-						maxLength={1}
-						onRef={ref => {
-							this.inputs['6'] = ref;
-						}}
-						onChangeText={num => {
-							this.nextHandler(num, null, '5');
-						}}
-						keyboardType={'numeric'}
-						onKeyPress={(e) => {
-							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, null, '5');
+							this.handleKeyPress(e.nativeEvent.text, e.nativeEvent.key, null, '3');
 						}}
 					/>
 				</View>
@@ -147,15 +152,17 @@ class OtpResetPasswordComponent extends Component {
 						borderWidth: 1,
 						borderColor: '#fff'
 					}}
-					onPress={this.redirectSuccessResetPassword.bind(this)}
+					onPress={this.submitCode.bind(this)}
 				>
 					KIRIM
 				</Button>
 				<LinkText
 					style={{ marginLeft: 0, marginTop: 30, color: '#FFF' }}
+					onPress={this.resendActivationCode.bind(this)}
 				>
 					Kirim Ulang Kode Verifikasi
 				</LinkText>
+				<Loader visible={this.state.baseLoading} text="Mengirim..." />
 			</LinearGradient>
 		);
 	}
