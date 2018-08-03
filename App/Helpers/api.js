@@ -6,6 +6,7 @@
  * @license MIT
  *
  */
+import { getAuthorization } from '@helpers/Storage';
 import ServerValidation from '@helpers/ServerValidation';
 import CustomAlert from '@helpers/CustomAlert';
 import axios from 'axios';
@@ -21,7 +22,14 @@ const client = axios.create({
 /**
  * Request Wrapper with default success/error actions
  */
-const request = options => {
+const request = async options => {
+  const token = await getAuthorization();
+  if (token) {
+    options['headers'] = {
+      Authorization: 'Bearer ' + token.access_token
+    };
+  }
+  console.log('check options', options);
   const onSuccess = response => {
     console.debug('Request Successful!', response);
     return response.data;
@@ -38,10 +46,10 @@ const request = options => {
       // console.debug('Headers:', error.response.headers);
       // if validation error
       if (error.response.status === 422 && error.config.method === 'post') {
-         ServerValidation(error.response.data.errors);
+        ServerValidation(error.response.data.errors);
       }
       if (error.response.status === 401 && error.config.method === 'post' && error.response.data.error === 'invalid_credentials') {
-         CustomAlert(null, 'Nomor Ponsel / Password salah.', [{ text: 'OK' }]);
+        CustomAlert(null, 'Nomor Ponsel / Password salah.', [{ text: 'OK' }]);
       }
     } else {
       // Something else happened while setting up the request
