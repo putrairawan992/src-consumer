@@ -12,7 +12,7 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { StatusBar, UIManager, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { CommonService } from '@services';
+import { debugStorage, retrieveCustomData } from '@helpers/Storage';
 import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
 
@@ -41,6 +41,10 @@ export default class App extends Component<Props> {
     }, 4000);
   }
 
+  componentWillMount() {
+    debug();
+  }
+
   constuctor() {
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental &&
@@ -55,4 +59,12 @@ export default class App extends Component<Props> {
       </Provider>
     );
   }
+  
 }
+
+const debug = async() => {
+  const storages = await debugStorage();
+  const customData = await retrieveCustomData('authorization');
+  console.log('current storage', storages);
+  console.log('current custom data', customData);
+};

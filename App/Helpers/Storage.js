@@ -40,9 +40,19 @@ const getAuthorization = async () => {
 	}
 };
 
+const debugStorage = async () => {
+	try {
+		const datas = await AsyncStorage.getAllKeys();
+		return datas;
+	} catch (err) {
+		console.error('Error while debug async storage', err);
+	}
+};
+
 export {
 	storeCustomData,
 	retrieveCustomData,
 	setAuthorization,
-	getAuthorization
+	getAuthorization,
+	debugStorage
 };
