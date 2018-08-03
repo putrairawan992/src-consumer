@@ -44,6 +44,10 @@ class OtpResetPasswordComponent extends Component {
 		Actions.SuccessResetPassword();
 	}
 
+	redirectDashboard() {
+		Actions.MainConsumer();
+	} 
+
 	handleKeyPress(textValue, keyValue, nextStep, previousStep) {
 		if (keyValue === 'Backspace') {
 			if (previousStep) {
@@ -53,7 +57,18 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	submitCode() {
-		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) { }
+		this.setState({ baseLoding: true });
+		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
+			const verifyPayload = {
+				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput
+			};
+			CommonService.verifyUser(verifyPayload).then(() => {
+				this.setState({ baseLoading: false });
+				this.redirectDashboard();
+			}).catch(() => {
+				this.setState({ baseLoading: false });
+			});
+		}
 		else {
 			CustomAlert(null, 'Lengkapi kode verifikasi anda.', [{ text: 'OK' }]);
 		}
@@ -65,8 +80,8 @@ class OtpResetPasswordComponent extends Component {
 			type: 'verify-account'
 		};
 		CommonService.resendActivationCode(resendPayload).then(() => {
-			CustomAlert(null, 'Kode verifikasi telah terikirim.', [{ text: 'OK' }]);
 			this.setState({ baseLoading: false });
+			CustomAlert(null, 'Kode verifikasi telah terikirim.', [{ text: 'OK' }]);
 		}).catch(() => {
 			this.setState({ baseLoading: false });
 		});

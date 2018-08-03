@@ -46,12 +46,21 @@ const resendActivationCode = (payload) => {
 	});
 };
 
+const verifyUser = (payload) => {
+	return request({
+		url: 'api/general/otp/verify-account',
+		method: 'POST',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
 	signUp,
 	signIn,
-	resendActivationCode
+	resendActivationCode,
+	verifyUser
 };
 
 export default CommonService;
