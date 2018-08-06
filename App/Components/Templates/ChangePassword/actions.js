@@ -1,5 +1,6 @@
 import { CommonService } from '@services';
 import { Actions } from 'react-native-router-flux';
+import { setProfileFromRest } from '@helpers/Storage';
 import {
     CHANGE_PASS_PASSWORD_CHANGES,
     CHANGE_PASS_PASSWORD_CONFIRMATION_CHANGES,
@@ -33,7 +34,8 @@ export const changePassPageUnmount = () => {
 export const submitChangePassword = (payload) => {
     return dispatch => {
         dispatch({ type: CHANGE_PASS_PROCCESS });
-        CommonService.changePassword(payload).then(() => {
+        CommonService.changePassword(payload).then(async() => {
+            await setProfileFromRest();
             dispatch({ type: CHANGE_PASS_SUCCESS });
             Actions.MainConsumer();
         }).catch(() => {

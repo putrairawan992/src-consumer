@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import CommonService from '../Services/Api/Common';
 
 const storeCustomData = async (key, value) => {
 	try {
@@ -49,10 +50,22 @@ const debugStorage = async () => {
 	}
 };
 
+const setProfileFromRest = async () => {
+	try {
+		const profile = await CommonService.getProfile();
+		await AsyncStorage.setItem('profile', JSON.stringify(profile));
+		return profile;
+	} catch (err) {
+		console.error('something went wrong', err);
+	}
+};
+
+
 export {
 	storeCustomData,
 	retrieveCustomData,
 	setAuthorization,
 	getAuthorization,
-	debugStorage
+	debugStorage,
+	setProfileFromRest
 };

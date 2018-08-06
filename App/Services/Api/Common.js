@@ -70,6 +70,13 @@ const changePassword = (payload) => {
 	});
 };
 
+const getProfile = () => {
+	return request({
+		url: 'oauth/me',
+		method: 'GET',
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -78,7 +85,8 @@ const CommonService = {
 	resendActivationCode,
 	verifyUser,
 	resetPassword,
-	changePassword
+	changePassword,
+	getProfile
 };
 
 export default CommonService;

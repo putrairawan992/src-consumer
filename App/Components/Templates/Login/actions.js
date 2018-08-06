@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
-import { setAuthorization } from '@helpers/Storage';
+import { setAuthorization, setProfileFromRest } from '@helpers/Storage';
 import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_PROCCESS, SIGN_IN_SUCCESS, SIGN_IN_FAIL, LOGIN_PAGE_UNMOUNT } from './types';
 
 export const loginPhoneChanged = text => {
@@ -28,9 +28,15 @@ export const submitSignIn = payload => {
 		dispatch({ type: SIGN_IN_PROCCESS });
 		CommonService.signIn(payload)
 			.then(async (response) => {
-               await setAuthorization(response);
-               dispatch({ type: SIGN_IN_SUCCESS });
-               Actions.MainConsumer();
+				await setAuthorization(response);
+				const profile = await setProfileFromRest();
+				if (profile.status === 'active') {
+					Actions.MainConsumer();
+				}
+				else {
+					Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: payload.username });
+				}
+				dispatch({ type: SIGN_IN_SUCCESS });
 			})
 			.catch(() => {
 				dispatch({ type: SIGN_IN_FAIL });

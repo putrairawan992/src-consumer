@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
-import { setAuthorization } from '@helpers/Storage';
+import { setAuthorization, setProfileFromRest } from '@helpers/Storage';
 import styles from './styles';
 
 class OtpResetPasswordComponent extends Component {
@@ -78,7 +78,8 @@ class OtpResetPasswordComponent extends Component {
 				});
 			}
 			else {
-				CommonService.verifyUser(verifyPayload).then(() => {
+				CommonService.verifyUser(verifyPayload).then(async() => {
+					await setProfileFromRest();
 					this.setState({ baseLoading: false });
 					this.redirectDashboard();
 				}).catch(() => {
