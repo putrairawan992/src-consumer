@@ -62,7 +62,7 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	submitCode() {
-		this.setState({ baseLoding: true });
+		this.setState({ baseLoading: true });
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
 			const verifyPayload = {
 				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
@@ -73,6 +73,8 @@ class OtpResetPasswordComponent extends Component {
 					this.setState({ baseLoading: false });
 					await setAuthorization(response.token);
 					this.redirectChangePassword();
+				}).catch(() => {
+					this.setState({ baseLoading: false });
 				});
 			}
 			else {

@@ -60,7 +60,15 @@ const resetPassword = (payload) => {
 		method: 'POST',
 		data: payload
 	});
-}
+};
+
+const changePassword = (payload) => {
+	return request({
+		url: 'api/general/otp/change-password',
+		method: 'POST',
+		data: payload
+	});
+};
 
 const CommonService = {
 	getCities,
@@ -69,7 +77,8 @@ const CommonService = {
 	signIn,
 	resendActivationCode,
 	verifyUser,
-	resetPassword
+	resetPassword,
+	changePassword
 };
 
 export default CommonService;
