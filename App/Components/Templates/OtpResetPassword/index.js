@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
+import { setAuthorization } from '@helpers/Storage';
 import styles from './styles';
 
 class OtpResetPasswordComponent extends Component {
@@ -46,7 +47,11 @@ class OtpResetPasswordComponent extends Component {
 
 	redirectDashboard() {
 		Actions.MainConsumer();
-	} 
+	}
+
+	redirectChangePassword() {
+		Actions.ChangePassword();
+	}
 
 	handleKeyPress(textValue, keyValue, nextStep, previousStep) {
 		if (keyValue === 'Backspace') {
@@ -60,14 +65,24 @@ class OtpResetPasswordComponent extends Component {
 		this.setState({ baseLoding: true });
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
 			const verifyPayload = {
-				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput
+				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
+				phone: (this.props.requestReset) ? this.props.phoneNumber : null
 			};
-			CommonService.verifyUser(verifyPayload).then(() => {
-				this.setState({ baseLoading: false });
-				this.redirectDashboard();
-			}).catch(() => {
-				this.setState({ baseLoading: false });
-			});
+			if (this.props.requestReset) {
+				CommonService.resetPassword(verifyPayload).then(async (response) => {
+					this.setState({ baseLoading: false });
+					await setAuthorization(response.token);
+					this.redirectChangePassword();
+				});
+			}
+			else {
+				CommonService.verifyUser(verifyPayload).then(() => {
+					this.setState({ baseLoading: false });
+					this.redirectDashboard();
+				}).catch(() => {
+					this.setState({ baseLoading: false });
+				});
+			}
 		}
 		else {
 			CustomAlert(null, 'Lengkapi kode verifikasi anda.', [{ text: 'OK' }]);
@@ -77,7 +92,8 @@ class OtpResetPasswordComponent extends Component {
 	resendActivationCode() {
 		this.setState({ baseLoading: true });
 		const resendPayload = {
-			type: 'verify-account'
+			type: (this.props.requestReset) ? 'reset-password' : 'verify-account',
+			phone: (this.props.requestReset) ? this.props.phoneNumber : null
 		};
 		CommonService.resendActivationCode(resendPayload).then(() => {
 			this.setState({ baseLoading: false });

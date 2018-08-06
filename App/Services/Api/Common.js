@@ -54,13 +54,22 @@ const verifyUser = (payload) => {
 	});
 };
 
+const resetPassword = (payload) => {
+	return request({
+		url: 'api/general/otp/reset-password',
+		method: 'POST',
+		data: payload
+	});
+}
+
 const CommonService = {
 	getCities,
 	getProvinces,
 	signUp,
 	signIn,
 	resendActivationCode,
-	verifyUser
+	verifyUser,
+	resetPassword
 };
 
 export default CommonService;
