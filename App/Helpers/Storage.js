@@ -54,9 +54,10 @@ const setProfileFromRest = async () => {
 	try {
 		const profile = await CommonService.getProfile();
 		await AsyncStorage.setItem('profile', JSON.stringify(profile));
-		return profile;
+		return true;
 	} catch (err) {
 		console.error('something went wrong', err);
+		return false;
 	}
 };
 

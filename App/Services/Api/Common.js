@@ -72,7 +72,7 @@ const changePassword = (payload) => {
 
 const getProfile = () => {
 	return request({
-		url: 'oauth/me',
+		url: 'oauth/user',
 		method: 'GET',
 	});
 };

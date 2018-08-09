@@ -79,9 +79,11 @@ class OtpResetPasswordComponent extends Component {
 			}
 			else {
 				CommonService.verifyUser(verifyPayload).then(async() => {
-					await setProfileFromRest();
+					const check = await setProfileFromRest();
 					this.setState({ baseLoading: false });
+					if (check) {
 					this.redirectDashboard();
+					}
 				}).catch(() => {
 					this.setState({ baseLoading: false });
 				});
