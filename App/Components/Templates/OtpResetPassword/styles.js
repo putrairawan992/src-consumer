@@ -7,7 +7,7 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#FFF',
-		paddingHorizontal: 16
+		paddingHorizontal: 10
 	},
 	forgotPasswordText: {
         fontFamily: 'ProximaNova-Regular',
@@ -19,7 +19,8 @@ export default StyleSheet.create({
 	},
 	inputContainerStyle: {
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
+		paddingHorizontal: 32,
 	},
 	singularInputStyle: {
 		margin: 5,

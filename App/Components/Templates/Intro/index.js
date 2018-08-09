@@ -87,7 +87,8 @@ class IntroComponent extends Component {
 		return (
 			<LinearGradient
 				colors={['#C31432', '#240B36']}
-				location={[0, 1]}
+				start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+				locations={[0.2,1]}
 				style={{ flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }}
 			>
 

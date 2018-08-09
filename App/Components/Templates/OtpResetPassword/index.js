@@ -78,11 +78,11 @@ class OtpResetPasswordComponent extends Component {
 				});
 			}
 			else {
-				CommonService.verifyUser(verifyPayload).then(async() => {
+				CommonService.verifyUser(verifyPayload).then(async () => {
 					const check = await setProfileFromRest();
 					this.setState({ baseLoading: false });
 					if (check) {
-					this.redirectDashboard();
+						this.redirectDashboard();
 					}
 				}).catch(() => {
 					this.setState({ baseLoading: false });
@@ -111,9 +111,10 @@ class OtpResetPasswordComponent extends Component {
 	render() {
 		return (
 			<LinearGradient
-				colors={['#DC1E2D', '#B11522']}
-				location={[0, 1]}
-				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#d3d3d3' } : false]}
+				colors={['#C31432', '#240B36']}
+				start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+				locations={[0.2, 1]}
+				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#000' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
 					Masukkan 6 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
