@@ -11,7 +11,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { StatusBar, UIManager, Platform } from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
 import { debugStorage, retrieveCustomData } from '@helpers/Storage';
 import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
@@ -38,6 +37,7 @@ export default class App extends Component<Props> {
   }
 
   componentWillMount() {
+    StatusBar.setBackgroundColor('#C31432');
     debug();
   }
 

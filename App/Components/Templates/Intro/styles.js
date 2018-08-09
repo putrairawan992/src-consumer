@@ -5,52 +5,50 @@ export default StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'space-around',
-		alignItems: 'center',
-		alignContent: 'center',
-		backgroundColor: '#fff',
-		paddingLeft: 40,
-		paddingRight: 40
-	},
-	imageContainer: {
-		flex: 2,
-		paddingTop: 30
-	},
-	image: {
-		flex: 1,
-		resizeMode: 'contain'
-	},
-	textContainer: {
-		paddingTop: 40,
-		flex: 1
-	},
-	textTitleContent: {
-        fontFamily: 'ProximaNova-Bold',
-        fontSize: 20,
-        lineHeight: 24,
-        textAlign: 'center',
-        paddingBottom: 20
-	},
-	textContent: {
-		color: '#636363',
-		fontFamily: 'ProximaNova-Regular',
-		fontSize: 14,
-		lineHeight: 24,
-		textAlign: 'center'
-	},
-	customDone: {
-		backgroundColor: '#DC1E2D',
-		width: '50%',
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginLeft: '25%',
-		marginRight: '25%',
-		padding: 13,
-		borderRadius: 6
+		alignContent: 'center',
+		paddingHorizontal: 12
+
 	},
-	customDoneText: {
+	outbox: {
+		justifyContent: 'flex-start',
+		alignItems: 'flex-start'
+	},
+	outboxImg: {
+		height: 82,
+		width: 82,
+		resizeMode: 'contain'
+	},
+	onbox: {
+		backgroundColor: '#fff',
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
+		borderRadius: 14,
+		textAlign: 'center'
+	},
+	image: {
+		height: 234,
+		width: 234,
+		resizeMode: 'contain',
+		marginBottom: 24
+	},
+	introTitle: {
 		fontFamily: 'ProximaNova-Bold',
-		color: '#fff',
-		fontSize: 14
+		color: '#DC1E2D',
+		fontSize: 20,
+		textAlign: 'center',
+		marginHorizontal: 36,
+		lineHeight: 24,
+		marginBottom: 13
+	},
+	introCaption: {
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 14,
+		textAlign: 'center',
+		lineHeight: 20,
+		marginHorizontal: 20
 	}
 });
