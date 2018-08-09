@@ -15,8 +15,8 @@ export default StyleSheet.create({
 
 	},
 	logoImg: {
-		height: 35,
-		width: 108,
+		height: 82,
+		width: 82,
 		resizeMode: 'contain'
 	},
 	personImg: {
@@ -27,8 +27,7 @@ export default StyleSheet.create({
 		borderColor: '#FFF'
 	},
 	detailContainer: {
-		alignItems: 'center',
-		paddingTop: 32
+		alignItems: 'center'
 	},
 	detailText: {
 		fontFamily: 'ProximaNova-Bold',

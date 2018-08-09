@@ -16,6 +16,7 @@ import CustomMapView from './CustomMapView';
 import AddressCard from './AddressCard';
 import NotificationSegment from './NotificationSegment';
 import Loader from './Loader';
+import WideButton from './WideButton';
 
 export {
 	Button,
@@ -35,5 +36,6 @@ export {
 	CustomMapView,
 	AddressCard,
 	NotificationSegment,
-	Loader
+	Loader,
+	WideButton
 };

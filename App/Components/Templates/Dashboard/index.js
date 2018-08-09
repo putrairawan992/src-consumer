@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text } from 'react-native';
+import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
-import { MenuButton, NewsCard } from '@partials';
-import LinearGradient from 'react-native-linear-gradient';
+import { WideButton, NewsCard } from '@partials';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
 
-const ayoImg = require('@images/home-logo.png');
+
+const ayoImg = require('@images/ayo-src-logo-w.png');
 const personFace = require('@images/person-face.jpeg');
 const exampleImage = require('@images/example-banner.png');
 const exampleNews = require('@images/news-example.png');
-const qrImage = require('@images/icon-qr.png');
-const locationImage = require('@images/icon-location.png');
+
 
 const itemDummy = {
 	image: exampleNews,
@@ -30,17 +29,17 @@ class DashboardComponent extends Component {
 	}
 
 	componentWillMount() {
-		
+
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
 				<ScrollView>
-					<LinearGradient
+					<ImageBackground
 						style={globalStyles.profileInfo}
-						colors={['#DC1E2D', '#B11522']}
-						location={[0, 1]}
+						source={require('@images/ayo-bg-login.png')}
+						resizeMode={'stretch'}
 					>
 						<View style={globalStyles.imgPadder}>
 							<Image
@@ -57,7 +56,7 @@ class DashboardComponent extends Component {
 								Michael Robinson
 							</Text>
 						</View>
-					</LinearGradient>
+					</ImageBackground>
 					{/* <LinearGradient
 						style={globalStyles.couponChildren}
 						colors={['#DC1E2D', '#B11522']}
@@ -74,38 +73,26 @@ class DashboardComponent extends Component {
 					</View> */}
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.menuRow}>
-							<MenuButton iconName="credit-card" onPress={this.redirectCard.bind(this)} >
-								KARTU SAYA
-							</MenuButton>
-							<MenuButton iconName="code" image={qrImage}>
-								KODE QR
-							</MenuButton>
-							<MenuButton
-								iconName="location-on"
-								onPress={this.redirectNearby.bind(this)}
-								image={locationImage}
-							>
-								TERDEKAT
-							</MenuButton>
+							<WideButton />
 						</View>
-                      <View style={{ flexDirection: 'row' }} >
-						<Swiper
-							style={globalStyles.horizontalSlider} dotColor="#fff" activeDotColor="#DC1E2D"
-						>
-							<Image
-								source={exampleImage}
-								style={globalStyles.sliderImg}
-							/>
-							<Image
-								source={exampleImage}
-								style={globalStyles.sliderImg}
-							/>
-							<Image
-								source={exampleImage}
-								style={globalStyles.sliderImg}
-							/>
-						</Swiper>
-					</View>
+						<View style={{ flexDirection: 'row' }} >
+							<Swiper
+								style={globalStyles.horizontalSlider} dotColor="#fff" activeDotColor="#DC1E2D"
+							>
+								<Image
+									source={exampleImage}
+									style={globalStyles.sliderImg}
+								/>
+								<Image
+									source={exampleImage}
+									style={globalStyles.sliderImg}
+								/>
+								<Image
+									source={exampleImage}
+									style={globalStyles.sliderImg}
+								/>
+							</Swiper>
+						</View>
 
 						<View style={globalStyles.newsFeedContainer}>
 							<NewsCard item={itemDummy} />
@@ -114,7 +101,7 @@ class DashboardComponent extends Component {
 						</View>
 					</View>
 				</ScrollView>
-			</View>
+			</View >
 		);
 	}
 }
