@@ -60,7 +60,7 @@ export default class App extends Component<Props> {
 
 const debug = async() => {
   const storages = await debugStorage();
-  const customData = await retrieveCustomData('authorization');
+  const customData = await retrieveCustomData('profile');
   console.log('current storage', storages);
   console.log('current custom data', customData);
 };

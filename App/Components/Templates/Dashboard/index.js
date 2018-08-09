@@ -29,6 +29,10 @@ class DashboardComponent extends Component {
 		Actions.MyCard();
 	}
 
+	componentWillMount() {
+		
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -54,20 +58,20 @@ class DashboardComponent extends Component {
 							</Text>
 						</View>
 					</LinearGradient>
-					<LinearGradient
+					{/* <LinearGradient
 						style={globalStyles.couponChildren}
 						colors={['#DC1E2D', '#B11522']}
 						location={[0, 1]}
-					>
-						<Text style={globalStyles.couponChildrenText}>
+					> */}
+						{/* <Text style={globalStyles.couponChildrenText}>
 							My Coupouns
-						</Text>
-					</LinearGradient>
-					<View style={globalStyles.couponContainer}>
+						</Text> */}
+					{/* </LinearGradient> */}
+					{/* <View style={globalStyles.couponContainer}>
 						<Text style={globalStyles.couponContainerText}>
 							2.250
 						</Text>
-					</View>
+					</View> */}
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.menuRow}>
 							<MenuButton iconName="credit-card" onPress={this.redirectCard.bind(this)} >
