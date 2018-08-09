@@ -4,30 +4,20 @@ export default StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'flex-start',
+		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	topper: {
 		flex: 1,
 		width: '100%',
-		height: '100%',
-		justifyContent: 'space-around',
+		justifyContent: 'center',
 		alignItems: 'center',
 		paddingHorizontal: 35
 	},
 	topperImg: {
-		height: 97.22,
-		width: 300,
+		height: 224,
+		width: 224,
 		resizeMode: 'contain'
-	},
-	bottom: {
-		flex: 1,
-		backgroundColor: '#FFF',
-		width: '100%',
-		height: '100%',
-		justifyContent: 'center',
-		alignItems: 'center'
-		
 	},
 	buttonStyle: {
 		backgroundColor: '#FFF',
@@ -39,7 +29,6 @@ export default StyleSheet.create({
 		fontWeight: 'bold'
 	},
 	buttonContainer: {
-		width: '100%',
-		paddingHorizontal: 35
+		width: '100%'
 	}
 });
