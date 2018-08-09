@@ -20,16 +20,12 @@ const itemDummy = {
 };
 
 class DashboardComponent extends Component {
-	redirectNearby() {
-		Actions.Nearby();
-	}
-
-	redirectCard() {
-		Actions.MyCard();
-	}
-
 	componentWillMount() {
 
+	}
+
+	redirectNearby() {
+		Actions.Nearby();
 	}
 
 	render() {
@@ -38,7 +34,7 @@ class DashboardComponent extends Component {
 				<ScrollView>
 					<ImageBackground
 						style={globalStyles.profileInfo}
-						source={require('@images/ayo-bg-login.png')}
+						source={require('@images/profile-bg.png')}
 					>
 						<View style={globalStyles.imgPadder}>
 							<Image

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text } from 'react-native';
+import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
 import { MenuListButton, LinkText } from '@partials';
-import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
@@ -25,13 +24,12 @@ class ProfileComponent extends Component {
 		return (
 			<View style={styles.container}>
 				<ScrollView>
-					<LinearGradient
+					<ImageBackground
+						source={require('@images/profile-bg.png')}
 						style={[
 							globalStyles.profileInfo,
 							{ justifyContent: 'center', height: 250 }
 						]}
-						colors={['#DC1E2D', '#B11522']}
-						location={[0, 1]}
 					>
 						<View
 							style={[
@@ -47,8 +45,15 @@ class ProfileComponent extends Component {
 								Michael Robinson
 							</Text>
 						</View>
-					</LinearGradient>
-					<LinearGradient
+					</ImageBackground>
+					<View style={globalStyles.cardContainer}>
+						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
+						<View style={globalStyles.cardText}>
+						  <Text style={[globalStyles.innerText]}>0812 777 456 2637</Text>
+						  <Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>Rizki Adrian</Text>
+						</View>
+					</View>
+					{/* <LinearGradient
 						style={[globalStyles.couponChildren, { top: 220 - 10 }]}
 						colors={['#DC1E2D', '#B11522']}
 						location={[0, 1]}
@@ -61,16 +66,16 @@ class ProfileComponent extends Component {
 						<Text style={globalStyles.couponContainerText}>
 							2.250
 						</Text>
-					</View>
+					</View> */}
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
 							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
-                            <MenuListButton>Keluar</MenuListButton>
+							<MenuListButton>Keluar</MenuListButton>
 						</View>
 					</View>
+					<LinkText style={{ alignSelf: 'center' }} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
 				</ScrollView>
-				<LinkText style={{ alignSelf: 'center' }} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
 			</View>
 		);
 	}

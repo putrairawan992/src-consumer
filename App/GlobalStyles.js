@@ -146,7 +146,6 @@ export default StyleSheet.create({
 		paddingBottom: 41
 	},
 	listContainer: {
-		marginTop: 80,
 		flexDirection: 'column',
 		borderTopWidth: 1,
 		borderColor: '#ececec'
@@ -211,5 +210,29 @@ export default StyleSheet.create({
 		marginTop: 10,
 		color: '#cc0000',
 		justifyContent: 'flex-start'
+	},
+	cardContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 250,
+		paddingTop: 20,
+		position: 'relative',
+
+	},
+	cardImg: {
+		height: 220,
+		width: '100%',
+		resizeMode: 'contain'
+	},
+	cardText: {
+		position: 'absolute',
+		flexDirection: 'column',
+		bottom: 60,
+		left: (PAGE_WIDTH >= 720) ? '30%' : '10%'
+	},
+	innerText: {
+		fontFamily: 'ProximaNova-Bold',
+		color: '#fff'
 	}
 });
