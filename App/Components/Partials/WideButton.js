@@ -39,12 +39,13 @@ const styles = {
         width: 48,
         resizeMode: 'contain',
     }
-}
+};
+
 
 class WideButton extends Component {
     render() {
         return (
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={this.props.onPress}>
                 <View style={styles.ButtonBox}>
                     <View style={styles.descriptionSection}>
                         <Text style={styles.title}>
@@ -59,7 +60,7 @@ class WideButton extends Component {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-        )
+        );
     }
 }
 

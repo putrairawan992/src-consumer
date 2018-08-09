@@ -39,7 +39,6 @@ class DashboardComponent extends Component {
 					<ImageBackground
 						style={globalStyles.profileInfo}
 						source={require('@images/ayo-bg-login.png')}
-						resizeMode={'stretch'}
 					>
 						<View style={globalStyles.imgPadder}>
 							<Image
@@ -73,7 +72,7 @@ class DashboardComponent extends Component {
 					</View> */}
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.menuRow}>
-							<WideButton />
+							<WideButton onPress={this.redirectNearby.bind(this)} />
 						</View>
 						<View style={{ flexDirection: 'row' }} >
 							<Swiper
