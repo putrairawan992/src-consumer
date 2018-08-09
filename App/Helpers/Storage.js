@@ -18,6 +18,7 @@ const retrieveCustomData = async key => {
 		return null;
 	} catch (error) {
 		console.error('Error Retrieving Data', error);
+		return null;
 	}
 };
 
@@ -38,6 +39,7 @@ const getAuthorization = async () => {
 		return null;
 	} catch (error) {
 		console.error('Error Retrieving Data', error);
+		return null;
 	}
 };
 
@@ -54,12 +56,25 @@ const setProfileFromRest = async () => {
 	try {
 		const profile = await CommonService.getProfile();
 		await AsyncStorage.setItem('profile', JSON.stringify(profile));
-		return true;
+		return profile;
 	} catch (err) {
 		console.error('something went wrong', err);
-		return false;
+		return null;
 	}
 };
+
+const getProfileFromStorage = async () => {
+	try {
+		const profile = await AsyncStorage.getItem('profile');
+		if (profile !== null) {
+          return JSON.parse(profile);
+		}
+		return null;
+	} catch (error) {
+		console.error('Error retrieving data', error);
+		return null;
+	}
+}
 
 
 export {
@@ -68,5 +83,6 @@ export {
 	setAuthorization,
 	getAuthorization,
 	debugStorage,
-	setProfileFromRest
+	setProfileFromRest,
+	getProfileFromStorage
 };

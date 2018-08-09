@@ -35,10 +35,6 @@ export default class App extends Component<Props> {
         return response;
       });
     };
-    setTimeout(() => {
-      SplashScreen.hide();
-      StatusBar.setBackgroundColor('#DC1E2D');
-    }, 4000);
   }
 
   componentWillMount() {
