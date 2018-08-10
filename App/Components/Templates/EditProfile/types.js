@@ -7,3 +7,4 @@ export const EDIT_PAGE_UNMOUNT = 'edit_page_unmount';
 export const EDIT_PROCCESS = 'edit_proccess';
 export const EDIT_SUCCESS = 'edit_success';
 export const EDIT_FAIL = 'edit_fail';
+export const EDIT_CAMERA_DONE = 'edit_camera_done';

@@ -7,7 +7,8 @@ import {
     EDIT_PAGE_UNMOUNT,
     EDIT_PROCCESS,
     EDIT_SUCCESS,
-    EDIT_FAIL
+    EDIT_FAIL,
+    EDIT_CAMERA_DONE
 } from './types';
 
 const INITIAL_STATE = {
@@ -39,6 +40,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, baseLoading: false };
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
+        case EDIT_CAMERA_DONE:
+            return state;
         default:
             return state;
     }

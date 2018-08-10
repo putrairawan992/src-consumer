@@ -1,5 +1,6 @@
 import { CommonService } from '@services';
 import { setProfileFromRest } from '@helpers/Storage';
+import PermissionHelpers from '@helpers/Permission';
 import {
     EDIT_NAME_CHANGED,
     EDIT_GENDER_CHANGED,
@@ -9,7 +10,8 @@ import {
     EDIT_PAGE_UNMOUNT,
     EDIT_PROCCESS,
     EDIT_SUCCESS,
-    EDIT_FAIL
+    EDIT_FAIL,
+    EDIT_CAMERA_DONE
 } from './types';
 
 export const editNameChanged = text => {
@@ -53,11 +55,21 @@ export const editPageUnmount = () => {
     };
 };
 
+export const cameraTrigger = () => {
+    return async (dispatch) => {
+        const isGranted = await PermissionHelpers.requestCameraPermission();
+        if (isGranted) {
+         await PermissionHelpers.accessCamera(); 
+        }
+        dispatch({ type: EDIT_CAMERA_DONE });
+    };
+};
+
 export const submitEdit = payload => {
     return dispatch => {
         dispatch({ type: EDIT_PROCCESS });
         CommonService.editProfile(payload)
-            .then(async() => {
+            .then(async () => {
                 await setProfileFromRest();
                 dispatch({ type: EDIT_SUCCESS });
             })

@@ -53,6 +53,10 @@ class EditProfileComponent extends Component {
 		this.props.editPhoneChanged(text);
 	}
 
+	onCameraPressed() {
+		this.props.cameraTrigger();
+	}
+
 	submitEdit() {
 		const nameError = validateClass(
 			'name',
@@ -85,7 +89,7 @@ class EditProfileComponent extends Component {
 			idNumberError: idNumberError
 		});
 		if (!nameError && !phoneError && !dateError && !idNumberError) {
-           console.log('edit submitted');
+			console.log('edit submitted');
 		}
 	}
 
@@ -94,7 +98,7 @@ class EditProfileComponent extends Component {
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
 				<View style={[globalStyles.phoneRow, { margin: 10 }]}>
-					<TouchableOpacity style={styles.avaPlaceHolder}>
+					<TouchableOpacity style={styles.avaPlaceHolder} onPress={this.onCameraPressed.bind(this)}>
 						<Icon name="add-a-photo" size={30} />
 					</TouchableOpacity>
 					<View style={{ flex: 3 }}>
