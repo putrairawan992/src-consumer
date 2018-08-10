@@ -43,6 +43,19 @@ const getAuthorization = async () => {
 	}
 };
 
+const removeAuthFromStorage = async () => {
+	try {
+		const remove = await AsyncStorage.multiRemove(['authorization', 'profile']);
+		if (remove) {
+			return true;
+		}
+		return false;
+	} catch (err) {
+		console.error('Error while removing data', err);
+		return false;
+	}
+};
+
 const debugStorage = async () => {
 	try {
 		const datas = await AsyncStorage.getAllKeys();
@@ -74,7 +87,7 @@ const getProfileFromStorage = async () => {
 		console.error('Error retrieving data', error);
 		return null;
 	}
-}
+};
 
 
 export {
@@ -84,5 +97,6 @@ export {
 	getAuthorization,
 	debugStorage,
 	setProfileFromRest,
-	getProfileFromStorage
+	getProfileFromStorage,
+	removeAuthFromStorage
 };

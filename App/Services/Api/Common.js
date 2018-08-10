@@ -77,6 +77,13 @@ const getProfile = () => {
 	});
 };
 
+const signOut = () => {
+	return request({
+		url: 'oauth/token/revoke',
+		method: 'POST'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -86,7 +93,8 @@ const CommonService = {
 	verifyUser,
 	resetPassword,
 	changePassword,
-	getProfile
+	getProfile,
+	signOut
 };
 
 export default CommonService;

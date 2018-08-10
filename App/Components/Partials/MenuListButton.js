@@ -17,9 +17,8 @@ const styles = {
 	textStyle: {
 		fontFamily: 'ProximaNova-Regular',
 		alignSelf: 'center',
-		color: '#4a4a4a',
-		fontSize: 12,
-		fontWeight: '600'
+		color: '#000',
+		fontSize: 12
 	},
 	
 };

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
-import { MenuListButton, LinkText } from '@partials';
+import { MenuListButton, Loader } from '@partials';
+import { CommonService } from '@services';
+import { removeAuthFromStorage } from '@helpers/Storage';
 import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
@@ -8,6 +10,10 @@ import styles from './styles';
 const personFace = require('@images/person-face.jpeg');
 
 class ProfileComponent extends Component {
+	state = {
+		baseLoading: false
+	};
+
 	redirectEditProfile() {
 		Actions.EditProfile();
 	}
@@ -18,6 +24,17 @@ class ProfileComponent extends Component {
 
 	redirectDelete() {
 		Actions.DeleteAccount();
+	}
+
+	submitLogout() {
+		this.setState({ baseLoading: true });
+		CommonService.signOut().then(async() => {
+			await removeAuthFromStorage();
+			this.setState({ baseLoading: false });
+			Actions.reset('WelcomeScreen');
+		}).catch(() => {
+			this.setState({ baseLoading: false });
+		});
 	}
 
 	render() {
@@ -49,8 +66,8 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.cardContainer}>
 						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
 						<View style={globalStyles.cardText}>
-						  <Text style={[globalStyles.innerText]}>0812 777 456 2637</Text>
-						  <Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>Rizki Adrian</Text>
+							<Text style={[globalStyles.innerText]}>0812 777 456 2637</Text>
+							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>Rizki Adrian</Text>
 						</View>
 					</View>
 					{/* <LinearGradient
@@ -71,11 +88,12 @@ class ProfileComponent extends Component {
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
 							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
-							<MenuListButton>Keluar</MenuListButton>
+							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Pengaturan Privasi</MenuListButton>
+							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>
 					</View>
-					<LinkText style={{ alignSelf: 'center' }} onPress={this.redirectDelete.bind(this)}>Delete my account</LinkText>
 				</ScrollView>
+				<Loader visible={this.state.baseLoading} text="Logout..." />
 			</View>
 		);
 	}
