@@ -84,6 +84,13 @@ const signOut = () => {
 	});
 };
 
+const editProfile = () => {
+	return request({
+		url: 'api/customer/user/update',
+		method: 'POST'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -94,6 +101,7 @@ const CommonService = {
 	resetPassword,
 	changePassword,
 	getProfile,
+	editProfile,
 	signOut
 };
 

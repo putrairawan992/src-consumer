@@ -45,10 +45,6 @@ const validation = {
     presence: {
       allowEmpty: false,
       message: '^Nomor KTP tidak boleh kosong.'
-    },
-    length: {
-      minimum: 16,
-      tooShort: '^Nomor KTP minimal 16 digit.'
     }
   },
   phone: {

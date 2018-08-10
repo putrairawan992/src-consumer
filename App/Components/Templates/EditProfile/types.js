@@ -1,0 +1,9 @@
+export const EDIT_NAME_CHANGED = 'edit_name_changed';
+export const EDIT_GENDER_CHANGED = 'edit_gender_changed';
+export const EDIT_BIRTHDATE_CHANGED = 'edit_birthdate_changed';
+export const EDIT_KTP_CHANGED = 'edit_ktp_changed';
+export const EDIT_PHONE_CHANGED = 'edit_phone_changed';
+export const EDIT_PAGE_UNMOUNT = 'edit_page_unmount';
+export const EDIT_PROCCESS = 'edit_proccess';
+export const EDIT_SUCCESS = 'edit_success';
+export const EDIT_FAIL = 'edit_fail';
