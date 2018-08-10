@@ -3,12 +3,12 @@ import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
+import { retrieveCustomData } from '@helpers/Storage';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
 
 
 const ayoImg = require('@images/ayo-src-logo-w.png');
-const personFace = require('@images/person-face.jpeg');
 const exampleImage = require('@images/example-banner.png');
 const exampleNews = require('@images/news-example.png');
 
@@ -20,8 +20,16 @@ const itemDummy = {
 };
 
 class DashboardComponent extends Component {
+	state = {
+		userProfile: {}
+	}
 	componentWillMount() {
+        this.retrieveData();
+	}
 
+	async retrieveData() {
+		const profile = await retrieveCustomData('profile');
+		this.setState({ userProfile: profile });
 	}
 
 	redirectNearby() {
@@ -45,10 +53,10 @@ class DashboardComponent extends Component {
 						<View style={globalStyles.detailContainer}>
 							<Image
 								style={globalStyles.personImg}
-								source={personFace}
+								source={{ uri: this.state.userProfile.image_url }}
 							/>
 							<Text style={globalStyles.detailText}>
-								Michael Robinson
+								{this.state.userProfile.fullname}
 							</Text>
 						</View>
 					</ImageBackground>

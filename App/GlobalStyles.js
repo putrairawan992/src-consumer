@@ -33,7 +33,7 @@ export default StyleSheet.create({
 		fontFamily: 'ProximaNova-Bold',
 		color: '#fff',
 		fontSize: 18,
-		paddingTop: 8
+		paddingTop: 12
 	},
 	mainContainer: {
 		flexDirection: 'column',
