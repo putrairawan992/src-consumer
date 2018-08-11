@@ -1,5 +1,4 @@
 import Permissions from 'react-native-permissions';
-import { CameraRoll } from 'react-native';
 
 const requestCameraPermission = async () => {
     const permissionStatus = await Permissions.checkMultiple(['camera', 'photo']);
@@ -35,22 +34,8 @@ const requestCameraPermission = async () => {
     return false;
 };
 
-const accessCamera = async () => {
-    CameraRoll.getPhotos({
-        first: 20,
-        assetType: 'Photos',
-    })
-        .then(r => {
-            console.log('check response', r);
-        })
-        .catch((err) => {
-            console.log('error get photos', err);
-        });
-};
-
 const PermissionHelpers = {
-    requestCameraPermission,
-    accessCamera
+    requestCameraPermission
 };
 
 export default PermissionHelpers;

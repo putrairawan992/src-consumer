@@ -45,7 +45,7 @@ const request = async options => {
       // console.debug('Data:', error.response.data);
       // console.debug('Headers:', error.response.headers);
       // if validation error
-      if (error.response.status === 422 && error.config.method === 'post') {
+      if (error.response.status === 422 && (error.config.method === 'post' || error.config.method === 'put')) {
         ServerValidation(error.response.data.errors);
       }
       if (error.response.status === 401 && error.config.method === 'post' && error.response.data.error === 'invalid_credentials') {

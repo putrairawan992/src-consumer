@@ -1,6 +1,7 @@
+import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
-import { setProfileFromRest } from '@helpers/Storage';
-import PermissionHelpers from '@helpers/Permission';
+import { setProfileFromRest, getProfileFromStorage } from '@helpers/Storage';
+// import PermissionHelpers from '@helpers/Permission';
 import {
     EDIT_NAME_CHANGED,
     EDIT_GENDER_CHANGED,
@@ -11,7 +12,8 @@ import {
     EDIT_PROCCESS,
     EDIT_SUCCESS,
     EDIT_FAIL,
-    EDIT_CAMERA_DONE
+    EDIT_ON_WILL_MOUNT,
+    EDIT_IMAGE_REPLACED
 } from './types';
 
 export const editNameChanged = text => {
@@ -49,19 +51,23 @@ export const editPhoneChanged = text => {
     };
 };
 
+export const editImageReplaced = (base64) => {
+    return {
+        type: EDIT_IMAGE_REPLACED,
+        payload: base64
+    };
+};
+
 export const editPageUnmount = () => {
     return {
         type: EDIT_PAGE_UNMOUNT
     };
 };
 
-export const cameraTrigger = () => {
+export const editOnWillMount = () => {
     return async (dispatch) => {
-        const isGranted = await PermissionHelpers.requestCameraPermission();
-        if (isGranted) {
-         await PermissionHelpers.accessCamera(); 
-        }
-        dispatch({ type: EDIT_CAMERA_DONE });
+        const profile = await getProfileFromStorage();
+        dispatch({ type: EDIT_ON_WILL_MOUNT, payload: profile });
     };
 };
 
@@ -72,6 +78,7 @@ export const submitEdit = payload => {
             .then(async () => {
                 await setProfileFromRest();
                 dispatch({ type: EDIT_SUCCESS });
+                Actions.pop();
             })
             .catch(() => {
                 dispatch({ type: EDIT_FAIL });

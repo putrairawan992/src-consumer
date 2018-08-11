@@ -8,16 +8,20 @@ import {
     EDIT_PROCCESS,
     EDIT_SUCCESS,
     EDIT_FAIL,
-    EDIT_CAMERA_DONE
+    EDIT_ON_WILL_MOUNT,
+    EDIT_IMAGE_REPLACED
 } from './types';
 
 const INITIAL_STATE = {
     name: '',
-    gender: '',
+    gender: 'male',
     birth_date: '',
     id_number: '',
     phone: '',
-    baseLoading: false
+    baseLoading: false,
+    image_url: '',
+    profileLoaded: false,
+    image: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -40,8 +44,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, baseLoading: false };
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
-        case EDIT_CAMERA_DONE:
-            return state;
+        case EDIT_ON_WILL_MOUNT:
+            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, profileLoaded: true };
+        case EDIT_IMAGE_REPLACED:
+            return { ...state, image: action.payload };
         default:
             return state;
     }

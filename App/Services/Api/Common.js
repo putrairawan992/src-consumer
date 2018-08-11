@@ -84,10 +84,11 @@ const signOut = () => {
 	});
 };
 
-const editProfile = () => {
+const editProfile = (payload) => {
 	return request({
 		url: 'api/customer/user/update',
-		method: 'POST'
+		method: 'PUT',
+		data: payload
 	});
 };
 
