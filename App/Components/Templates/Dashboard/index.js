@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
-import { retrieveCustomData } from '@helpers/Storage';
 import globalStyles from '../../../GlobalStyles';
+import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
 
@@ -27,9 +28,8 @@ class DashboardComponent extends Component {
         this.retrieveData();
 	}
 
-	async retrieveData() {
-		const profile = await retrieveCustomData('profile');
-		this.setState({ userProfile: profile });
+	retrieveData() {
+		this.props.fetchProfile();
 	}
 
 	redirectNearby() {
@@ -53,10 +53,10 @@ class DashboardComponent extends Component {
 						<View style={globalStyles.detailContainer}>
 							<Image
 								style={globalStyles.personImg}
-								source={{ uri: this.state.userProfile.image_url }}
+								source={{ uri: this.props.globalProfile.image_url }}
 							/>
 							<Text style={globalStyles.detailText}>
-								{this.state.userProfile.fullname}
+								{this.props.globalProfile.fullname}
 							</Text>
 						</View>
 					</ImageBackground>
@@ -109,4 +109,10 @@ class DashboardComponent extends Component {
 	}
 }
 
-export default DashboardComponent;
+const mapStateToProps = (state) => {
+	return {
+		globalProfile: state.globalReducer.globalProfile
+	};
+};
+
+export default connect(mapStateToProps, globalActions)(DashboardComponent);

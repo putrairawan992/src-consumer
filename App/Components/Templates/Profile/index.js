@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
+import { connect } from 'react-redux';
 import { MenuListButton, Loader } from '@partials';
 import { CommonService } from '@services';
 import { removeAuthFromStorage } from '@helpers/Storage';
 import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../../GlobalStyles';
+import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
-
-const personFace = require('@images/person-face.jpeg');
 
 class ProfileComponent extends Component {
 	state = {
 		baseLoading: false
 	};
+
+	componentWillMount() {
+		this.retrieveData();
+	}
 
 	redirectEditProfile() {
 		Actions.EditProfile();
@@ -26,10 +30,15 @@ class ProfileComponent extends Component {
 		Actions.DeleteAccount();
 	}
 
+	retrieveData() {
+		this.props.fetchProfile();
+	}
+
 	submitLogout() {
 		this.setState({ baseLoading: true });
 		CommonService.signOut().then(async() => {
 			await removeAuthFromStorage();
+			this.props.revokeProfile();
 			this.setState({ baseLoading: false });
 			Actions.reset('WelcomeScreen');
 		}).catch(() => {
@@ -56,10 +65,10 @@ class ProfileComponent extends Component {
 						>
 							<Image
 								style={globalStyles.personImg}
-								source={personFace}
+								source={{ uri: this.props.globalProfile.image_url }}
 							/>
 							<Text style={globalStyles.detailText}>
-								Michael Robinson
+								{this.props.globalProfile.fullname}
 							</Text>
 						</View>
 					</ImageBackground>
@@ -99,4 +108,10 @@ class ProfileComponent extends Component {
 	}
 }
 
-export default ProfileComponent;
+const mapStateToProps = (state) => {
+	return {
+		globalProfile: state.globalReducer.globalProfile
+	};
+};
+
+export default connect(mapStateToProps, globalActions)(ProfileComponent);

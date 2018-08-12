@@ -4,6 +4,7 @@ import SignInReducer from '@templates/Login/reducer';
 import ForgotPasswordReducer from '@templates/ForgotPassword/reducer';
 import ChangePasswordReducer from '@templates/ChangePassword/reducer';
 import EditUserReducer from '@templates/EditProfile/reducer';
+import GlobalReducer from './GlobalReducer/reducer';
 
 export default combineReducers({
 	defaultReducer: () => [],
@@ -11,5 +12,6 @@ export default combineReducers({
 	signInReducer: SignInReducer,
 	forgotPasswordReducer: ForgotPasswordReducer,
 	changePasswordReducer: ChangePasswordReducer,
-	editUserReducer: EditUserReducer
+	editUserReducer: EditUserReducer,
+	globalReducer: GlobalReducer
 });
