@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
+import TimeAgo from 'react-native-timeago';
+import moment from 'moment';
 import globalStyles from '../../GlobalStyles';
+
+require('moment/locale/id');
+
+moment.locale('id');
 
 class NewsCard extends Component {
 	redirectNewsDetail() {
-		Actions.NewsDetail();
+		Actions.NewsDetail({ newsLink: this.props.item.link });
 	}
 
 	render() {
@@ -15,16 +21,16 @@ class NewsCard extends Component {
 				<View style={globalStyles.newsFeedCard}>
 					<View>
 						<Image
-							source={this.props.item.image}
+							source={{ uri: this.props.item.image }}
 							style={globalStyles.newsFeedImage}
 						/>
 					</View>
 					<View style={globalStyles.articlePreview}>
 						<Text style={globalStyles.newsFeedText}>
-							{this.props.item.children}
+							{this.props.item.title}
 						</Text>
 						<Text style={globalStyles.newsDate}>
-							10 Minutes Ago
+							<TimeAgo time={this.props.item.date} interval={20000} />
 						</Text>
 						<View style={globalStyles.likeContainer}>
 							<Icon name="thumb-up" size={20} />
@@ -35,7 +41,7 @@ class NewsCard extends Component {
 									paddingLeft: 12
 								}}
 							>
-								20
+								{this.props.item.likes_count}
 							</Text>
 						</View>
 					</View>

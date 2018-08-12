@@ -92,6 +92,13 @@ const editProfile = (payload) => {
 	});
 };
 
+const getDashboard = () => {
+	return request({
+		url: 'api/customer/home',
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -103,7 +110,8 @@ const CommonService = {
 	changePassword,
 	getProfile,
 	editProfile,
-	signOut
+	signOut,
+	getDashboard
 };
 
 export default CommonService;
