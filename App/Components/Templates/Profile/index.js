@@ -75,8 +75,8 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.cardContainer}>
 						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
 						<View style={globalStyles.cardText}>
-							<Text style={[globalStyles.innerText]}>0812 777 456 2637</Text>
-							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>Rizki Adrian</Text>
+							<Text style={[globalStyles.innerText]}>{0 + this.props.globalProfile.phone.slice(3)}</Text>
+							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>{this.props.globalProfile.fullname}</Text>
 						</View>
 					</View>
 					{/* <LinearGradient
