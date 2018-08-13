@@ -15,7 +15,8 @@ import {
     EDIT_ON_WILL_MOUNT,
     EDIT_IMAGE_REPLACED
 } from './types';
-
+import { refreshProfile } from '../../../Store/GlobalReducer/actions';
+ 
 export const editNameChanged = text => {
     return {
         type: EDIT_NAME_CHANGED,
@@ -78,6 +79,7 @@ export const submitEdit = payload => {
             .then(async () => {
                 await setProfileFromRest();
                 dispatch({ type: EDIT_SUCCESS });
+                dispatch(refreshProfile());
                 Actions.pop();
             })
             .catch(() => {
