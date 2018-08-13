@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
+import { ToastAndroid } from 'react-native';
 import { setProfileFromRest, getProfileFromStorage } from '@helpers/Storage';
 // import PermissionHelpers from '@helpers/Permission';
 import {
@@ -80,6 +81,7 @@ export const submitEdit = payload => {
                 await setProfileFromRest();
                 dispatch({ type: EDIT_SUCCESS });
                 dispatch(refreshProfile());
+                ToastAndroid.show('Sukses Memperbarui Profil', ToastAndroid.SHORT);
                 Actions.pop();
             })
             .catch(() => {

@@ -1,5 +1,6 @@
 import { CommonService } from '@services';
 import { Actions } from 'react-native-router-flux';
+import { ToastAndroid } from 'react-native';
 import { setProfileFromRest } from '@helpers/Storage';
 import {
     CHANGE_PASS_PASSWORD_CHANGES,
@@ -38,6 +39,7 @@ export const submitChangePassword = (payload) => {
             await setProfileFromRest();
             dispatch({ type: CHANGE_PASS_SUCCESS });
             Actions.MainConsumer();
+            ToastAndroid.show('Sukses Mengganti Kata Sandi', ToastAndroid.SHORT);
         }).catch(() => {
             dispatch({ type: CHANGE_PASS_FAIL });
         });
