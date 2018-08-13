@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "eslint-config-rallycoding": "^3.2.0",
+    "lodash.debounce": "^4.0.8",
     "navigationbar-react-native": "0.0.3",
     "react": "16.4.1",
     "react-native": "0.56.0",

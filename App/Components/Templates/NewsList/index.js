@@ -1,82 +1,125 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { ScrollSegment, NewsCard } from '@partials';
-
-const exampleNews = require('@images/news-example.png');
-
-const items = [
-  {
-    id: 1,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 2,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 3,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 4,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 5,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 6,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 7,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 8,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 9,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  },
-  {
-    id: 10,
-    image: exampleNews,
-    children:
-      'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-  }
-];
+import { CommonService } from '@services';
 
 class NewsListComponent extends Component {
+  state = {
+    categories: [],
+    loaded: false,
+    isRefreshing: false,
+    category_id: null,
+    last_page: null,
+    page: 1,
+    per_page: 5,
+    categoryChange: false
+  }
+
+  componentWillMount() {
+    CommonService.getNewsCategories().then(async (categories) => {
+      this.setState({
+        categories: categories.data,
+        category_id: categories.data[0].id
+      });
+      await this.loadNews(true);
+      this.setState({ loaded: true });
+    });
+  }
+
+  handleLoadMore = () => {
+    if (this.state.page < this.state.last_page) {
+      this.setState({
+        page: this.state.page + 1
+      }, () => {
+        this.loadNews();
+      });
+    }
+  };
+
+  handleRefresh = () => {
+    this.setState({
+      page: 1
+    }, () => {
+      this.loadNews();
+    });
+  }
+
+  childHandler(parameter) {
+    this.setState({
+      page: 1,
+      category_id: parameter,
+      categoryChange: true
+    }, () => {
+      this.loadNews(true);
+    });
+  }
+
+  loadNews(isInit = false) {
+    return new Promise((resolve, reject) => {
+      const params = {
+        page: this.state.page,
+        per_page: this.state.per_page,
+        category_id: this.state.category_id
+      };
+      CommonService.getNews(params).then((news) => {
+        this.setState({
+          news: this.state.page === 1 ? news.data : [...this.state.news, ...news.data],
+          isRefreshing: false,
+          categoryChange: false
+        });
+        if (isInit) {
+          this.setState({
+            last_page: news.last_page
+          });
+        }
+        resolve(news);
+      }).catch((err) => {
+        console.log('beunang', err);
+        reject(err);
+      });
+    });
+  }
+
   renderItem(item) {
     return <NewsCard item={item.item} />;
   }
 
-  render() {
+  renderList() {
+    if (this.state.categoryChange) {
+      console.log('rizki adrian');
+      return (
+        <View style={{ flex: 14 }}>
+          <ActivityIndicator size="large" color="#DC1E2D" />
+        </View>
+      );
+    }
     return (
-      <View style={{ backgroundColor: '#fff' }}>
-        <ScrollSegment />
-          <FlatList data={items} style={{ borderTopWidth: 1, borderColor: '#ececec' }} contentContainerStyle={{ paddingBottom: 52 }} renderItem={this.renderItem} />
+      <View style={{ flex: 14 }}>
+        <FlatList
+          data={this.state.news} style={{ borderTopWidth: 1, borderColor: '#ececec' }}
+          keyExtractor={i => i.id.toString()}
+          renderItem={this.renderItem}
+          onEndReached={this.handleLoadMore}
+          onEndThreshold={0}
+          refreshing={this.state.isRefreshing}
+          onRefresh={this.handleRefresh}
+        />
+      </View>
+    );
+  }
+
+  render() {
+    if (this.state.loaded) {
+      return (
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+          <ScrollSegment items={this.state.categories} parentCallback={this.childHandler.bind(this)} />
+          {this.renderList()}
+        </View>
+      );
+    }
+    return (
+      <View style={{ backgroundColor: '#fff', flex: 1 }}>
+        <ActivityIndicator size="large" color="#DC1E2D" />
       </View>
     );
   }

@@ -99,6 +99,21 @@ const getDashboard = () => {
 	});
 };
 
+const getNewsCategories = () => {
+	return request({
+		url: 'api/general/newsfeed/category',
+		method: 'get'
+	});
+};
+
+const getNews = (param) => {
+	return request({
+		url: 'api/general/newsfeed',
+		method: 'get',
+		params: param
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -111,7 +126,9 @@ const CommonService = {
 	getProfile,
 	editProfile,
 	signOut,
-	getDashboard
+	getDashboard,
+	getNewsCategories,
+	getNews
 };
 
 export default CommonService;
