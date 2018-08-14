@@ -2,7 +2,8 @@ import { getProfileFromStorage, setProfileFromRest } from '@helpers/Storage';
 import {
     GLOBAL_FETCH_PROFILE,
     GLOBAL_REFRESH_PROFILE,
-    GLOBAL_REVOKE_PROFILE
+    GLOBAL_REVOKE_PROFILE,
+    GLOBAL_CREATE_LOCATION
 } from './types';
 
 export const fetchProfile = () => {
@@ -22,5 +23,12 @@ export const refreshProfile = () => {
 export const revokeProfile = () => {
     return {
         type: GLOBAL_REVOKE_PROFILE
+    };
+};
+
+export const createLocation = (location) => {
+    return {
+        type: GLOBAL_CREATE_LOCATION,
+        payload: location
     };
 };

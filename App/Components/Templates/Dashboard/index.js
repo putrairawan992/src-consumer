@@ -4,6 +4,8 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
+import PermissionHelpers from '@helpers/Permission';
+import CustomAlert from '@helpers/CustomAlert';
 import { CommonService } from '@services';
 import globalStyles from '../../../GlobalStyles';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
@@ -33,8 +35,26 @@ class DashboardComponent extends Component {
 		});
 	}
 
-	redirectNearby() {
-		Actions.Nearby();
+	async redirectNearby() {
+		const locationStatus = await PermissionHelpers.requestLocationPermission();
+		if (locationStatus === true) {
+			navigator.geolocation.getCurrentPosition((info) => {
+				const locationPayload = {
+					latitude: info.coords.latitude,
+					longitude: info.coords.longitude
+				};
+				this.props.createLocation(locationPayload);
+				Actions.Nearby();
+			}, () => {
+				CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+			}, {
+					enableHighAccuracy: true
+				});
+		}
+		else {
+			CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+		}
+		// Actions.Nearby();
 	}
 
 	renderBanner() {

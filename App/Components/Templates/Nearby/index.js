@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import { NearbyCard } from '@partials';
+import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
 const exampleNews = require('@images/news-example.png');
@@ -74,6 +76,7 @@ class NearbyComponent extends Component {
 	}
 
 	render() {
+		console.log('check props nearby', this.props.latitude, this.props.longitude);
 		return (
 			<View style={styles.container}>
 				<FlatList
@@ -85,4 +88,11 @@ class NearbyComponent extends Component {
 	}
 }
 
-export default NearbyComponent;
+const mapStateToProps = (state) => {
+	return {
+		latitude: state.globalReducer.location.latitude,
+		longitude: state.globalReducer.location.longitude
+	};
+};
+
+export default connect(mapStateToProps, globalActions)(NearbyComponent);

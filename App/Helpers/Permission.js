@@ -34,8 +34,21 @@ const requestCameraPermission = async () => {
     return false;
 };
 
+const requestLocationPermission = async () => {
+    const locationPermissionStatus = await Permissions.check('location');
+    if (locationPermissionStatus !== 'authorized') {
+        const locationGranted = await Permissions.request('location');
+        if (locationGranted === 'authorized') {
+            return true;
+        }
+        return false;
+    }
+    return true;
+};
+
 const PermissionHelpers = {
-    requestCameraPermission
+    requestCameraPermission,
+    requestLocationPermission
 };
 
 export default PermissionHelpers;
