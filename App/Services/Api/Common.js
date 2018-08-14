@@ -114,6 +114,14 @@ const getNews = (param) => {
 	});
 };
 
+const getNearby = (param) => {
+	return request({
+		url: 'api/customer/nearby',
+		method: 'get',
+		params: param
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -128,7 +136,8 @@ const CommonService = {
 	signOut,
 	getDashboard,
 	getNewsCategories,
-	getNews
+	getNews,
+	getNearby
 };
 
 export default CommonService;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { NearbyCard } from '@partials';
+import { CommonService } from '@services';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
@@ -71,18 +72,43 @@ const items = [
 ];
 
 class NearbyComponent extends Component {
+	state = {
+		locations: [],
+		loaded: false
+	};
+
+	componentWillMount() {
+		const nearbyParam = {
+			latitude: this.props.latitude,
+			longitude: this.props.longitude
+		};
+
+		CommonService.getNearby(nearbyParam).then((location) => {
+			this.setState({
+				locations: location.data,
+				loaded: true
+			});
+		});
+	}
+
 	renderItem() {
 		return <NearbyCard />;
 	}
 
 	render() {
-		console.log('check props nearby', this.props.latitude, this.props.longitude);
+		if (this.state.loaded) {
+			return (
+				<View style={styles.container}>
+					<FlatList
+						data={items}
+						renderItem={this.renderItem}
+					/>
+				</View>
+			);
+		}
 		return (
-			<View style={styles.container}>
-				<FlatList
-					data={items}
-					renderItem={this.renderItem}
-				/>
+			<View style={[styles.container, { flex: 1 }]}>
+				<ActivityIndicator size="large" color="#DC1E2D" />
 			</View>
 		);
 	}
