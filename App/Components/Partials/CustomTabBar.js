@@ -27,7 +27,7 @@ class CustomTabBar extends Component {
               />
               <Text
                 style={[
-                  { fontFamily: 'ProximaNova-Regular' },
+                  { fontFamily: 'ProximaNova-Regular', fontSize: 12 },
                   {
                     color:
                       this.props.activeTab === i
