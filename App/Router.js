@@ -17,7 +17,8 @@ import {
 	NearbyMapViewComponent,
 	ShopDetailComponent,
 	MyCardComponent,
-	NewsDetailComponent
+	NewsDetailComponent,
+	HelpComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage } from '@helpers/Storage';
@@ -138,6 +139,11 @@ class routerComponent extends Component {
 							key="NewsDetail"
 							component={NewsDetailComponent}
 							title="Detil Berita"
+						/>
+						<Scene 
+							key="Help"
+							component={HelpComponent}
+							title="Bantuan"
 						/>
 					</Stack>
 				</Router>

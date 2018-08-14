@@ -17,7 +17,7 @@ class CustomTabBar extends Component {
             >
               <Icon
                 name={tab}
-                size={30}
+                size={25}
                 color={
                   this.props.activeTab === i ? '#DC1E2D' : 'rgb(204,204,204)'
                 }

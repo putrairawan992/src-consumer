@@ -17,6 +17,7 @@ import AddressCard from './AddressCard';
 import NotificationSegment from './NotificationSegment';
 import Loader from './Loader';
 import WideButton from './WideButton';
+import SearchInput from './SearchInput';
 
 export {
 	Button,
@@ -37,5 +38,6 @@ export {
 	AddressCard,
 	NotificationSegment,
 	Loader,
-	WideButton
+	WideButton,
+	SearchInput
 };

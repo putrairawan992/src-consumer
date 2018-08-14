@@ -4,7 +4,8 @@ import {
 	DashboardComponent,
 	NotificationComponent,
 	ProfileComponent,
-	NewsListComponent
+	NewsListComponent,
+	HelpComponent
 } from '@templates';
 import { CustomTabBar } from '@partials';
 
@@ -13,9 +14,10 @@ class MainConsumerComponent extends Component {
 		return (
 			<ScrollableTabView
 				tabBarPosition={'bottom'}
-				renderTabBar={() => <CustomTabBar titles={['Beranda', 'Notifikasi', 'Akun Saya', 'Berita']} />}
+				renderTabBar={() => <CustomTabBar titles={['Beranda', 'Bantuan', 'Notifikasi', 'Akun Saya', 'Berita']} />}
 			>
 				<DashboardComponent tabLabel="home" />
+				<HelpComponent tabLabel="help-outline" />
 				<NotificationComponent tabLabel="notifications-none" />
 				<ProfileComponent tabLabel="account-circle" />
 				<NewsListComponent tabLabel="rss-feed" />
