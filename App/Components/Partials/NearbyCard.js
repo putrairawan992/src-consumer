@@ -28,23 +28,22 @@ const styles = {
 		margin: 16
 	},
 	imageShop: {
-		flex: 1,
+		width: '100%',
 		height: PAGE_WIDTH >= 768 ? 328 : 164,
-		resizeMode: 'stretch',
-		alignSelf: 'center'
+		resizeMode: 'cover'
 	}
 };
 
 class NearbyCard extends Component {
 	redirectDetail() {
-		Actions.ShopDetail();
+		Actions.ShopDetail({ item: this.props.item });
 	}
 	render() {
 		return (
 			<TouchableWithoutFeedback onPress={this.redirectDetail.bind(this)}>
 				<View style={{ flexDirection: 'row' }}>
 					<View style={styles.containerStyle}>
-						<Image style={styles.imageShop} source={{ uri: this.props.item.image_url }} />
+						<Image style={styles.imageShop} source={{ uri: this.props.item.avatar_url }} />
 						<View style={globalStyles.detailCardContainer}>
 							<Text style={globalStyles.shopName}>
 								{this.props.item.name}

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import globalStyles from '../../GlobalStyles';
 
 class AddressCard extends Component {
+	redirectDetail() {
+		Actions.ShopDetail({ item: this.props.item });
+	}
 	render() {
 		return (
-			<View style={[globalStyles.detailCardContainer, { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#ececec', paddingHorizontal: 16, paddingBottom: 16 }]} >
+			<TouchableOpacity style={[globalStyles.detailCardContainer, { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#ececec', paddingHorizontal: 16, paddingBottom: 16 }]} onPress={this.redirectDetail.bind(this)} >
 				<View style={{ flex: 10 }}>
 					<Text style={globalStyles.shopName}>{this.props.item.name}</Text>
 					<Text style={globalStyles.descriptionName}>
@@ -47,9 +51,9 @@ class AddressCard extends Component {
 					</View>
 				</View>
 				<View style={{ flex: 1 }}>
-                   <Icon name="keyboard-arrow-right" size={36} color="#ececec" />
+					<Icon name="keyboard-arrow-right" size={36} color="#ececec" />
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
