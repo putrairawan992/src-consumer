@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
 
 class ShopDetailComponent extends Component {
+
+	openLink() {
+		navigator.geolocation.getCurrentPosition((info) => {
+			const locationPayload = {
+				latitude: info.coords.latitude,
+				longitude: info.coords.longitude
+			};
+			const urlParameter = 'https://www.google.com/maps/dir/?api=1&origin=' + parseFloat(locationPayload.latitude) + ',' + parseFloat(locationPayload.longitude) + '&destination=' + parseFloat(this.props.item.latitude) + ',' + parseFloat(this.props.item.longitude);
+			Linking.openURL(urlParameter);
+		}, () => {
+			CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+		});
+	}
+
 	render() {
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
@@ -35,7 +51,7 @@ class ShopDetailComponent extends Component {
 						<Text style={styles.addressValue}>
 							{this.props.item.address}
 						</Text>
-						<TouchableOpacity style={styles.buttonDirection}>
+						<TouchableOpacity style={styles.buttonDirection} onPress={this.openLink.bind(this)}>
 							<Icon name="directions" size={20} color={'#fff'} />
 							<Text style={styles.textStyle}>Arahkan</Text>
 						</TouchableOpacity>
@@ -67,4 +83,11 @@ class ShopDetailComponent extends Component {
 	}
 }
 
-export default ShopDetailComponent;
+const mapStateToProps = (state) => {
+	return {
+		currentLatitude: state.globalReducer.location.latitude,
+		currentLongitude: state.globalReducer.location.longitude
+	}
+}
+
+export default connect(mapStateToProps)(ShopDetailComponent);
