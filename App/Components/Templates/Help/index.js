@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SearchInput } from '@partials';
+import { CustomAlert } from '@helpers/CustomAlert';
 import styles from './styles';
 
 class HelpComponent extends Component {
@@ -11,6 +12,21 @@ class HelpComponent extends Component {
     redirectContent(value) {
         this.setState({
             selected: value
+        });
+    }
+
+    linkPhone() {
+        Linking.openURL('tel:+62211267834');
+    }
+
+    linkWhatsapp() {
+        Linking.canOpenURL('https://api.whatsapp.com/send?phone=62812821732837').then((supported) => {
+            if (!supported) {
+                CustomAlert(null, 'Perangkat tidak mendukung', [{ text: 'OK' }]);
+            }
+            else {
+                return Linking.openURL('https://api.whatsapp.com/send?phone=62812821732837');
+            }
         });
     }
 
@@ -36,7 +52,7 @@ class HelpComponent extends Component {
                     </Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.buttonStyle}>
+                    <TouchableOpacity style={styles.buttonStyle} onPress={this.linkPhone.bind(this)}>
                         <View style={styles.contentItem}>
                             <Image source={require('@images/customer-service.png')} style={styles.imageLogo} />
                             <View style={styles.contentItemContainer}>
@@ -51,7 +67,7 @@ class HelpComponent extends Component {
                             <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.buttonStyle, { borderTopWidth: 0 }]}>
+                    <TouchableOpacity style={[styles.buttonStyle, { borderTopWidth: 0 }]} onPress={this.linkWhatsapp.bind(this)}>
                         <View style={styles.contentItem}>
                             <Image source={require('@images/whatsapp.png')} style={styles.imageLogo} />
                             <View style={styles.contentItemContainer}>
