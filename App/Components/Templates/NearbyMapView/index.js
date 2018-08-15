@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList, Dimensions, View, ActivityIndicator } from 'react-native';
-import { connect } from 'react-redux';
 import { CustomMapView, AddressCard } from '@partials';
 import { CommonService } from '@services';
+import { CustomAlert } from '@helpers/CustomAlert';
 import styles from './styles';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
@@ -14,7 +14,9 @@ class NearbyMapViewComponent extends Component {
 		last_page: null,
 		page: 1,
 		per_page: 20,
-		locations: []
+		locations: [],
+		latitude: null,
+		longitude: null
 
 	}
 
@@ -43,26 +45,39 @@ class NearbyMapViewComponent extends Component {
 
 	loadLocations(isInit = false) {
 		return new Promise((resolve, reject) => {
-			const nearbyParam = {
-				page: this.state.page,
-				per_page: this.state.per_page,
-				latitude: this.props.latitude,
-				longitude: this.props.longitude
-			};
-			CommonService.getNearby(nearbyParam).then((location) => {
-				this.setState({
-					locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
-					isRefreshing: false
-				});
-				if (isInit) {
+			navigator.geolocation.getCurrentPosition((info) => {
+				const locationPayload = {
+					latitude: info.coords.latitude,
+					longitude: info.coords.longitude
+				};
+				const nearbyParam = {
+					page: this.state.page,
+					per_page: this.state.per_page,
+					latitude: locationPayload.latitude,
+					longitude: locationPayload.longitude
+				};
+				CommonService.getNearby(nearbyParam).then((location) => {
 					this.setState({
-						last_page: location.last_page
+						locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
+						isRefreshing: false,
+						latitude: locationPayload.latitude,
+						longitude: locationPayload.longitude
 					});
-				}
-				resolve(location);
-			}).catch((err) => {
-				reject(err);
-			});
+					if (isInit) {
+						this.setState({
+							last_page: location.last_page
+						});
+					}
+					resolve(location);
+				}).catch((err) => {
+					reject(err);
+				});
+			}, (err) => {
+				CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+				console.log('location error', err);
+			}, {
+					enableHighAccuracy: false
+				});
 		});
 	}
 
@@ -74,7 +89,7 @@ class NearbyMapViewComponent extends Component {
 		if (this.state.loaded) {
 			return (
 				<View style={styles.container}>
-					<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.props.latitude, longitude: this.props.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
+					<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.state.latitude, longitude: this.state.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
 					<FlatList
 						data={this.state.locations}
 						keyExtractor={i => i.id.toString()}
@@ -96,11 +111,4 @@ class NearbyMapViewComponent extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		latitude: state.globalReducer.location.latitude,
-		longitude: state.globalReducer.location.longitude
-	};
-};
-
-export default connect(mapStateToProps)(NearbyMapViewComponent);
+export default NearbyMapViewComponent;

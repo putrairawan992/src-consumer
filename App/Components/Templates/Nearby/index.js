@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
-import { connect } from 'react-redux';
 import { NearbyCard } from '@partials';
 import { CommonService } from '@services';
-import * as globalActions from '../../../Store/GlobalReducer/actions';
+import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
 
 class NearbyComponent extends Component {
@@ -41,26 +40,37 @@ class NearbyComponent extends Component {
 
 	loadLocations(isInit = false) {
 		return new Promise((resolve, reject) => {
-			const nearbyParam = {
-				page: this.state.page,
-				per_page: this.state.per_page,
-				latitude: this.props.latitude,
-				longitude: this.props.longitude
-			};
-			CommonService.getNearby(nearbyParam).then((location) => {
-				this.setState({
-					locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
-					isRefreshing: false
-				});
-				if (isInit) {
+			navigator.geolocation.getCurrentPosition((info) => {
+				const locationPayload = {
+					latitude: info.coords.latitude,
+					longitude: info.coords.longitude
+				};
+				const nearbyParam = {
+					page: this.state.page,
+					per_page: this.state.per_page,
+					latitude: locationPayload.latitude,
+					longitude: locationPayload.longitude
+				};
+				CommonService.getNearby(nearbyParam).then((location) => {
 					this.setState({
-						last_page: location.last_page
+						locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
+						isRefreshing: false
 					});
-				}
-				resolve(location);
-			}).catch((err) => {
-				reject(err);
-			});
+					if (isInit) {
+						this.setState({
+							last_page: location.last_page
+						});
+					}
+					resolve(location);
+				}).catch((err) => {
+					reject(err);
+				});
+			}, (err) => {
+				CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+				console.log('location error', err);
+			}, {
+					enableHighAccuracy: false
+				});
 		});
 	}
 
@@ -92,11 +102,4 @@ class NearbyComponent extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		latitude: state.globalReducer.location.latitude,
-		longitude: state.globalReducer.location.longitude
-	};
-};
-
-export default connect(mapStateToProps, globalActions)(NearbyComponent);
+export default NearbyComponent;

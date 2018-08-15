@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
-import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
@@ -83,11 +82,4 @@ class ShopDetailComponent extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		currentLatitude: state.globalReducer.location.latitude,
-		currentLongitude: state.globalReducer.location.longitude
-	}
-}
-
-export default connect(mapStateToProps)(ShopDetailComponent);
+export default ShopDetailComponent;
