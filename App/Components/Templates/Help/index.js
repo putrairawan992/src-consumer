@@ -1,9 +1,73 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SearchInput } from '@partials';
 import styles from './styles';
 
 class HelpComponent extends Component {
+    state = {
+        selected: 'information'
+    }
+    redirectContent(value) {
+        this.setState({
+            selected: value
+        });
+    }
+
+    renderContent() {
+        if (this.state.selected === 'information') {
+            return (
+                <View style={styles.search}>
+                    <SearchInput style={{ height: 56 }} placeholder="Cari" />
+                </View>
+            );
+        }
+        else if (this.state.selected === 'contact') {
+            return (
+                <View>
+                    <View style={styles.contentList}>
+                        <Text style={styles.contentListTitle}>Butuh Bantuan Lain ? </Text>
+                        <View style={styles.contentListDescription}>
+                            <Text style={styles.contentListDescriptionText}>
+                                Tim Customer Service kami siap melayani anda secara langsung
+                    </Text>
+                            <Text style={[styles.contentListDescriptionText, { fontFamily: 'ProximaNova-Semibold' }]}>
+                                Senin - Jumat ( 08:00 - 17:00 )
+                    </Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.buttonStyle}>
+                        <View style={styles.contentItem}>
+                            <Image source={require('@images/customer-service.png')} style={styles.imageLogo} />
+                            <View style={styles.contentItemContainer}>
+                                <View style={styles.contentItemMain}>
+                                    <Text style={styles.contentItemMainTitle}>Melalui Telepon</Text>
+                                    <Text style={styles.contentItemMainContent}>021-1267834</Text>
+                                </View>
+                                <View style={styles.contentItemSecondary}>
+                                    <Text style={styles.contentItemSecondaryContent}>Biaya ditanggung penelepon</Text>
+                                </View>
+                            </View>
+                            <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.buttonStyle, { borderTopWidth: 0 }]}>
+                        <View style={styles.contentItem}>
+                            <Image source={require('@images/whatsapp.png')} style={styles.imageLogo} />
+                            <View style={styles.contentItemContainer}>
+                                <View style={styles.contentItemMain}>
+                                    <Text style={styles.contentItemMainTitle}>Melalui WhatsApp</Text>
+                                    <Text style={styles.contentItemMainContent}>0812-82173-2837</Text>
+                                </View>
+                            </View>
+                            <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -11,17 +75,27 @@ class HelpComponent extends Component {
                     <Text style={styles.topText}>Bantuan</Text>
                 </View>
                 <View style={styles.helpContent}>
-                   <View style={styles.segment}>
-                        <TouchableOpacity style={styles.segmentContent}>
-                            <Text style={[styles.segmentContentText, styles.segmentContentTextActive]}>INFORMASI</Text>
+                    <View style={styles.segment}>
+                        <TouchableOpacity
+                            style={styles.segmentContent}
+                            onPress={() => {
+                                this.redirectContent('information');
+                            }}
+                        >
+                            <Text style={[styles.segmentContentText, (this.state.selected === 'information') ? styles.segmentContentTextActive : null]}>INFORMASI</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.segmentContent}>
-                            <Text style={styles.segmentContentText}>KONTAK</Text>
+                        <TouchableOpacity
+                            style={styles.segmentContent}
+                            onPress={() => {
+                                this.redirectContent('contact');
+                            }}
+                        >
+                            <Text style={[styles.segmentContentText, (this.state.selected === 'contact') ? styles.segmentContentTextActive : null]}>KONTAK</Text>
                         </TouchableOpacity>
-                   </View>
-                   <View style={styles.search}>
-                     <SearchInput style={{ height: 56 }} placeholder="Cari" />
-                   </View>
+                    </View>
+                    <View>
+                        {this.renderContent()}
+                    </View>
                 </View>
             </View>
         );

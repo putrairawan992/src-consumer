@@ -48,5 +48,59 @@ export default StyleSheet.create({
     },
     search: {
         padding: 16
+    },
+    contentList: {
+        padding: 22
+    },
+    contentListTitle: {
+        fontFamily: 'ProximaNova-Bold',
+        color: '#000',
+        fontSize: 18
+    },
+    contentListDescription: {
+        marginTop: 13
+    },
+    contentListDescriptionText: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14,
+        color: '#4a4a4a'
+    },
+    contentItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        paddingHorizontal: 32,
+        paddingVertical: 22
+    },
+    imageLogo: {
+        height: 50,
+        width: 50,
+        resizeMode: 'contain'
+    },
+    contentItemMainTitle: {
+        fontFamily: 'ProximaNova-Bold',
+        fontSize: 16,
+        color: '#000'
+    },
+    contentItemMainContent: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 16,
+        color: '#000'
+    },
+    contentItemSecondary: {
+        marginTop: 13
+    },
+    contentItemSecondaryContent: {
+        fontFamily: 'ProximaNova-Regular',
+        color: '#4a4a4a',
+        fontSize: 12
+    },
+    iconStyle: {
+        alignSelf: 'center'
+    },
+    buttonStyle: {
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: '#ececec'
     }
 });
