@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Button } from '@partials';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import globalStyles from '../../GlobalStyles';
 
@@ -9,11 +8,9 @@ class AddressCard extends Component {
 		return (
 			<View style={[globalStyles.detailCardContainer, { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#ececec', paddingHorizontal: 16, paddingBottom: 16 }]} >
 				<View style={{ flex: 10 }}>
-					<Text style={globalStyles.shopName}>Toko H.Husin</Text>
+					<Text style={globalStyles.shopName}>{this.props.item.name}</Text>
 					<Text style={globalStyles.descriptionName}>
-						Jl. Pulo Kemandoran No.88, RT.4/RW.15, Grogol Utara,
-						Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota
-						Jakarta 12210
+						{this.props.item.address}
 					</Text>
 					<View
 						style={{
@@ -23,7 +20,7 @@ class AddressCard extends Component {
 							marginTop: 12
 						}}
 					>
-						<View style={{ flexDirection: 'row' }}>
+						{/* <View style={{ flexDirection: 'row' }}>
 							<Button
 								style={globalStyles.labelButton}
 								textStyle={globalStyles.redButtonText}
@@ -46,7 +43,7 @@ class AddressCard extends Component {
 							>
 								Nama Undian
 							</Button>
-						</View>
+						</View> */}
 					</View>
 				</View>
 				<View style={{ flex: 1 }}>

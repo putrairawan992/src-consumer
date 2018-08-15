@@ -13,32 +13,17 @@ const styles = StyleSheet.create({
 });
 
 class CustomMapView extends Component {
-	state = {
-		markers: [
-			{
-				coordinate: { latitude: -6.214339, longitude: 106.814879 },
-				name: 'Teras Benhil',
-				key: '1'
-			},
-			{
-				coordinate: { latitude: -6.210966, longitude: 106.810939 },
-				name: 'RS Mitoharjo',
-				key: '2'
-			},
-			{
-				coordinate: { latitude: -6.20654, longitude: 106.809835 },
-				name: 'Uteesme',
-				key: '3'
-			},
-			{
-				coordinate: { latitude: -6.208787, longitude: 106.81005 },
-				name: 'Danau Toba',
-				key: '4'
-			}
-		]
-	};
-	renderMarker() {
-		return this.state.markers.map((marker, idx) => (
+	getMarkers(locations) {
+		return locations.map((value) => {
+			return {
+				coordinate: { latitude: parseFloat(value.latitude), longitude: parseFloat(value.longitude) },
+				name: value.name,
+				key: value.id
+			};
+		});
+	}
+	renderMarker(markers) {
+		return markers.map((marker, idx) => (
 			<Marker
 				key={idx.toString()}
 				coordinate={marker.coordinate}
@@ -48,13 +33,14 @@ class CustomMapView extends Component {
 	}
 
 	render() {
+		const markers = this.getMarkers(this.props.locations);
 		return (
 			<View style={[styles.container, this.props.containerStyle]}>
 				<MapView
 					style={[styles.map, this.props.mapStyle]}
 					region={{
-						latitude: -6.20889,
-						longitude: 106.807514,
+						latitude: parseFloat(this.props.initialLocation.latitude),
+						longitude: parseFloat(this.props.initialLocation.longitude),
 						latitudeDelta: 0.00522,
 						longitudeDelta:
 							(Dimensions.get('window').width /
@@ -62,7 +48,7 @@ class CustomMapView extends Component {
 							0.00522
 					}}
 				>
-					{this.renderMarker()}
+					{this.renderMarker(markers)}
 				</MapView>
 			</View>
 		);

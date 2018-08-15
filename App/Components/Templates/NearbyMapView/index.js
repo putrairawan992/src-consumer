@@ -1,90 +1,106 @@
 import React, { Component } from 'react';
-import { FlatList, Dimensions } from 'react-native';
+import { FlatList, Dimensions, View, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 import { CustomMapView, AddressCard } from '@partials';
+import { CommonService } from '@services';
+import styles from './styles';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 
-const items = [
-	{
-		id: 0
-	},
-	{
-		id: 1,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 2,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 3,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 4,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 5,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 6,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 7,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 8,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 9,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 10,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	}
-];
-
 class NearbyMapViewComponent extends Component {
-	renderItem(item) {
-		if (item.item.id !== 0) {
-			return <AddressCard />;
-		}
+	state = {
+		loaded: false,
+		isRefreshing: false,
+		last_page: null,
+		page: 1,
+		per_page: 20,
+		locations: []
 
-		return <CustomMapView containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />;
+	}
+
+	async componentWillMount() {
+		await this.loadLocations(true);
+		this.setState({ loaded: true });
+	}
+
+	handleLoadMore = () => {
+		if (this.state.page < this.state.last_page) {
+			this.setState({
+				page: this.state.page + 1
+			}, () => {
+				this.loadLocations();
+			});
+		}
+	};
+
+	handleRefresh = () => {
+		this.setState({
+			page: 1
+		}, () => {
+			this.loadLocations();
+		});
+	}
+
+	loadLocations(isInit = false) {
+		return new Promise((resolve, reject) => {
+			const nearbyParam = {
+				page: this.state.page,
+				per_page: this.state.per_page,
+				latitude: this.props.latitude,
+				longitude: this.props.longitude
+			};
+			CommonService.getNearby(nearbyParam).then((location) => {
+				this.setState({
+					locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
+					isRefreshing: false
+				});
+				if (isInit) {
+					this.setState({
+						last_page: location.last_page
+					});
+				}
+				resolve(location);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	}
+
+	renderItem(item) {
+		return <AddressCard item={item.item} />;
 	}
 
 	render() {
+		if (this.state.loaded) {
+			return (
+				<View style={styles.container}>
+					<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.props.latitude, longitude: this.props.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
+					<FlatList
+						data={this.state.locations}
+						keyExtractor={i => i.id.toString()}
+						renderItem={this.renderItem}
+						onEndReached={this.handleLoadMore}
+						onEndThreshold={0}
+						refreshing={this.state.isRefreshing}
+						onRefresh={this.handleRefresh}
+						contentContainerStyle={{ backgroundColor: '#fff' }}
+					/>
+				</View>
+			);
+		}
 		return (
-			<FlatList
-				data={items}
-				renderItem={this.renderItem}
-				contentContainerStyle={{ backgroundColor: '#fff' }}
-			/>
+			<View style={styles.container}>
+				<ActivityIndicator size="large" color="#DC1E2D" />
+			</View>
 		);
 	}
 }
 
-export default NearbyMapViewComponent;
+const mapStateToProps = (state) => {
+	return {
+		latitude: state.globalReducer.location.latitude,
+		longitude: state.globalReducer.location.longitude
+	};
+};
+
+export default connect(mapStateToProps)(NearbyMapViewComponent);
