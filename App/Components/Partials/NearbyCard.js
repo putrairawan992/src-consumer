@@ -92,7 +92,7 @@ class NearbyCard extends Component {
 								>
 									<Icon name="directions-run" size={14} />
 									<Text style={globalStyles.rangeText}>
-										0.9 KM
+										{this.props.item.distance} KM
 									</Text>
 								</View>
 							</View>

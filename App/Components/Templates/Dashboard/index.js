@@ -45,10 +45,11 @@ class DashboardComponent extends Component {
 				};
 				this.props.createLocation(locationPayload);
 				Actions.Nearby();
-			}, () => {
+			}, (err) => {
 				CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+				console.log('location error', err);
 			}, {
-					enableHighAccuracy: true
+					enableHighAccuracy: false
 				});
 		}
 		else {
