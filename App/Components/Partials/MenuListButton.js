@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const styles = {
 	buttonStyle: {
 		flexDirection: 'row',
-		flex: 1,
 		justifyContent: 'space-between',
 		alignContent: 'center',
 		paddingHorizontal: 20,
 		paddingVertical: 16,
 		borderBottomWidth: 1,
-		borderColor: '#ececec'
+		borderColor: '#ececec',
+		height: 60
 	},
 	textStyle: {
 		fontFamily: 'ProximaNova-Regular',

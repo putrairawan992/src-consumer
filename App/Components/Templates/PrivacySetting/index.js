@@ -10,10 +10,9 @@ class PrivacySettingComponent extends Component {
             <View style={styles.container}>
                 <View style={globalStyles.mainContainer}>
                     <View style={globalStyles.listContainer}>
-                        <MenuListButton>Ubah Profil</MenuListButton>
-                        <MenuListButton>Ubah Kata Sandi</MenuListButton>
-                        <MenuListButton>Pengaturan Privasi</MenuListButton>
-                        <MenuListButton>Keluar</MenuListButton>
+                        <MenuListButton>Jangan Hubungi Saya</MenuListButton>
+                        <MenuListButton>Hapus Akun Saya</MenuListButton>
+                        <MenuListButton>Permintaan Riwayat Data</MenuListButton>
                     </View>
                 </View>
             </View >
