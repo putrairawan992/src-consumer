@@ -179,6 +179,7 @@ class RegisterComponent extends Component {
 				birth_date: this.props.birth_date,
 				id_number: this.props.id_number,
 				city_id: this.props.city_id,
+				province_id: this.props.province_id,
 				is_smoking: this.props.is_smoking
 			};
 			this.props.submitSignUp(payload);

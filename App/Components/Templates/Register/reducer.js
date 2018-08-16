@@ -54,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
 		case REGISTER_KTP_CHANGED:
 			return { ...state, id_number: action.payload };
 		case REGISTER_PROVINCE_CHANGED:
-			return { ...state, province_id: action.payload, cities: [] };
+			return { ...state, province_id: action.payload, cities: [], city_id: '' };
 		case REGISTER_REFERENCE_CODE_CHANGED:
 			return { ...state, reference_code: action.payload };
 		case REGISTER_IS_SMOKING:

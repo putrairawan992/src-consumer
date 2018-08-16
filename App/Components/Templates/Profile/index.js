@@ -30,6 +30,10 @@ class ProfileComponent extends Component {
 		Actions.DeleteAccount();
 	}
 
+	redirectPrivacy() {
+		Actions.Privacy();
+	}
+
 	retrieveData() {
 		this.props.fetchProfile();
 	}
@@ -97,7 +101,7 @@ class ProfileComponent extends Component {
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
 							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
-							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Pengaturan Privasi</MenuListButton>
+							<MenuListButton onPress={this.redirectPrivacy.bind(this)}>Pengaturan Privasi</MenuListButton>
 							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>
 					</View>
