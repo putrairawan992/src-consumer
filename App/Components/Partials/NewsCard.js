@@ -17,7 +17,7 @@ class NewsCard extends Component {
 		likes_count: this.props.item.likes_count
 	}
 	redirectNewsDetail() {
-		Actions.NewsDetail({ newsLink: this.props.item.link });
+		Actions.NewsDetail({ news: this.props.item });
 	}
 
 	likeNews() {
