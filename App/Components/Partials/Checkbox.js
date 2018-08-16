@@ -10,7 +10,8 @@ const styles = {
 		borderWidth: 0,
 		margin: 0,
 		marginRight: 0,
-		justifyContent: 'flex-start'
+		justifyContent: 'flex-start',
+		marginLeft: 0
 	},
 	textStyle: {
 		marginLeft: 0,
