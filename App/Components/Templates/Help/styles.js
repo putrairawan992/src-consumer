@@ -47,7 +47,9 @@ export default StyleSheet.create({
         color: '#DC1E2D'
     },
     search: {
-        padding: 16
+        padding: 16,
+        borderBottomWidth: 1,
+        borderColor: '#ececec'
     },
     contentList: {
         padding: 22

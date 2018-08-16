@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Linking, ActivityIndicator, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { SearchInput } from '@partials';
+import { SearchInput, HelpCard } from '@partials';
 import { CustomAlert } from '@helpers/CustomAlert';
+import { CommonService } from '@services';
 import styles from './styles';
+
 
 class HelpComponent extends Component {
     state = {
-        selected: 'information'
+        selected: 'information',
+        loaded: false,
+        helps: []
     }
+    componentWillMount() {
+        const staticParam = {
+            type: 'help',
+            user: 'customer'
+        };
+        CommonService.getStaticContent(staticParam).then((help) => {
+            this.setState({
+                loaded: true,
+                helps: help.data
+            });
+        });
+    }
+
     redirectContent(value) {
         this.setState({
             selected: value
@@ -30,11 +47,34 @@ class HelpComponent extends Component {
         });
     }
 
+    renderHelpItem(item) {
+       return <HelpCard item={item.item} />;
+    }
+
+    renderHelp() {
+        if (this.state.loaded) {
+            console.log('asdalsdjasfa',this.state.helps);
+            return (
+                <FlatList
+                    data={this.state.helps}
+                    keyExtractor={i => i.id.toString()}
+                    renderItem={this.renderHelpItem}
+                />
+            );
+        }
+        return (
+            <ActivityIndicator size="large" color="#DC1E2D" />
+        );
+    }
+
     renderContent() {
         if (this.state.selected === 'information') {
             return (
-                <View style={styles.search}>
-                    <SearchInput style={{ height: 56 }} placeholder="Cari" />
+                <View>
+                    <View style={styles.search}>
+                        <SearchInput style={{ height: 56 }} placeholder="Cari" />
+                    </View>
+                    {this.renderHelp()}
                 </View>
             );
         }
