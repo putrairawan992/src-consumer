@@ -79,7 +79,7 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.cardContainer}>
 						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
 						<View style={globalStyles.cardText}>
-							<Text style={[globalStyles.innerText]}>{0 + this.props.globalProfile.phone.slice(3)}</Text>
+							<Text style={[globalStyles.innerText]}>{(this.props.globalProfile.phone) ? 0 + this.props.globalProfile.phone.slice(3) : null }</Text>
 							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>{this.props.globalProfile.fullname}</Text>
 						</View>
 					</View>
