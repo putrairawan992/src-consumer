@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Dimensions, View, ActivityIndicator } from 'react-native';
+import { FlatList, Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { CustomMapView, AddressCard } from '@partials';
 import { CommonService } from '@services';
 import { CustomAlert } from '@helpers/CustomAlert';
@@ -87,19 +87,28 @@ class NearbyMapViewComponent extends Component {
 
 	render() {
 		if (this.state.loaded) {
+			if (this.state.locations.length > 0) {
+				return (
+					<View style={styles.container}>
+						<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.state.latitude, longitude: this.state.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
+						<FlatList
+							data={this.state.locations}
+							keyExtractor={i => i.id.toString()}
+							renderItem={this.renderItem}
+							onEndReached={this.handleLoadMore}
+							onEndThreshold={0}
+							refreshing={this.state.isRefreshing}
+							onRefresh={this.handleRefresh}
+							contentContainerStyle={{ backgroundColor: '#fff' }}
+						/>
+					</View>
+				);
+			}
 			return (
 				<View style={styles.container}>
-					<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.state.latitude, longitude: this.state.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
-					<FlatList
-						data={this.state.locations}
-						keyExtractor={i => i.id.toString()}
-						renderItem={this.renderItem}
-						onEndReached={this.handleLoadMore}
-						onEndThreshold={0}
-						refreshing={this.state.isRefreshing}
-						onRefresh={this.handleRefresh}
-						contentContainerStyle={{ backgroundColor: '#fff' }}
-					/>
+					<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+						<Text style={{ fontFamily: 'ProximaNova-Regular', fontSize: 20, color: '#000' }}>Tidak ada toko di lokasi ini</Text>
+					</View>
 				</View>
 			);
 		}

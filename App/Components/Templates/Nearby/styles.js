@@ -7,6 +7,7 @@ export default StyleSheet.create({
 		// justifyContent: 'flex-start',
 		// alignItems: 'center',
 		backgroundColor: '#FFF',
+		flex: 1
 		// paddingTop: 17,
 		// paddingHorizontal: 17
 	}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import { NearbyCard } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
@@ -78,19 +78,32 @@ class NearbyComponent extends Component {
 		return <NearbyCard item={item.item} />;
 	}
 
+	renderFlatList() {
+		if (this.state.locations.length > 0) {
+			return (
+				<FlatList
+					data={this.state.locations}
+					keyExtractor={i => i.id.toString()}
+					renderItem={this.renderItem}
+					onEndReached={this.handleLoadMore}
+					onEndThreshold={0}
+					refreshing={this.state.isRefreshing}
+					onRefresh={this.handleRefresh}
+				/>
+			);
+		}
+		return (
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<Text style={{ fontFamily: 'ProximaNova-Regular', fontSize: 20, color: '#000' }}>Tidak ada toko di lokasi ini</Text>
+			</View>
+		);
+	}
+
 	render() {
 		if (this.state.loaded) {
 			return (
 				<View style={styles.container}>
-					<FlatList
-						data={this.state.locations}
-						keyExtractor={i => i.id.toString()}
-						renderItem={this.renderItem}
-						onEndReached={this.handleLoadMore}
-						onEndThreshold={0}
-						refreshing={this.state.isRefreshing}
-						onRefresh={this.handleRefresh}
-					/>
+                   {this.renderFlatList()}
 				</View>
 			);
 		}
