@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, ActivityIndicator, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Linking, ActivityIndicator, FlatList, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SearchInput, HelpCard } from '@partials';
 import { CustomAlert } from '@helpers/CustomAlert';
@@ -11,7 +11,8 @@ class HelpComponent extends Component {
     state = {
         selected: 'information',
         loaded: false,
-        helps: []
+        helps: [],
+        selectedId: null
     }
     componentWillMount() {
         const staticParam = {
@@ -48,17 +49,33 @@ class HelpComponent extends Component {
     }
 
     renderHelpItem(item) {
-       return <HelpCard item={item.item} />;
+        return (
+            <HelpCard
+                item={item.item}
+                onPress={() => {
+                    if (this.state.selectedId !== item.item.id) {
+                        this.setState({
+                            selectedId: item.item.id
+                        });
+                    }
+                    else {
+                        this.setState({
+                            selectedId: null
+                        });
+                    }
+                }}
+                selectedId={this.state.selectedId}
+            />);
     }
 
     renderHelp() {
         if (this.state.loaded) {
-            console.log('asdalsdjasfa',this.state.helps);
             return (
                 <FlatList
                     data={this.state.helps}
+                    extraData={this.state}
                     keyExtractor={i => i.id.toString()}
-                    renderItem={this.renderHelpItem}
+                    renderItem={this.renderHelpItem.bind(this)}
                 />
             );
         }
@@ -126,7 +143,7 @@ class HelpComponent extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.topContent}>
                     <Text style={styles.topText}>Bantuan</Text>
                 </View>
@@ -153,7 +170,7 @@ class HelpComponent extends Component {
                         {this.renderContent()}
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }
