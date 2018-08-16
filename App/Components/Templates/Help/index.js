@@ -48,6 +48,19 @@ class HelpComponent extends Component {
         });
     }
 
+    searchOnChange(text) {
+        const staticParam = {
+            type: 'help',
+            user: 'customer',
+            search: text
+        };
+        CommonService.getStaticContent(staticParam).then((help) => {
+            this.setState({
+                helps: help.data
+            });
+        });
+    }
+
     renderHelpItem(item) {
         return (
             <HelpCard
@@ -89,7 +102,7 @@ class HelpComponent extends Component {
             return (
                 <View>
                     <View style={styles.search}>
-                        <SearchInput style={{ height: 56 }} placeholder="Cari" />
+                        <SearchInput style={{ height: 56 }} placeholder="Cari" onChangeText={this.searchOnChange.bind(this)} />
                     </View>
                     {this.renderHelp()}
                 </View>

@@ -16,7 +16,6 @@ import {
 	NearbyComponent,
 	NearbyMapViewComponent,
 	ShopDetailComponent,
-	MyCardComponent,
 	NewsDetailComponent,
 	HelpComponent
 } from '@templates';
@@ -129,11 +128,6 @@ class routerComponent extends Component {
 							key="ShopDetail"
 							component={ShopDetailComponent}
 							title="Detil Toko"
-						/>
-						<Scene
-							key="MyCard"
-							component={MyCardComponent}
-							title="Kartu Saya"
 						/>
 						<Scene
 							key="NewsDetail"
