@@ -27,6 +27,15 @@
       <meta-data
      android:name="com.google.android.geo.API_KEY"
      android:value="AIzaSyBPczRk27BsG7JhO6GwJAVcCIQSzSyuyRI"/>
+     <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="com.ayo_consumer.provider"
+        android:grantUriPermissions="true"
+        android:exported="false">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/filepaths" />
+    </provider>
     </application>
 
 </manifest>

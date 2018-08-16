@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { WebView, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { CommonService } from '@services';
+import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = {
@@ -35,6 +36,14 @@ class NewsDetailComponent extends Component {
 		likes_count: this.props.news.likes_count
 	}
 
+	shareNews() {
+		const shareOptions = {
+			title: 'Share via',
+			url: this.props.news.link
+		};
+		Share.open(shareOptions);
+	}
+
 	likeNews() {
 		const context = {
 			newsfeed_id: this.props.news.id
@@ -55,13 +64,15 @@ class NewsDetailComponent extends Component {
 					source={{ uri: this.props.news.link }} style={{ paddingTop: 40, flex: 1 }}
 				/>
 				<View style={styles.fixedBottom}>
-					<Icon name="share" size={24} color="#DC1E2D" />
-					<TouchableWithoutFeedback onPress={this.likeNews.bind(this)}>
-						<View style={styles.likeContainer}>
-							<Icon name="thumb-up" size={24} color={this.state.like_status ? '#DC1E2D' : null} />
-							<Text style={styles.likeCount}>{this.state.likes_count}</Text>
-						</View>
+					<TouchableWithoutFeedback onPress={this.shareNews.bind(this)}>
+						<Icon name="share" size={24} color="#DC1E2D" />
 					</TouchableWithoutFeedback>
+					<View style={styles.likeContainer}>
+						<TouchableWithoutFeedback onPress={this.likeNews.bind(this)}>
+							<Icon name="thumb-up" size={24} color={this.state.like_status ? '#DC1E2D' : null} />
+						</TouchableWithoutFeedback>
+						<Text style={styles.likeCount}>{this.state.likes_count}</Text>
+					</View>
 				</View>
 			</View>
 		);

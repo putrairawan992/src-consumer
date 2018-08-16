@@ -17,7 +17,8 @@ import {
 	NearbyMapViewComponent,
 	ShopDetailComponent,
 	NewsDetailComponent,
-	HelpComponent
+	HelpComponent,
+	PrivacySettingComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage } from '@helpers/Storage';
@@ -138,6 +139,11 @@ class routerComponent extends Component {
 							key="Help"
 							component={HelpComponent}
 							title="Bantuan"
+						/>
+						<Scene 
+							key="Privacy"
+							component={PrivacySettingComponent}
+							title="Pengaturan Privasi"
 						/>
 					</Stack>
 				</Router>

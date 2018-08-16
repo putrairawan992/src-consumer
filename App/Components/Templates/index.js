@@ -18,6 +18,7 @@ import NearbyMapViewComponent from './NearbyMapView';
 import ShopDetailComponent from './ShopDetail';
 import NewsDetailComponent from './NewsDetail';
 import HelpComponent from './Help';
+import PrivacySettingComponent from './PrivacySetting';
 
 export {
 	IntroComponent,
@@ -39,5 +40,6 @@ export {
 	NearbyMapViewComponent,
 	ShopDetailComponent,
 	NewsDetailComponent,
-	HelpComponent
+	HelpComponent,
+	PrivacySettingComponent
 };
