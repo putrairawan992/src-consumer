@@ -130,6 +130,28 @@ const getStaticContent = (param) => {
 	});
 };
 
+const likeNews = (param) => {
+	return request({
+		url: 'api/general/newsfeed',
+		method: 'post',
+		params: param
+	});
+};
+
+const likeContent = (context) => {
+	return request({
+		url: 'api/general/content/' + context.content_id + '/like',
+		method: 'post'
+	});
+};
+
+const dislikeContent = (context) => {
+	return request({
+		url: 'api/general/content/' + context.content_id + '/unlike',
+		method: 'post'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -146,7 +168,10 @@ const CommonService = {
 	getNewsCategories,
 	getNews,
 	getNearby,
-	getStaticContent
+	getStaticContent,
+	likeNews,
+	likeContent,
+	dislikeContent
 };
 
 export default CommonService;
