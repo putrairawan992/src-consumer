@@ -1,8 +1,14 @@
 export const EDIT_NAME_CHANGED = 'edit_name_changed';
 export const EDIT_GENDER_CHANGED = 'edit_gender_changed';
+export const EDIT_CITY_CHANGED = 'edit_city_changed';
 export const EDIT_BIRTHDATE_CHANGED = 'edit_birthdate_changed';
 export const EDIT_KTP_CHANGED = 'edit_ktp_changed';
 export const EDIT_PHONE_CHANGED = 'edit_phone_changed';
+export const EDIT_PROVINCES_RETRIEVED = 'edit_provinces_retrieved';
+export const EDIT_PROVINCES_FAIL = 'edit_provinces_fail';
+export const EDIT_PROVINCE_CHANGED = 'edit_province_changed';
+export const EDIT_CITIES_RETRIEVED = 'edit_cities_retrieved';
+export const EDIT_CITIES_FAIL = 'edit_cities_fail';
 export const EDIT_PAGE_UNMOUNT = 'edit_page_unmount';
 export const EDIT_PROCCESS = 'edit_proccess';
 export const EDIT_SUCCESS = 'edit_success';

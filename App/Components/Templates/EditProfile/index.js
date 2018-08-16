@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import RadioForm from 'react-native-simple-radio-button';
-import { Input, Datepicker, Button, Loader } from '@partials';
+import { Input, Datepicker, Button, Loader, Select } from '@partials';
 import PhotoUpload from 'react-native-photo-upload';
 import validateClass from '@helpers/validator';
 import styles from './styles';
@@ -30,11 +30,15 @@ class EditProfileComponent extends Component {
 		nameError: '',
 		dateError: '',
 		phoneError: '',
-		idNumberError: ''
+		idNumberError: '',
+		cityError: '',
+		provinceError: ''
 	};
 
 	async componentWillMount() {
-		this.props.editOnWillMount();
+		await this.props.getProvinceLists();
+		await this.props.editOnWillMount();
+		this.props.getCityLists(this.props.province_id);
 	}
 
 	onImageChanged(string) {
@@ -65,6 +69,15 @@ class EditProfileComponent extends Component {
 		this.props.cameraTrigger();
 	}
 
+	onProvinceChange(value) {
+		this.props.editProvinceChanged(value);
+		this.props.getCityLists(value);
+	}
+
+	onCityChange(value) {
+		this.props.editCityChanged(value);
+	}
+
 	submitEdit() {
 		const nameError = validateClass(
 			'name',
@@ -90,22 +103,56 @@ class EditProfileComponent extends Component {
 			validation,
 			'idNumber'
 		);
+		const cityError = validateClass(
+			'city',
+			this.props.city_id,
+			validation,
+			'city'
+		);
+		const provinceError = validateClass(
+			'province',
+			this.props.province_id,
+			validation,
+			'province'
+		);
 		this.setState({
 			nameError: nameError,
 			phoneError: phoneError,
 			dateError: dateError,
-			idNumberError: idNumberError
+			idNumberError: idNumberError,
+			cityError: cityError,
+			provinceError: provinceError
 		});
-		if (!nameError && !phoneError && !dateError && !idNumberError) {
+		if (!nameError && !phoneError && !dateError && !idNumberError && !provinceError && !cityError) {
 			const payload = {
 				name: this.props.name,
 				gender: this.props.gender,
 				birth_date: this.props.birth_date,
 				id_number: this.props.id_number,
 				phone: '+62' + this.props.phone,
-				image: this.props.image
+				image: this.props.image,
+				city_id: this.props.city_id,
+				province_id: this.props.province_id
 			};
 			this.props.submitEdit(payload);
+		}
+	}
+
+	renderCitySelect() {
+		if (this.props.province_id && this.props.cities.length > 1) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Select
+						items={this.props.cities}
+						placeholder="Pilih Kota"
+						iteratorKey={'id'}
+						iteratorLabel={'name'}
+						value={this.props.city_id}
+						onValueChange={this.onCityChange.bind(this)}
+						error={this.state.cityError}
+					/>
+				</View>
+			);
 		}
 	}
 
@@ -176,6 +223,18 @@ class EditProfileComponent extends Component {
 						/>
 					</View>
 					<View style={globalStyles.phoneRow}>
+					<Select
+						items={this.props.provinces}
+						placeholder="Pilih Provinsi"
+						iteratorKey={'id'}
+						iteratorLabel={'name'}
+						value={this.props.province_id}
+						onValueChange={this.onProvinceChange.bind(this)}
+						error={this.state.provinceError}
+					/>
+				</View>
+				{this.renderCitySelect()}
+					<View style={globalStyles.phoneRow}>
 						<Datepicker
 							date={this.props.birth_date}
 							onDateChange={this.onDateChanged.bind(this)}
@@ -224,7 +283,11 @@ const mapStateToProps = (state) => {
 		image_url: state.editUserReducer.image_url,
 		profileLoaded: state.editUserReducer.profileLoaded,
 		image: state.editUserReducer.image,
-		baseLoading: state.editUserReducer.baseLoading
+		baseLoading: state.editUserReducer.baseLoading,
+		province_id: state.editUserReducer.province_id,
+		city_id: state.editUserReducer.city_id,
+		cities: state.editUserReducer.cities,
+		provinces: state.editUserReducer.provinces
 	};
 	return newProps;
 };

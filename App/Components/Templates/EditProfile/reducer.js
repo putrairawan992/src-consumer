@@ -9,7 +9,11 @@ import {
     EDIT_SUCCESS,
     EDIT_FAIL,
     EDIT_ON_WILL_MOUNT,
-    EDIT_IMAGE_REPLACED
+    EDIT_IMAGE_REPLACED,
+    EDIT_PROVINCE_CHANGED,
+    EDIT_PROVINCES_RETRIEVED,
+    EDIT_CITIES_RETRIEVED,
+    EDIT_CITY_CHANGED
 } from './types';
 
 const INITIAL_STATE = {
@@ -18,6 +22,10 @@ const INITIAL_STATE = {
     birth_date: '',
     id_number: '',
     phone: '',
+    province_id: '',
+    city_id: '',
+    cities: [],
+    provinces: [],
     baseLoading: false,
     image_url: '',
     profileLoaded: false,
@@ -34,10 +42,18 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, birth_date: action.payload };
         case EDIT_KTP_CHANGED:
             return { ...state, id_number: action.payload };
+        case EDIT_PROVINCE_CHANGED:
+            return { ...state, province_id: action.payload, cities: [], city_id: '' };
         case EDIT_PHONE_CHANGED:
             return { ...state, phone: action.payload };
         case EDIT_PAGE_UNMOUNT:
             return INITIAL_STATE;
+        case EDIT_PROVINCES_RETRIEVED:
+            return { ...state, provinces: action.payload.data };
+        case EDIT_CITIES_RETRIEVED:
+            return { ...state, cities: action.payload.data };
+        case EDIT_CITY_CHANGED:
+            return { ...state, city_id: action.payload };
         case EDIT_PROCCESS:
             return { ...state, baseLoading: true };
         case EDIT_SUCCESS:
@@ -45,7 +61,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
         case EDIT_ON_WILL_MOUNT:
-            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, profileLoaded: true };
+            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true };
         case EDIT_IMAGE_REPLACED:
             return { ...state, image: action.payload };
         default:
