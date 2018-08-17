@@ -158,7 +158,15 @@ const submitPrivacy = (payload) => {
 		method: 'post',
         data: payload
 	});
-}
+};
+
+const deleteUser = (payload) => {
+	return request({
+		url: 'oauth/user/delete',
+		method: 'post',
+        data: payload
+	});
+};
 
 const CommonService = {
 	getCities,
@@ -180,7 +188,8 @@ const CommonService = {
 	likeNews,
 	likeContent,
 	dislikeContent,
-	submitPrivacy
+	submitPrivacy,
+	deleteUser
 };
 
 export default CommonService;

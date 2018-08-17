@@ -10,6 +10,10 @@ class PrivacySettingComponent extends Component {
     redirectSubmitSetting(type, title) {
         Actions.SubmitSetting({ typeData: type, title: title });
     }
+
+    redirectDeleteAccount() {
+        Actions.DeleteAccount();
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -20,7 +24,7 @@ class PrivacySettingComponent extends Component {
                                 this.redirectSubmitSetting('contacted', 'Jangan Hubungi Saya');
                             }}
                         >Jangan Hubungi Saya</MenuListButton>
-                        <MenuListButton>Hapus Akun Saya</MenuListButton>
+                        <MenuListButton onPress={this.redirectDeleteAccount.bind(this)}>Hapus Akun Saya</MenuListButton>
                         <MenuListButton
                             onPress={() => {
                                 this.redirectSubmitSetting('data_history', 'Permintaan Riwayat Data');

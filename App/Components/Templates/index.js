@@ -19,7 +19,7 @@ import ShopDetailComponent from './ShopDetail';
 import NewsDetailComponent from './NewsDetail';
 import HelpComponent from './Help';
 import PrivacySettingComponent from './PrivacySetting';
-import SubmitSettingComponent  from './SubmitSetting';
+import SubmitSettingComponent from './SubmitSetting';
 
 export {
 	IntroComponent,
