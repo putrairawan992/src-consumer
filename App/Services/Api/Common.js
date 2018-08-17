@@ -152,6 +152,14 @@ const dislikeContent = (context) => {
 	});
 };
 
+const submitPrivacy = (payload) => {
+	return request({
+		url: 'api/general/content/privacy',
+		method: 'post',
+        data: payload
+	});
+}
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -171,7 +179,8 @@ const CommonService = {
 	getStaticContent,
 	likeNews,
 	likeContent,
-	dislikeContent
+	dislikeContent,
+	submitPrivacy
 };
 
 export default CommonService;
