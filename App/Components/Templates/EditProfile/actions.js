@@ -14,7 +14,11 @@ import {
     EDIT_SUCCESS,
     EDIT_FAIL,
     EDIT_ON_WILL_MOUNT,
-    EDIT_IMAGE_REPLACED
+    EDIT_IMAGE_REPLACED,
+    EDIT_CITY_CHANGED,
+    EDIT_PROVINCE_CHANGED,
+    EDIT_PROVINCES_RETRIEVED,
+    EDIT_CITIES_RETRIEVED
 } from './types';
 import { refreshProfile } from '../../../Store/GlobalReducer/actions';
  
@@ -53,6 +57,20 @@ export const editPhoneChanged = text => {
     };
 };
 
+export const editCityChanged = text => {
+	return {
+		type: EDIT_CITY_CHANGED,
+		payload: text
+	};
+};
+
+export const editProvinceChanged = text => {
+	return {
+		type: EDIT_PROVINCE_CHANGED,
+		payload: text
+	};
+};
+
 export const editImageReplaced = (base64) => {
     return {
         type: EDIT_IMAGE_REPLACED,
@@ -64,6 +82,22 @@ export const editPageUnmount = () => {
     return {
         type: EDIT_PAGE_UNMOUNT
     };
+};
+
+export const getProvinceLists = () => {
+	return dispatch => {
+		CommonService.getProvinces().then(provinces => {
+			dispatch({ type: EDIT_PROVINCES_RETRIEVED, payload: provinces });
+		});
+	};
+};
+
+export const getCityLists = (provinceId = null) => {
+	return dispatch => {
+		CommonService.getCities(provinceId).then(cities => {
+			dispatch({ type: EDIT_CITIES_RETRIEVED, payload: cities });
+		});
+	};
 };
 
 export const editOnWillMount = () => {

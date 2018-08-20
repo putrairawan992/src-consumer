@@ -12,7 +12,8 @@ class NewsListComponent extends Component {
     last_page: null,
     page: 1,
     per_page: 5,
-    categoryChange: false
+    categoryChange: false,
+    news: []
   }
 
   componentWillMount() {

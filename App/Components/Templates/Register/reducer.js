@@ -30,7 +30,7 @@ const INITIAL_STATE = {
 	province_id: '',
 	city_id: '',
 	reference_code: '',
-	is_smoking: false,
+	is_smoking: 1,
 	is_approved: false,
 	provinces: [],
 	cities: [],
@@ -54,11 +54,11 @@ export default (state = INITIAL_STATE, action) => {
 		case REGISTER_KTP_CHANGED:
 			return { ...state, id_number: action.payload };
 		case REGISTER_PROVINCE_CHANGED:
-			return { ...state, province_id: action.payload, cities: [] };
+			return { ...state, province_id: action.payload, cities: [], city_id: '' };
 		case REGISTER_REFERENCE_CODE_CHANGED:
 			return { ...state, reference_code: action.payload };
 		case REGISTER_IS_SMOKING:
-			return { ...state, is_smoking: !state.is_smoking };
+			return { ...state, is_smoking: (action.payload === 1) ? 1 : 0 };
 		case REGISTER_IS_TERM_CONDITION_APPROVED:
 			return { ...state, is_approved: !state.is_approved };
 		case PROVINCES_RETRIEVED:

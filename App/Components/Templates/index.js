@@ -16,8 +16,10 @@ import DeleteAccountComponent from './DeleteAccount';
 import NearbyComponent from './Nearby';
 import NearbyMapViewComponent from './NearbyMapView';
 import ShopDetailComponent from './ShopDetail';
-import MyCardComponent from './MyCard';
 import NewsDetailComponent from './NewsDetail';
+import HelpComponent from './Help';
+import PrivacySettingComponent from './PrivacySetting';
+import SubmitSettingComponent from './SubmitSetting';
 
 export {
 	IntroComponent,
@@ -38,6 +40,8 @@ export {
 	NearbyComponent,
 	NearbyMapViewComponent,
 	ShopDetailComponent,
-	MyCardComponent,
-	NewsDetailComponent
+	NewsDetailComponent,
+	HelpComponent,
+	PrivacySettingComponent,
+	SubmitSettingComponent
 };

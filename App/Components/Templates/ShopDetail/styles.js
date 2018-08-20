@@ -31,8 +31,8 @@ export default StyleSheet.create({
 	},
 	addressValue: {
 		fontFamily: 'ProximaNova-Bold',
-        fontSize: 14,
-        color: '#000'
+		fontSize: 14,
+		color: '#000'
 	},
 	bannerImage: {
 		height: PAGE_WIDTH >= 720 ? 288 : 144,
@@ -40,5 +40,22 @@ export default StyleSheet.create({
 		width: '100%',
 		borderRadius: 8,
 		marginBottom: 8
+	},
+	buttonDirection: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		backgroundColor: '#DC1E2D',
+		borderRadius: 18,
+		paddingVertical: 8,
+		alignItems: 'center',
+		width: 126,
+		marginTop: 20
+	},
+	textStyle: {
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 12,
+		color: '#fff',
+		marginLeft: 16
+		
 	}
 });

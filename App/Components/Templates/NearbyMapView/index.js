@@ -1,88 +1,121 @@
 import React, { Component } from 'react';
-import { FlatList, Dimensions } from 'react-native';
+import { FlatList, Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { CustomMapView, AddressCard } from '@partials';
+import { CommonService } from '@services';
+import { CustomAlert } from '@helpers/CustomAlert';
+import styles from './styles';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 
-const items = [
-	{
-		id: 0
-	},
-	{
-		id: 1,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 2,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 3,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 4,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 5,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 6,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 7,
-
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 8,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 9,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	},
-	{
-		id: 10,
-		children:
-			'It’s always a great time to get “Back to Cool” and enjoy a picnic with family and friends.'
-	}
-];
-
 class NearbyMapViewComponent extends Component {
-	renderItem(item) {
-		if (item.item.id !== 0) {
-			return <AddressCard />;
-		}
+	state = {
+		loaded: false,
+		isRefreshing: false,
+		last_page: null,
+		page: 1,
+		per_page: 20,
+		locations: [],
+		latitude: null,
+		longitude: null
 
-		return <CustomMapView containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />;
+	}
+
+	async componentWillMount() {
+		await this.loadLocations(true);
+		this.setState({ loaded: true });
+	}
+
+	handleLoadMore = () => {
+		if (this.state.page < this.state.last_page) {
+			this.setState({
+				page: this.state.page + 1
+			}, () => {
+				this.loadLocations();
+			});
+		}
+	};
+
+	handleRefresh = () => {
+		this.setState({
+			page: 1
+		}, () => {
+			this.loadLocations();
+		});
+	}
+
+	loadLocations(isInit = false) {
+		return new Promise((resolve, reject) => {
+			navigator.geolocation.getCurrentPosition((info) => {
+				const locationPayload = {
+					latitude: info.coords.latitude,
+					longitude: info.coords.longitude
+				};
+				const nearbyParam = {
+					page: this.state.page,
+					per_page: this.state.per_page,
+					latitude: locationPayload.latitude,
+					longitude: locationPayload.longitude
+				};
+				CommonService.getNearby(nearbyParam).then((location) => {
+					this.setState({
+						locations: this.state.page === 1 ? location.data : [...this.state.locations, ...location.data],
+						isRefreshing: false,
+						latitude: locationPayload.latitude,
+						longitude: locationPayload.longitude
+					});
+					if (isInit) {
+						this.setState({
+							last_page: location.last_page
+						});
+					}
+					resolve(location);
+				}).catch((err) => {
+					reject(err);
+				});
+			}, (err) => {
+				CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+				console.log('location error', err);
+			}, {
+					enableHighAccuracy: false
+				});
+		});
+	}
+
+	renderItem(item) {
+		return <AddressCard item={item.item} />;
 	}
 
 	render() {
+		if (this.state.loaded) {
+			if (this.state.locations.length > 0) {
+				return (
+					<View style={styles.container}>
+						<CustomMapView locations={this.state.locations} initialLocation={{ latitude: this.state.latitude, longitude: this.state.longitude }} containerStyle={{ height: (PAGE_WIDTH >= 720 ? 350 : 200), width: '100%' }} />
+						<FlatList
+							data={this.state.locations}
+							keyExtractor={i => i.id.toString()}
+							renderItem={this.renderItem}
+							onEndReached={this.handleLoadMore}
+							onEndThreshold={0}
+							refreshing={this.state.isRefreshing}
+							onRefresh={this.handleRefresh}
+							contentContainerStyle={{ backgroundColor: '#fff' }}
+						/>
+					</View>
+				);
+			}
+			return (
+				<View style={styles.container}>
+					<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+						<Text style={{ fontFamily: 'ProximaNova-Regular', fontSize: 20, color: '#000' }}>Tidak ada toko di lokasi ini</Text>
+					</View>
+				</View>
+			);
+		}
 		return (
-			<FlatList
-				data={items}
-				renderItem={this.renderItem}
-				contentContainerStyle={{ backgroundColor: '#fff' }}
-			/>
+			<View style={styles.container}>
+				<ActivityIndicator size="large" color="#DC1E2D" />
+			</View>
 		);
 	}
 }

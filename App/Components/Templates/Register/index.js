@@ -24,6 +24,10 @@ class RegisterComponent extends Component {
 			{ label: 'Laki - Laki', value: 'male' },
 			{ label: 'Perempuan', value: 'female' }
 		],
+		smokingTypes: [
+			{ label: 'Ya, Saya Merokok', value: 1 },
+			{ label: 'Tidak, Saya Tidak Merokok', value: 0 }
+		],
 		city: '1',
 		date: formatDate(),
 		isSmoking: true,
@@ -179,6 +183,7 @@ class RegisterComponent extends Component {
 				birth_date: this.props.birth_date,
 				id_number: this.props.id_number,
 				city_id: this.props.city_id,
+				province_id: this.props.province_id,
 				is_smoking: this.props.is_smoking
 			};
 			this.props.submitSignUp(payload);
@@ -300,9 +305,23 @@ class RegisterComponent extends Component {
 					<Input placeholder="Kode Referensi" />
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Checkbox
-						status={this.props.is_smoking}
-						type="smoking"
+					<RadioForm
+						radio_props={this.state.smokingTypes}
+						initial={0}
+						formHorizontal={false}
+						labelHorizontal={true}
+						buttonColor={'#DC1E2D'}
+						buttonSize={14}
+						selectedButtonColor={'#DC1E2D'}
+						animation={false}
+						style={{ flex: 1, margin: 10, alignItems: 'flex-start' }}
+						buttonWrapStyle={{ marginRight: 20 }}
+						labelStyle={{
+							paddingRight: 20,
+							fontFamily: 'ProximaNova-Regular',
+							fontSize: 14,
+							lineHeight: 20
+						}}
 						onPress={this.onSmokingChange.bind(this)}
 					/>
 				</View>

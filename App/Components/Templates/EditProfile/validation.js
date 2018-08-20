@@ -23,7 +23,19 @@ const validation = {
             allowEmpty: false,
             message: '^Nomor handphone tidak boleh kosong.'
         }
-    }
+    },
+    city: {
+        presence: {
+          allowEmpty: false,
+          message: '^Kota tidak boleh kosong.'
+        }
+      },
+      province: {
+        presence: {
+          allowEmpty: false,
+          message: '^Provinsi tidak boleh kosong.'
+        }
+      }
 };
 
 export default validation;

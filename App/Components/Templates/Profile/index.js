@@ -30,6 +30,10 @@ class ProfileComponent extends Component {
 		Actions.DeleteAccount();
 	}
 
+	redirectPrivacy() {
+		Actions.Privacy();
+	}
+
 	retrieveData() {
 		this.props.fetchProfile();
 	}
@@ -75,7 +79,7 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.cardContainer}>
 						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
 						<View style={globalStyles.cardText}>
-							<Text style={[globalStyles.innerText]}>{0 + this.props.globalProfile.phone.slice(3)}</Text>
+							<Text style={[globalStyles.innerText]}>{(this.props.globalProfile.phone) ? 0 + this.props.globalProfile.phone.slice(3) : null }</Text>
 							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>{this.props.globalProfile.fullname}</Text>
 						</View>
 					</View>
@@ -97,7 +101,7 @@ class ProfileComponent extends Component {
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
 							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
-							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Pengaturan Privasi</MenuListButton>
+							<MenuListButton onPress={this.redirectPrivacy.bind(this)}>Pengaturan Privasi</MenuListButton>
 							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>
 					</View>

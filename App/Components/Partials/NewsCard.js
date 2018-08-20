@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import TimeAgo from 'react-native-timeago';
 import moment from 'moment';
+import { CommonService } from '@services';
 import globalStyles from '../../GlobalStyles';
 
 require('moment/locale/id');
@@ -11,8 +12,26 @@ require('moment/locale/id');
 moment.locale('id');
 
 class NewsCard extends Component {
+	state = {
+		like_status: this.props.item.like_status,
+		likes_count: this.props.item.likes_count
+	}
 	redirectNewsDetail() {
-		Actions.NewsDetail({ newsLink: this.props.item.link });
+		Actions.NewsDetail({ news: this.props.item });
+	}
+
+	likeNews() {
+		const params = {
+			newsfeed_id: this.props.item.id
+		};
+		CommonService.likeNews(params).then((response) => {
+			if (response.status === true) {
+				this.setState({
+					like_status: !this.state.like_status,
+					likes_count: (this.state.like_status === false) ? this.state.likes_count + 1 : this.state.likes_count - 1
+				});
+			}
+		});
 	}
 
 	render() {
@@ -33,7 +52,9 @@ class NewsCard extends Component {
 							<TimeAgo time={this.props.item.date} interval={20000} />
 						</Text>
 						<View style={globalStyles.likeContainer}>
-							<Icon name="thumb-up" size={20} />
+							<TouchableWithoutFeedback onPress={this.likeNews.bind(this)}>
+								<Icon name="thumb-up" color={this.state.like_status ? '#DC1E2D' : null} size={20} />
+							</TouchableWithoutFeedback>
 							<Text
 								style={{
 									fontFamily: 'ProximaNova-Regular',
@@ -41,7 +62,7 @@ class NewsCard extends Component {
 									paddingLeft: 12
 								}}
 							>
-								{this.props.item.likes_count}
+								{this.state.likes_count}
 							</Text>
 						</View>
 					</View>

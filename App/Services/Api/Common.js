@@ -122,6 +122,52 @@ const getNearby = (param) => {
 	});
 };
 
+const getStaticContent = (param) => {
+	return request({
+		url: 'api/general/content',
+		method: 'get',
+		params: param
+	});
+};
+
+const likeNews = (param) => {
+	return request({
+		url: 'api/general/newsfeed',
+		method: 'post',
+		params: param
+	});
+};
+
+const likeContent = (context) => {
+	return request({
+		url: 'api/general/content/' + context.content_id + '/like',
+		method: 'post'
+	});
+};
+
+const dislikeContent = (context) => {
+	return request({
+		url: 'api/general/content/' + context.content_id + '/unlike',
+		method: 'post'
+	});
+};
+
+const submitPrivacy = (payload) => {
+	return request({
+		url: 'api/general/content/privacy',
+		method: 'post',
+        data: payload
+	});
+};
+
+const deleteUser = (payload) => {
+	return request({
+		url: 'oauth/user/delete',
+		method: 'post',
+        data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -137,7 +183,13 @@ const CommonService = {
 	getDashboard,
 	getNewsCategories,
 	getNews,
-	getNearby
+	getNearby,
+	getStaticContent,
+	likeNews,
+	likeContent,
+	dislikeContent,
+	submitPrivacy,
+	deleteUser
 };
 
 export default CommonService;
