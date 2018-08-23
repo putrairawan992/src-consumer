@@ -1,4 +1,4 @@
-package com.ayo_consumer;
+package com.pmi.store.pmiappm05726;
 import android.os.Bundle; // here
 
 import com.facebook.react.ReactActivity;
@@ -17,6 +17,6 @@ public class MainActivity extends ReactActivity {
         super.onCreate(savedInstanceState);
     }
     protected String getMainComponentName() {
-        return "ayo_consumer";
+        return "AYOSRC";
     }
 }

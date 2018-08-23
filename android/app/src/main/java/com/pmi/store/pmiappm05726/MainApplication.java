@@ -1,4 +1,4 @@
-package com.ayo_consumer;
+package com.pmi.store.pmiappm05726;
 
 import android.app.Application;
 
@@ -62,6 +62,6 @@ public class MainApplication extends Application implements ShareApplication, Re
 
    @Override
      public String getFileProviderAuthority() {
-            return "com.ayo_consumer.provider";
+            return "com.pmi.store.pmiappm05726.provider";
      }
 }

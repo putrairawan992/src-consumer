@@ -1,12 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ayo_consumer">
-
+    package="com.pmi.store.pmiappm05726">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -29,7 +27,7 @@
      android:value="AIzaSyDfmOgW7-k-7Md-AooCWJbhhC5TCXyHyhk"/>
      <provider
         android:name="android.support.v4.content.FileProvider"
-        android:authorities="com.ayo_consumer.provider"
+        android:authorities="com.pmi.store.pmiappm05726.provider"
         android:grantUriPermissions="true"
         android:exported="false">
         <meta-data
@@ -37,5 +35,4 @@
             android:resource="@xml/filepaths" />
     </provider>
     </application>
-
 </manifest>
