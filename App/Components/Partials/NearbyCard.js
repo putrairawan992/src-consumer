@@ -43,7 +43,7 @@ class NearbyCard extends Component {
 			<TouchableWithoutFeedback onPress={this.redirectDetail.bind(this)}>
 				<View style={{ flexDirection: 'row' }}>
 					<View style={styles.containerStyle}>
-						<Image style={styles.imageShop} source={{ uri: this.props.item.avatar_url }} />
+						<Image style={styles.imageShop} source={{ uri: this.props.item.image_url }} />
 						<View style={globalStyles.detailCardContainer}>
 							<Text style={globalStyles.shopName}>
 								{this.props.item.name}
