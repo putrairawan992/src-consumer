@@ -5,11 +5,19 @@ import { setProfileFromRest } from '@helpers/Storage';
 import {
     CHANGE_PASS_PASSWORD_CHANGES,
     CHANGE_PASS_PASSWORD_CONFIRMATION_CHANGES,
+    CHANGE_PASS_OLD_PASSWORD_CHANGES,
     CHANGE_PASS_PAGE_UNMOUNT,
     CHANGE_PASS_PROCCESS,
     CHANGE_PASS_SUCCESS,
     CHANGE_PASS_FAIL
 } from './types';
+
+export const oldPasswordChanged = (text) => {
+    return {
+        type: CHANGE_PASS_OLD_PASSWORD_CHANGES,
+        payload: text
+    };
+};
 
 export const passwordChanged = (text) => {
     return {

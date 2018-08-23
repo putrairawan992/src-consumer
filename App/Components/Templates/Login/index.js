@@ -58,6 +58,10 @@ class LoginComponent extends Component {
 		Actions.ForgotPassword();
 	}
 
+	redirectRegister() {
+		Actions.Register();
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -84,7 +88,7 @@ class LoginComponent extends Component {
 				<Button onPress={this.submitLogin.bind(this)}>MASUK</Button>
 				<View style={globalStyles.phoneRow}>
 					<LightText>Pengguna Baru</LightText>
-					<LinkText style={{ marginLeft: 0 }}>Daftar disini</LinkText>
+					<LinkText style={{ marginLeft: 0 }} onPress={this.redirectRegister.bind(this)}>Daftar disini</LinkText>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<LightText style={{ marginTop: 0 }}>

@@ -38,13 +38,17 @@ class DeleteAccountComponent extends Component {
 			password: this.state.password,
 			password_confirmation: this.state.password_confirmation
 		};
-        CommonService.deleteUser(payload).then(async() => {
+		CommonService.deleteUser(payload).then(async () => {
 			await removeAuthFromStorage();
 			this.props.revokeProfile();
 			this.setState({
 				onSubmit: false
 			});
 			Actions.reset('WelcomeScreen');
+		}).catch(() => {
+			this.setState({
+				onSubmit: false
+			});
 		});
 	}
 	render() {

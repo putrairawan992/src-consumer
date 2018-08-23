@@ -4,10 +4,12 @@ import {
     CHANGE_PASS_PAGE_UNMOUNT,
     CHANGE_PASS_PROCCESS,
     CHANGE_PASS_SUCCESS,
-    CHANGE_PASS_FAIL
+    CHANGE_PASS_FAIL,
+    CHANGE_PASS_OLD_PASSWORD_CHANGES
 } from './types';
 
 const INITIAL_STATE = {
+    old_password: '',
     password: '',
     password_confirmation: '',
     baseLoading: false
@@ -15,6 +17,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case CHANGE_PASS_OLD_PASSWORD_CHANGES:
+            return { ...state, old_password: action.payload };
         case CHANGE_PASS_PASSWORD_CHANGES:
             return { ...state, password: action.payload };
         case CHANGE_PASS_PASSWORD_CONFIRMATION_CHANGES:

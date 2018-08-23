@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Input, Button, Loader } from '@partials';
@@ -12,12 +12,17 @@ import globalStyles from '../../../GlobalStyles';
 class ChangePasswordComponent extends Component {
 
 	state = {
+		oldPasswordError: '',
 		passwordError: '',
 		passwordConfirmationError: ''
 	}
 
 	componentWillUnmount() {
 		this.props.changePassPageUnmount();
+	}
+
+	oldPasswordOnChange(text) {
+		this.props.oldPasswordChanged(text);
 	}
 
 	passwordOnChange(text) {
@@ -33,6 +38,12 @@ class ChangePasswordComponent extends Component {
 	}
 
 	submitChangePassword() {
+		const oldPasswordError = validateClass(
+			'password',
+			this.props.old_password,
+			validation,
+			'password'
+		);
 		const passwordError = validateClass(
 			'password',
 			this.props.password,
@@ -46,11 +57,13 @@ class ChangePasswordComponent extends Component {
 			'passwordConfirmation'
 		);
 		this.setState({
+			oldPasswordError: oldPasswordError,
 			passwordError: passwordError,
 			passwordConfirmationError: passwordConfirmationError
 		});
-		if (!passwordError && !passwordConfirmationError) {
+		if (!passwordError && !passwordConfirmationError && !oldPasswordError) {
 			const payload = {
+				old_password: this.props.old_password,
 				password: this.props.password,
 				password_confirmation: this.props.password_confirmation
 			};
@@ -60,10 +73,19 @@ class ChangePasswordComponent extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<ScrollView contentContainerStyle={styles.container}>
 				<Text style={globalStyles.centeredText}>
 					Masukkan kata sandi baru untuk akun anda
 				</Text>
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Kata sandi sekarang"
+						secureTextEntry
+						onChangeText={this.oldPasswordOnChange.bind(this)}
+						value={this.props.old_password}
+						error={this.state.oldPasswordError}
+					/>
+				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
 						placeholder="Kata sandi"
@@ -84,13 +106,14 @@ class ChangePasswordComponent extends Component {
 				</View>
 				<Button onPress={this.submitChangePassword.bind(this)}>KIRIM</Button>
 				<Loader visible={this.props.baseLoading} />
-			</View>
+			</ScrollView>
 		);
 	}
 }
 
 const mapStateToProps = state => {
 	return {
+		old_password: state.changePasswordReducer.old_password,
 		password: state.changePasswordReducer.password,
 		password_confirmation: state.changePasswordReducer.password_confirmation,
 		baseLoading: state.changePasswordReducer.baseLoading
