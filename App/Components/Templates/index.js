@@ -20,6 +20,7 @@ import NewsDetailComponent from './NewsDetail';
 import HelpComponent from './Help';
 import PrivacySettingComponent from './PrivacySetting';
 import SubmitSettingComponent from './SubmitSetting';
+import StaticContentComponent from './StaticContent';
 
 export {
 	IntroComponent,
@@ -43,5 +44,6 @@ export {
 	NewsDetailComponent,
 	HelpComponent,
 	PrivacySettingComponent,
-	SubmitSettingComponent
+	SubmitSettingComponent,
+	StaticContentComponent
 };

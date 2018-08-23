@@ -168,6 +168,13 @@ const deleteUser = (payload) => {
 	});
 };
 
+const getBannerDetail = (context) => {
+	return request({
+		url: 'api/general/page/' + context.slug,
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -189,7 +196,8 @@ const CommonService = {
 	likeContent,
 	dislikeContent,
 	submitPrivacy,
-	deleteUser
+	deleteUser,
+	getBannerDetail
 };
 
 export default CommonService;

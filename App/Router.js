@@ -19,7 +19,8 @@ import {
 	NewsDetailComponent,
 	HelpComponent,
 	PrivacySettingComponent,
-	SubmitSettingComponent
+	SubmitSettingComponent,
+	StaticContentComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage } from '@helpers/Storage';
@@ -145,6 +146,11 @@ class routerComponent extends Component {
 							key="Privacy"
 							component={PrivacySettingComponent}
 							title="Pengaturan Privasi"
+						/>
+						<Scene 
+							key="Static"
+							component={StaticContentComponent}
+							title="Promo"
 						/>
 						<Scene
 							key="SubmitSetting"

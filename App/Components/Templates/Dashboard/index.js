@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator } from 'react-native';
+import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
@@ -35,6 +35,12 @@ class DashboardComponent extends Component {
 		});
 	}
 
+	redirectStatic(banner) {
+		if (banner.target_page.type === 'static_page') {
+			Actions.Static({ banner: banner });
+		}
+	}
+
 	async redirectNearby() {
 		const locationStatus = await PermissionHelpers.requestLocationPermission();
 		if (locationStatus === true) {
@@ -61,11 +67,17 @@ class DashboardComponent extends Component {
 	renderBanner() {
 		return this.state.banners.map((val) => {
 			return (
-				<Image
-					source={{ uri: val.image_url }}
-					style={globalStyles.sliderImg}
+				<TouchableWithoutFeedback
+					onPress={() => {
+						this.redirectStatic(val);
+					}}
 					key={val.id}
-				/>
+				>
+					<Image
+						source={{ uri: val.image_url }}
+						style={globalStyles.sliderImg}
+					/>
+				</TouchableWithoutFeedback>
 			);
 		});
 	}
