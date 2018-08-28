@@ -98,7 +98,7 @@ export default class CustomNavBar extends React.Component {
           onPress={this.props.rightPress}
           style={{ paddingRight: 10 }}
         >
-          <Icon name={this.props.withIcon} size={38} color="#fff" />
+          <Icon name={this.props.withIcon} size={32} color="#fff" />
         </TouchableOpacity>
       </View>
     );
