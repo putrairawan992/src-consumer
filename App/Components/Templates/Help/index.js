@@ -38,12 +38,12 @@ class HelpComponent extends Component {
     }
 
     linkWhatsapp() {
-        Linking.canOpenURL('https://api.whatsapp.com/send?phone=62812821732837').then((supported) => {
+        Linking.canOpenURL('https://api.whatsapp.com/send?phone=6281977000234').then((supported) => {
             if (!supported) {
                 CustomAlert(null, 'Perangkat tidak mendukung', [{ text: 'OK' }]);
             }
             else {
-                return Linking.openURL('https://api.whatsapp.com/send?phone=62812821732837');
+                return Linking.openURL('https://api.whatsapp.com/send?phone=6281977000234');
             }
         });
     }
@@ -131,7 +131,7 @@ class HelpComponent extends Component {
                                     <Text style={styles.contentItemMainContent}>021-1267834</Text>
                                 </View>
                                 <View style={styles.contentItemSecondary}>
-                                    <Text style={styles.contentItemSecondaryContent}>Biaya ditanggung penelepon</Text>
+                                    <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} >Biaya ditanggung penelepon</Text>
                                 </View>
                             </View>
                             <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
@@ -143,7 +143,10 @@ class HelpComponent extends Component {
                             <View style={styles.contentItemContainer}>
                                 <View style={styles.contentItemMain}>
                                     <Text style={styles.contentItemMainTitle}>Melalui WhatsApp</Text>
-                                    <Text style={styles.contentItemMainContent}>0812-82173-2837</Text>
+                                    <Text style={styles.contentItemMainContent}>0819-77000-234</Text>
+                                </View>
+                                <View style={styles.contentItemSecondary}>
+                                    <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} />
                                 </View>
                             </View>
                             <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
