@@ -6,7 +6,8 @@
  * @license MIT
  *
  */
-import { getAuthorization } from '@helpers/Storage';
+import { getAuthorization, removeAuthFromStorage } from '@helpers/Storage';
+import { Actions } from 'react-native-router-flux';
 import ServerValidation from '@helpers/ServerValidation';
 import CustomAlert from '@helpers/CustomAlert';
 import axios from 'axios';
@@ -48,8 +49,16 @@ const request = async options => {
       if (error.response.status === 422 && (error.config.method === 'post' || error.config.method === 'put')) {
         ServerValidation(error.response.data.errors);
       }
-      if (error.response.status === 401 && error.config.method === 'post' && error.response.data.error === 'invalid_credentials') {
-        CustomAlert(null, 'Nomor Ponsel / Password salah.', [{ text: 'OK' }]);
+      if (error.response.status === 401) {
+        if (error.config.method === 'post') {
+          if (error.response.data.error === 'invalid_credentials') {
+            CustomAlert(null, 'Nomor Ponsel / Password salah.', [{ text: 'OK' }]);
+          }
+        }
+        else if (error.config.method === 'get') {
+          removeAuthFromStorage();
+          Actions.WelcomeScreen({ type: 'reset' });
+        }
       }
     } else {
       // Something else happened while setting up the request
