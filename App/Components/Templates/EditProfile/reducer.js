@@ -29,7 +29,12 @@ const INITIAL_STATE = {
     baseLoading: false,
     image_url: '',
     profileLoaded: false,
-    image: ''
+    image: '',
+    isOver: false
+};
+
+const calculateAge = (birthday) => {
+	return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -61,7 +66,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
         case EDIT_ON_WILL_MOUNT:
-            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true };
+            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true, isOver: (calculateAge(action.payload.birth_date) >= 18 ? true : false) };
         case EDIT_IMAGE_REPLACED:
             return { ...state, image: action.payload };
         default:

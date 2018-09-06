@@ -21,6 +21,10 @@ const validation = {
     presence: {
       allowEmpty: false,
       message: '^Konfirmasi password tidak boleh kosong.'
+    },
+    equality: {
+      attribute: 'password',
+      message: '^Konfirmasi kata sandi anda tidak sesuai'
     }
   },
   city: {

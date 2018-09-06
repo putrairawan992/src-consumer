@@ -64,7 +64,7 @@ const resetPassword = (payload) => {
 
 const changePassword = (payload) => {
 	return request({
-		url: 'api/general/otp/change-password',
+		url: 'oauth/password/change',
 		method: 'POST',
 		data: payload
 	});

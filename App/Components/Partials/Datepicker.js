@@ -51,6 +51,7 @@ class Datepicker extends Component {
 					cancelBtnText="Cancel"
 					androidMode="spinner"
 					onDateChange={this.props.onDateChange}
+					disabled={this.props.disabled}
 					iconComponent={this.renderCalendar()}
 					customStyles={{
 						dateInput: {
@@ -70,6 +71,9 @@ class Datepicker extends Component {
 							fontFamily: 'ProximaNova-Regular',
 							color: 'rgba(0,0,0,0.6)',
 							fontSize: 16
+						},
+						disabled: {
+							backgroundColor: 'transparent'
 						}
 						// ... You can check the source to find the other keys.
 					}}

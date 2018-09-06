@@ -102,7 +102,7 @@ class EditProfileComponent extends Component {
 			this.props.id_number,
 			validation,
 			'idNumber'
-		);
+		) && this.props.isOver;
 		const cityError = validateClass(
 			'city',
 			this.props.city_id,
@@ -150,6 +150,23 @@ class EditProfileComponent extends Component {
 						value={this.props.city_id}
 						onValueChange={this.onCityChange.bind(this)}
 						error={this.state.cityError}
+					/>
+				</View>
+			);
+		}
+	}
+
+	renderKtp() {
+		console.log(this.props.isOver);
+		if (this.props.isOver) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Nomor KTP"
+						onChangeText={this.onKtpChanged.bind(this)}
+						value={this.props.id_number}
+						error={this.state.idNumberError}
+						editable={false}
 					/>
 				</View>
 			);
@@ -227,32 +244,26 @@ class EditProfileComponent extends Component {
 						/>
 					</View>
 					<View style={globalStyles.phoneRow}>
-					<Select
-						items={this.props.provinces}
-						placeholder="Pilih Provinsi"
-						iteratorKey={'id'}
-						iteratorLabel={'name'}
-						value={this.props.province_id}
-						onValueChange={this.onProvinceChange.bind(this)}
-						error={this.state.provinceError}
-					/>
-				</View>
-				{this.renderCitySelect()}
+						<Select
+							items={this.props.provinces}
+							placeholder="Pilih Provinsi"
+							iteratorKey={'id'}
+							iteratorLabel={'name'}
+							value={this.props.province_id}
+							onValueChange={this.onProvinceChange.bind(this)}
+							error={this.state.provinceError}
+						/>
+					</View>
+					{this.renderCitySelect()}
 					<View style={globalStyles.phoneRow}>
 						<Datepicker
 							date={this.props.birth_date}
 							onDateChange={this.onDateChanged.bind(this)}
 							error={this.state.dateError}
+							disabled={true}
 						/>
 					</View>
-					<View style={globalStyles.phoneRow}>
-						<Input
-							placeholder="Nomor KTP"
-							onChangeText={this.onKtpChanged.bind(this)}
-							value={this.props.id_number}
-							error={this.state.idNumberError}
-						/>
-					</View>
+					{this.renderKtp()}
 					<View style={globalStyles.phoneRow}>
 						<Input
 							value="+62"
@@ -291,7 +302,8 @@ const mapStateToProps = (state) => {
 		province_id: state.editUserReducer.province_id,
 		city_id: state.editUserReducer.city_id,
 		cities: state.editUserReducer.cities,
-		provinces: state.editUserReducer.provinces
+		provinces: state.editUserReducer.provinces,
+		isOver: state.editUserReducer.isOver
 	};
 	return newProps;
 };

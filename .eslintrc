@@ -12,6 +12,7 @@
         "no-underscore-dangle":0,
         "no-param-reassign":0,
         "dot-notation":0,
-        "brace-style":0
+        "brace-style":0,
+        "no-unneeded-ternary": 0
     }
 }

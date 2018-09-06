@@ -151,7 +151,9 @@ class RegisterComponent extends Component {
 			'passwordConfirmation',
 			this.props.password_confirmation,
 			validation,
-			'passwordConfirmation'
+			'passwordConfirmation',
+			'password',
+			this.props.password
 		);
 		this.setState({
 			nameError: nameError,
