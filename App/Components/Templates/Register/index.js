@@ -4,6 +4,7 @@ import RadioForm from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { Input, Select, Datepicker, Button, Checkbox, Loader } from '@partials';
 import validateClass from '@helpers/validator';
+import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
 import * as actions from './actions';
 import validation from './validation';
@@ -133,7 +134,7 @@ class RegisterComponent extends Component {
 			this.props.id_number,
 			validation,
 			'idNumber'
-		);
+		) && this.props.isOver;
 		const passwordError = validateClass(
 			'password',
 			this.props.password,
@@ -187,6 +188,25 @@ class RegisterComponent extends Component {
 				is_smoking: this.props.is_smoking
 			};
 			this.props.submitSignUp(payload);
+		}
+		else {
+          CustomAlert(null, 'Mohon lengkapi data untuk melanjutkan pendaftaran', [{ text: 'OK' }]);
+		}
+	}
+
+	renderKtp() {
+		if (this.props.isOver) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Nomor KTP"
+						onChangeText={this.onKtpChange.bind(this)}
+						value={this.props.id_number}
+						error={this.state.idNumberError}
+						keyboardType={'numeric'}
+					/>
+				</View>
+			);
 		}
 	}
 
@@ -262,14 +282,7 @@ class RegisterComponent extends Component {
 						error={this.state.dateError}
 					/>
 				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Nomor KTP"
-						onChangeText={this.onKtpChange.bind(this)}
-						value={this.props.id_number}
-						error={this.state.idNumberError}
-					/>
-				</View>
+				{this.renderKtp()}
 				<View style={globalStyles.phoneRow}>
 					<Input value="+62" editable={false} />
 					<Input
@@ -357,7 +370,8 @@ const mapStateToProps = state => {
 		province_id: state.signUpReducer.province_id,
 		cities: state.signUpReducer.cities,
 		is_approved: state.signUpReducer.is_approved,
-		baseLoading: state.signUpReducer.baseLoading
+		baseLoading: state.signUpReducer.baseLoading,
+		isOver: state.signUpReducer.isOver
 	};
 };
 

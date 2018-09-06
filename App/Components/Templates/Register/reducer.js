@@ -34,8 +34,14 @@ const INITIAL_STATE = {
 	is_approved: false,
 	provinces: [],
 	cities: [],
-	baseLoading: false
+	baseLoading: false,
+	isOver: false
 };
+
+const calculateAge = (birthday) => {
+	return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
+};
+
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
@@ -49,8 +55,14 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, password_confirmation: action.payload };
 		case REGISTER_GENDER_CHANGED:
 			return { ...state, gender: action.payload };
-		case REGISTER_BIRTHDATE_CHANGED:
-			return { ...state, birth_date: action.payload };
+		case REGISTER_BIRTHDATE_CHANGED: {
+			const myAge = calculateAge(action.payload);
+			let virOver = false;
+			if (myAge >= 18) {
+				virOver = true;
+			}
+			return { ...state, birth_date: action.payload, isOver: virOver };
+		}
 		case REGISTER_KTP_CHANGED:
 			return { ...state, id_number: action.payload };
 		case REGISTER_PROVINCE_CHANGED:
@@ -70,7 +82,7 @@ export default (state = INITIAL_STATE, action) => {
 		case SIGN_UP_PROCCESS:
 			return { ...state, baseLoading: true };
 		case SIGN_UP_SUCCESS:
-			return { ...state, baseLoading: false }; 
+			return { ...state, baseLoading: false };
 		case SIGN_UP_FAIL:
 			return { ...state, baseLoading: false };
 		case REGISTER_PAGE_UNMOUNT:
