@@ -22,6 +22,20 @@ const retrieveCustomData = async key => {
 	}
 };
 
+const checkFirstLaunch = async () => {
+	try {
+		const value = await AsyncStorage.getItem('first_launch');
+		if (value === null) {
+			AsyncStorage.setItem('first_launch', 'first_time');
+			return 'first_time';
+		}
+		return 'not_first_time';
+	} catch (error) {
+		console.log('something went wrong');
+		return 'not_first_time';
+	}
+};
+
 const setAuthorization = async value => {
 	try {
 		await AsyncStorage.setItem('authorization', JSON.stringify(value));
@@ -98,5 +112,6 @@ export {
 	debugStorage,
 	setProfileFromRest,
 	getProfileFromStorage,
-	removeAuthFromStorage
+	removeAuthFromStorage,
+	checkFirstLaunch
 };

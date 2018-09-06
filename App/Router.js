@@ -23,7 +23,7 @@ import {
 	StaticContentComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
-import { getProfileFromStorage } from '@helpers/Storage';
+import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
 import SplashScreen from 'react-native-splash-screen';
 
 const checkLogin = async () => {
@@ -40,7 +40,8 @@ const checkLogin = async () => {
 class routerComponent extends Component {
 	state = {
 		isAuth: false,
-		checking: true
+		checking: true,
+		isFirst: false
 	}
 
 	componentWillMount() {
@@ -52,9 +53,20 @@ class routerComponent extends Component {
 				});
 			}
 			else {
-				this.setState({ isAuth: false, checking: false });
-				setTimeout(() => {
-					SplashScreen.hide();
+				this.setState({ isAuth: false });
+				checkFirstLaunch().then((firstLaunch) => {
+					console.log('check first launch', firstLaunch);
+					if (firstLaunch === 'first_time') {
+						this.setState({
+							isFirst: true
+						});
+					}
+					setTimeout(() => {
+						this.setState({
+							checking: false
+						});
+						SplashScreen.hide();
+					});
 				});
 			}
 		});
@@ -68,10 +80,10 @@ class routerComponent extends Component {
 						<Scene
 							key="WelcomeScreen"
 							component={WelcomeScreenComponent}
-							initial={!this.state.isAuth}
+							initial={!this.state.isAuth && !this.state.isFirst}
 							hideNavBar
 						/>
-						<Scene key="Intro" component={IntroComponent} hideNavBar />
+						<Scene key="Intro" component={IntroComponent} hideNavBar initial={!this.state.isAuth && this.state.isFirst} />
 						<Scene key="Login" component={LoginComponent} title="Masuk" />
 						<Scene
 							key="MainConsumer"
@@ -137,17 +149,17 @@ class routerComponent extends Component {
 							component={NewsDetailComponent}
 							title="Detil Berita"
 						/>
-						<Scene 
+						<Scene
 							key="Help"
 							component={HelpComponent}
 							title="Bantuan"
 						/>
-						<Scene 
+						<Scene
 							key="Privacy"
 							component={PrivacySettingComponent}
 							title="Pengaturan Privasi"
 						/>
-						<Scene 
+						<Scene
 							key="Static"
 							component={StaticContentComponent}
 							title="Promo"

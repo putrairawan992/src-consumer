@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
@@ -38,7 +39,7 @@ class IntroComponent extends Component {
 	state = { isLast: false };
 	
 	triggerOnDone() {
-
+      Actions.WelcomeScreen({ type: 'reset' });
 	}
 
 	renderSlider(props) {
@@ -100,6 +101,7 @@ class IntroComponent extends Component {
 					activeDotColor={'#9C2020'}
 					hideNextButton
 					onDone={this.triggerOnDone}
+					doneLabel="Selesai"
 				/>
 			</LinearGradient>
 		);
