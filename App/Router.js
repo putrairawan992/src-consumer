@@ -43,6 +43,7 @@ class routerComponent extends Component {
 		checking: true,
 		isFirst: false
 	}
+	
 
 	componentWillMount() {
 		checkLogin().then((result) => {
@@ -72,10 +73,18 @@ class routerComponent extends Component {
 		});
 	}
 
+	onBackPress() {
+		if (Actions.state.index === 0) {
+	return false;
+		}
+		Actions.pop();
+		return true;
+	}
+
 	render() {
 		if (!this.state.checking) {
 			return (
-				<Router>
+				<Router backAndroidHandler={this.onBackPress}>
 					<Stack key="root" navBar={CustomNavBar}>
 						<Scene
 							key="WelcomeScreen"
