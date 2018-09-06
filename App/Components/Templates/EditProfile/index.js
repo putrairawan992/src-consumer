@@ -54,7 +54,7 @@ class EditProfileComponent extends Component {
 	}
 
 	onDateChanged(text) {
-		this.props.editBirthDateChanged(text);
+		this.props.editBirthdateChanged(text);
 	}
 
 	onKtpChanged(text) {
@@ -161,7 +161,7 @@ class EditProfileComponent extends Component {
 		if (this.props.profileLoaded) {
 			return (
 				<ScrollView contentContainerStyle={styles.container}>
-					<View style={[globalStyles.phoneRow, { margin: 10 }]}>
+					<View style={[globalStyles.phoneRow, { marginLeft: 16, flex: 1, justifyContent: 'flex-start' }]}>
 						{/* <TouchableOpacity style={styles.avaPlaceHolder} onPress={this.onCameraPressed.bind(this)}>
 							<Icon name="add-a-photo" size={30} />
 						</TouchableOpacity> */}
@@ -180,13 +180,17 @@ class EditProfileComponent extends Component {
 								style={{
 									height: 85,
 									width: 85,
-									resizeMode: 'cover'
+									resizeMode: 'cover',
+									borderWidth: 1,
+									borderRadius: 8,
+									borderColor: '#ececec'
 								}}
 							/>
 						</PhotoUpload>
 						<View style={{ flex: 3 }}>
+							<Text style={[styles.avaPlaceHolderText, { color: '#000' }]}>Foto Profil</Text>
 							<Text style={styles.avaPlaceHolderText}>
-								Foto Profil Ukuran Maksimal 200Kb JPG
+								Ukuran Maksimal 200Kb JPG, PNG
 							</Text>
 						</View>
 					</View>

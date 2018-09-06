@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import moment from 'moment';
 import globalStyles from '../../GlobalStyles';
 
 const styles = {
@@ -10,6 +11,8 @@ const styles = {
 		margin: 10
 	}
 };
+
+const now = moment().format('YYYY-MM-DD');
 
 class Datepicker extends Component {
 	renderCalendar() {
@@ -43,6 +46,7 @@ class Datepicker extends Component {
 					mode="date"
 					placeholder="Tanggal Lahir"
 					format="YYYY-MM-DD"
+					maxDate={now}
 					confirmBtnText="Confirm"
 					cancelBtnText="Cancel"
 					androidMode="spinner"
