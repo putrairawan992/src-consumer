@@ -132,12 +132,18 @@ class routerComponent extends Component {
 							component={NearbyComponent}
 							title="Toko terdekat"
 							withIcon={'map'}
-							rightPress={() => { Actions.NearbyMapView(); }}
+							rightPress={() => { 
+								Actions.pop();
+								Actions.NearbyMapView(); }}
 						/>
 						<Scene
 							key="NearbyMapView"
 							component={NearbyMapViewComponent}
 							title="Toko terdekat"
+							withIcon={'grid-on'}
+							rightPress={() => { 
+								Actions.pop();
+								Actions.Nearby(); }}
 						/>
 						<Scene
 							key="ShopDetail"
