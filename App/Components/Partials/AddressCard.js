@@ -48,6 +48,17 @@ class AddressCard extends Component {
 								Nama Undian
 							</Button>
 						</View> */}
+						<View
+							style={{
+								flexDirection: 'row',
+								alignItems: 'center'
+							}}
+						>
+							<Icon name="directions-run" size={14} />
+							<Text style={globalStyles.rangeText}>
+								{this.props.item.distance} KM
+									</Text>
+						</View>
 					</View>
 				</View>
 				<View style={{ flex: 1 }}>

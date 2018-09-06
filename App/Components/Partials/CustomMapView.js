@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
 	container: {
@@ -22,12 +23,20 @@ class CustomMapView extends Component {
 			};
 		});
 	}
+	redirectDetail(id) {
+		Actions.ShopDetail({ item: this.props.locations.find((location) => {
+			return location.id === id;
+		}) });
+	}
 	renderMarker(markers) {
 		return markers.map((marker, idx) => (
 			<Marker
 				key={idx.toString()}
 				coordinate={marker.coordinate}
 				image={require('@images/map-marker.png')}
+				onPress={() => {
+					this.redirectDetail(marker.key);
+				}}
 			/>
 		));
 	}
