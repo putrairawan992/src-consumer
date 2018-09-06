@@ -16,6 +16,7 @@
     "react-native-app-intro-slider": "^0.2.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^0.19.1",
+    "react-native-event-listeners": "^1.0.3",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-maps": "^0.21.0",

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { EventRegister } from 'react-native-event-listeners';
 import { Actions } from 'react-native-router-flux';
 import TimeAgo from 'react-native-timeago';
 import moment from 'moment';
@@ -14,10 +15,26 @@ moment.locale('id');
 class NewsCard extends Component {
 	state = {
 		like_status: this.props.item.like_status,
-		likes_count: this.props.item.likes_count
+		likes_count: this.props.item.likes_count,
+		transferItem: this.props.item
 	}
+	componentWillMount() {
+		this.listener = EventRegister.addEventListener('newsLike', (data) => {
+			if (data.news_id === this.props.item.id) {
+				this.setState({
+					like_status: this.props.item.like_status,
+					likes_count: this.props.item.likes_count,
+				});
+			}
+		});
+	}
+
+	componentWillUnmount() {
+		this.listener = EventRegister.removeEventListener('newsLike');
+	}
+	
 	redirectNewsDetail() {
-		Actions.NewsDetail({ news: this.props.item });
+		Actions.NewsDetail({ news: this.state.transferItem });
 	}
 
 	likeNews() {
@@ -28,7 +45,8 @@ class NewsCard extends Component {
 			if (response.status === true) {
 				this.setState({
 					like_status: !this.state.like_status,
-					likes_count: (this.state.like_status === false) ? this.state.likes_count + 1 : this.state.likes_count - 1
+					likes_count: (this.state.like_status === false) ? this.state.likes_count + 1 : this.state.likes_count - 1,
+					transferItem: { ...this.state.transferItem, like_status: !this.state.like_status, likes_count: (this.state.like_status === false) ? this.state.likes_count + 1 : this.state.likes_count - 1 }
 				});
 			}
 		});

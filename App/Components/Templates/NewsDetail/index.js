@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { WebView, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { CommonService } from '@services';
+import { EventRegister } from 'react-native-event-listeners';
 import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -54,6 +55,12 @@ class NewsDetailComponent extends Component {
 					like_status: !this.state.like_status,
 					likes_count: (this.state.like_status === false) ? this.state.likes_count + 1 : this.state.likes_count - 1
 				});
+				const likeObj = {
+					like_status: this.state.like_status,
+					likes_count: this.state.likes_count,
+					news_id: this.props.news.id
+				};
+				EventRegister.emit('newsLike', likeObj);
 			}
 		});
 	}
