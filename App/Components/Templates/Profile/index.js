@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text, ImageBackground } from 'react-native';
+import { ScrollView, View, Image, Text, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { MenuListButton, Loader } from '@partials';
 import { CommonService } from '@services';
@@ -40,7 +40,7 @@ class ProfileComponent extends Component {
 
 	submitLogout() {
 		this.setState({ baseLoading: true });
-		CommonService.signOut().then(async() => {
+		CommonService.signOut().then(async () => {
 			await removeAuthFromStorage();
 			this.props.revokeProfile();
 			this.setState({ baseLoading: false });
@@ -67,10 +67,16 @@ class ProfileComponent extends Component {
 								{ paddingTop: 0 }
 							]}
 						>
-							<Image
-								style={globalStyles.personImg}
-								source={{ uri: this.props.globalProfile.image_url }}
-							/>
+							<TouchableWithoutFeedback 
+							onPress={() => {
+								Actions.EditProfile();
+							}}
+							>
+								<Image
+									style={globalStyles.personImg}
+									source={{ uri: this.props.globalProfile.image_url }}
+								/>
+							</TouchableWithoutFeedback>
 							<Text style={globalStyles.detailText}>
 								{this.props.globalProfile.fullname}
 							</Text>
@@ -79,7 +85,7 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.cardContainer}>
 						<Image source={require('@images/card.png')} style={globalStyles.cardImg} />
 						<View style={globalStyles.cardText}>
-							<Text style={[globalStyles.innerText]}>{(this.props.globalProfile.phone) ? 0 + this.props.globalProfile.phone.slice(3) : null }</Text>
+							<Text style={[globalStyles.innerText]}>{(this.props.globalProfile.phone) ? 0 + this.props.globalProfile.phone.slice(3) : null}</Text>
 							<Text style={[globalStyles.innerText, { fontFamily: 'ProximaNova-Regular' }]}>{this.props.globalProfile.fullname}</Text>
 						</View>
 					</View>

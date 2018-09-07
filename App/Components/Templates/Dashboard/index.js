@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
 import PermissionHelpers from '@helpers/Permission';
+import { EventRegister } from 'react-native-event-listeners';
 import CustomAlert from '@helpers/CustomAlert';
 import { CommonService } from '@services';
 import globalStyles from '../../../GlobalStyles';
@@ -105,15 +106,21 @@ class DashboardComponent extends Component {
 									source={ayoImg}
 								/>
 							</View>
-							<View style={globalStyles.detailContainer}>
-								<Image
-									style={globalStyles.personImg}
-									source={{ uri: this.props.globalProfile.image_url }}
-								/>
-								<Text style={globalStyles.detailText}>
-									{this.props.globalProfile.fullname}
-								</Text>
-							</View>
+							<TouchableWithoutFeedback 
+							onPress={() => {
+								EventRegister.emit('profileTab');
+							}}
+							>
+								<View style={globalStyles.detailContainer}>
+									<Image
+										style={globalStyles.personImg}
+										source={{ uri: this.props.globalProfile.image_url }}
+									/>
+									<Text style={globalStyles.detailText}>
+										{this.props.globalProfile.fullname}
+									</Text>
+								</View>
+							</TouchableWithoutFeedback>
 						</ImageBackground>
 						{/* <LinearGradient
 							style={globalStyles.couponChildren}

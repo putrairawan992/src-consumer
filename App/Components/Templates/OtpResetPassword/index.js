@@ -117,7 +117,7 @@ class OtpResetPasswordComponent extends Component {
 				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#000' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
-					Masukkan 6 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
+					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
 				</Text>
 				<View style={styles.inputContainerStyle}>
 					<Input
