@@ -50,7 +50,7 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	redirectChangePassword() {
-		Actions.ChangePassword();
+		Actions.ChangePassword({ requestReset: true });
 	}
 
 	handleKeyPress(textValue, keyValue, nextStep, previousStep) {

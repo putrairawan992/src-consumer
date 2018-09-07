@@ -40,17 +40,29 @@ export const changePassPageUnmount = () => {
     };
 };
 
-export const submitChangePassword = (payload) => {
+export const submitChangePassword = (payload, isReset) => {
     return dispatch => {
         dispatch({ type: CHANGE_PASS_PROCCESS });
-        CommonService.changePassword(payload).then(async() => {
-            await setProfileFromRest();
-            dispatch({ type: CHANGE_PASS_SUCCESS });
-            Actions.MainConsumer();
-            ToastAndroid.show('Sukses Mengganti Kata Sandi', ToastAndroid.SHORT);
-        }).catch(() => {
-            dispatch({ type: CHANGE_PASS_FAIL });
-        });
+        if (isReset) {
+            CommonService.changeResetPassword(payload).then(async () => {
+                await setProfileFromRest();
+                dispatch({ type: CHANGE_PASS_SUCCESS });
+                Actions.MainConsumer();
+                ToastAndroid.show('Sukses Mengganti Kata Sandi', ToastAndroid.SHORT);
+            }).catch(() => {
+                dispatch({ type: CHANGE_PASS_FAIL });
+            });
+        }
+        else {
+            CommonService.changePassword(payload).then(async () => {
+                await setProfileFromRest();
+                dispatch({ type: CHANGE_PASS_SUCCESS });
+                Actions.MainConsumer();
+                ToastAndroid.show('Sukses Mengganti Kata Sandi', ToastAndroid.SHORT);
+            }).catch(() => {
+                dispatch({ type: CHANGE_PASS_FAIL });
+            });
+        }
     };
 };
 

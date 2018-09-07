@@ -70,6 +70,14 @@ const changePassword = (payload) => {
 	});
 };
 
+const changeResetPassword = (payload) => {
+	return request({
+		url: 'api/general/otp/change-password',
+		method: 'post',
+		data: payload
+	});
+};
+
 const getProfile = () => {
 	return request({
 		url: 'oauth/user',
@@ -197,7 +205,8 @@ const CommonService = {
 	dislikeContent,
 	submitPrivacy,
 	deleteUser,
-	getBannerDetail
+	getBannerDetail,
+	changeResetPassword
 };
 
 export default CommonService;

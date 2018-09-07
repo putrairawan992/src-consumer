@@ -43,7 +43,7 @@ class ChangePasswordComponent extends Component {
 			this.props.old_password,
 			validation,
 			'password'
-		);
+		) && !this.props.requestReset;
 		const passwordError = validateClass(
 			'password',
 			this.props.password,
@@ -69,7 +69,23 @@ class ChangePasswordComponent extends Component {
 				password: this.props.password,
 				password_confirmation: this.props.password_confirmation
 			};
-			this.props.submitChangePassword(payload);
+			this.props.submitChangePassword(payload, this.props.requestReset);
+		}
+	}
+
+	renderCurrentPassword() {
+		if (!this.props.requestReset) {
+			return (
+				<View style={globalStyles.phoneRow}>
+				<Input
+					placeholder="Kata sandi sekarang"
+					secureTextEntry
+					onChangeText={this.oldPasswordOnChange.bind(this)}
+					value={this.props.old_password}
+					error={this.state.oldPasswordError}
+				/>
+			</View>
+			);
 		}
 	}
 
@@ -79,15 +95,7 @@ class ChangePasswordComponent extends Component {
 				<Text style={globalStyles.centeredText}>
 					Masukkan kata sandi baru untuk akun anda
 				</Text>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Kata sandi sekarang"
-						secureTextEntry
-						onChangeText={this.oldPasswordOnChange.bind(this)}
-						value={this.props.old_password}
-						error={this.state.oldPasswordError}
-					/>
-				</View>
+				{this.renderCurrentPassword()}
 				<View style={globalStyles.phoneRow}>
 					<Input
 						placeholder="Kata sandi"
