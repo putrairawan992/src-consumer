@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
 import PermissionHelpers from '@helpers/Permission';
-import { EventRegister } from 'react-native-event-listeners';
 import CustomAlert from '@helpers/CustomAlert';
 import { CommonService } from '@services';
 import globalStyles from '../../../GlobalStyles';
@@ -108,7 +107,7 @@ class DashboardComponent extends Component {
 							</View>
 							<TouchableWithoutFeedback 
 							onPress={() => {
-								EventRegister.emit('profileTab');
+								// EventRegister.emit('profileTab');
 							}}
 							>
 								<View style={globalStyles.detailContainer}>

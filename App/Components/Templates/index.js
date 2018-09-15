@@ -21,6 +21,7 @@ import HelpComponent from './Help';
 import PrivacySettingComponent from './PrivacySetting';
 import SubmitSettingComponent from './SubmitSetting';
 import StaticContentComponent from './StaticContent';
+import TermConditionComponent from './TermCondition';
 
 export {
 	IntroComponent,
@@ -45,5 +46,6 @@ export {
 	HelpComponent,
 	PrivacySettingComponent,
 	SubmitSettingComponent,
-	StaticContentComponent
+	StaticContentComponent,
+	TermConditionComponent
 };

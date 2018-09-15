@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { LinkText } from '@partials';
 import { CheckBox } from 'react-native-elements';
 import globalStyles from '../../GlobalStyles';
@@ -10,26 +11,43 @@ const styles = {
 		borderWidth: 0,
 		margin: 0,
 		marginRight: 0,
-		justifyContent: 'flex-start',
-		marginLeft: 0
+		justifyContent: 'flex-start'
 	},
 	textStyle: {
 		marginLeft: 0,
 		marginRight: 0
 	},
 	customText: {
-		marginTop: 10
+		marginTop: 10,
+		flexDirection: 'row',
+		alignItems: 'flex-start',
+		flexWrap: 'wrap'
 	}
 };
 
 class Checkbox extends Component {
+	redirectTerm(type) {
+		Actions.TermCondition({ termState: type });
+	}
 	renderText() {
 		if (this.props.type === 'term') {
 			return (
 				<View style={styles.customText}>
 					<Text>Saya telah membaca dan menyetujui</Text>
-					<LinkText style={{ marginLeft: 0, marginTop: 0, marginBottom: 0 }}>
+					<LinkText
+						style={{ margin: 0, marginRight: 10 }} onPress={() => {
+							this.redirectTerm('term');
+						}}
+					>
 						Syarat & Ketentuan
+					</LinkText>
+					<Text style={{ marginRight: 10 }}>Serta</Text>
+					<LinkText
+						style={{ margin: 0, marginRight: 10 }} onPress={() => {
+							this.redirectTerm('privacy');
+						}}
+					>
+						Kebijakan Privasi
 					</LinkText>
 					{this.props.error ? (
 						<Text style={[globalStyles.validationText]}>

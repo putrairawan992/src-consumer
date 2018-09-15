@@ -20,7 +20,8 @@ import {
 	HelpComponent,
 	PrivacySettingComponent,
 	SubmitSettingComponent,
-	StaticContentComponent
+	StaticContentComponent,
+	TermConditionComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
@@ -182,6 +183,11 @@ class routerComponent extends Component {
 						<Scene
 							key="SubmitSetting"
 							component={SubmitSettingComponent}
+						/>
+						<Scene
+							key="TermCondition"
+							component={TermConditionComponent}
+							hideNavBar
 						/>
 					</Stack>
 				</Router>

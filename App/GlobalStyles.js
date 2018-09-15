@@ -234,5 +234,17 @@ export default StyleSheet.create({
 	innerText: {
 		fontFamily: 'ProximaNova-Bold',
 		color: '#fff'
+	},
+	textHeading: {
+		fontFamily: 'ProximaNova-Bold',
+		fontSize: 16,
+		color: '#000',
+		lineHeight: 24
+	},
+	textChildren: {
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 13,
+		color: '#000',
+		lineHeight: 20
 	}
 });
