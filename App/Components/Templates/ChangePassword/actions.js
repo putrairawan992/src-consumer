@@ -44,6 +44,7 @@ export const submitChangePassword = (payload, isReset) => {
     return dispatch => {
         dispatch({ type: CHANGE_PASS_PROCCESS });
         if (isReset) {
+            delete payload['old_password'];
             CommonService.changeResetPassword(payload).then(async () => {
                 await setProfileFromRest();
                 dispatch({ type: CHANGE_PASS_SUCCESS });
