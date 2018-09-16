@@ -276,6 +276,7 @@ class EditProfileComponent extends Component {
 							value={this.props.phone}
 							error={this.state.phoneError}
 							flexItem={{ flex: 3 }}
+							editable={false}
 						/>
 					</View>
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
