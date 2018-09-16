@@ -22,8 +22,8 @@ class NewsCard extends Component {
 		this.listener = EventRegister.addEventListener('newsLike', (data) => {
 			if (data.news_id === this.props.item.id) {
 				this.setState({
-					like_status: this.props.item.like_status,
-					likes_count: this.props.item.likes_count,
+					like_status: data.like_status,
+					likes_count: data.likes_count,
 				});
 			}
 		});
