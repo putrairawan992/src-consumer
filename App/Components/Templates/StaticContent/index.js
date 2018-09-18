@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
+import HTML from 'react-native-render-html';
 import { CommonService } from '@services';
 import styles from './styles';
 
@@ -32,9 +33,7 @@ class StaticContentComponent extends Component {
                         <Text style={styles.staticTitle}>
                             {this.state.data.title}
                        </Text>
-                        <Text style={styles.staticDescription}>
-                            {this.state.data.body}
-                       </Text>
+                        <HTML html={this.state.data.body} />
                     </View>
                 </ScrollView>
             );
