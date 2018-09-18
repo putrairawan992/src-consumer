@@ -41,6 +41,12 @@ export default StyleSheet.create({
 		borderRadius: 8,
 		marginBottom: 8
 	},
+	bannerImageContainer: {
+		height: PAGE_WIDTH >= 720 ? 288 : 144,
+		width: '100%',
+		borderRadius: 8,
+		marginBottom: 8
+	},
 	buttonDirection: {
 		flexDirection: 'row',
 		justifyContent: 'center',

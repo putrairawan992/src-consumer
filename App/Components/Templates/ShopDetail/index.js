@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
@@ -16,6 +17,25 @@ class ShopDetailComponent extends Component {
 			Linking.openURL(urlParameter);
 		}, () => {
 			CustomAlert(null, 'Terjadi Kesalahan saat memuat lokasi. Izinkan perangkat untuk mendapatkan lokasi atau coba beberapa saat lagi ', [{ text: 'OK' }]);
+		});
+	}
+
+	redirectStatic(banner) {
+		if (banner.target_page.type === 'static_page') {
+			Actions.Static({ banner: banner });
+		}
+	}
+
+	renderBanners() {
+		return this.props.item.banners.map((value, index) => {
+			return (
+				<TouchableOpacity onPress={() => { this.redirectStatic(value); }} key={index} style={styles.bannerImageContainer}>
+				<Image
+					source={{ uri: value.image_url }}
+					style={styles.bannerImage}
+				/>
+				</TouchableOpacity>
+			);
 		});
 	}
 
@@ -56,7 +76,7 @@ class ShopDetailComponent extends Component {
 						</TouchableOpacity>
 					</View>
 				</View>
-				{/* <View
+				<View
 					style={{
 						flexDirection: 'column',
 						alignItems: 'center',
@@ -64,19 +84,8 @@ class ShopDetailComponent extends Component {
 						width: '95%'
 					}}
 				>
-					<Image
-						source={require('@images/example-banner.png')}
-						style={styles.bannerImage}
-					/>
-					<Image
-						source={require('@images/example-banner.png')}
-						style={styles.bannerImage}
-					/>
-					<Image
-						source={require('@images/example-banner.png')}
-						style={styles.bannerImage}
-					/>
-				</View> */}
+					{this.renderBanners()}
+				</View>
 			</ScrollView>
 		);
 	}
