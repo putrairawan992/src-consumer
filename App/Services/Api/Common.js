@@ -191,6 +191,13 @@ const storeFCMToken = (payload) => {
 	});
 };
 
+const getNotifications = () => {
+	return request({
+		url: 'api/general/user_notif',
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -215,7 +222,8 @@ const CommonService = {
 	deleteUser,
 	getBannerDetail,
 	changeResetPassword,
-	storeFCMToken
+	storeFCMToken,
+	getNotifications
 };
 
 export default CommonService;

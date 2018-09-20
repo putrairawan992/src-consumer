@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = {
@@ -19,7 +20,7 @@ const styles = {
 		color: '#000'
 	},
 	notifContent: {
-		fontFamily: 'ProximaNove-Regular',
+		fontFamily: 'ProximaNova-Regular',
 		fontSize: 12,
 		color: '#000'
 	},
@@ -35,35 +36,57 @@ const styles = {
 };
 
 class NotificationSegment extends Component {
+	redirectNotification() {
+		if (this.props.item.entity_type === 'halamantujuan') {
+			const data = {
+				target_page: {
+					slug: this.props.item.data
+				}
+			};
+			Actions.Static({ banner: data });
+		}
+		else if (this.props.item.entity_type === 'newsfeed') {
+			Actions.NewsDetail({ news: this.props.item.data });
+		}
+	}
+	renderBadge() {
+		if (this.props.item.status === 'unread') {
+			return (
+				<View style={styles.badge} />
+			);
+		}
+	}
 	render() {
 		return (
-			<View style={styles.segmentContainer}>
-				<View
-					style={{
-						flex: 1,
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center'
-					}}
-				>
-					<View style={{ position: 'relative' }}>
-						<Image
-							source={require('@images/message-notif.png')}
-							style={{ height: 35, width: 35 }}
-						/>
-						<View style={styles.badge} />
+			<TouchableWithoutFeedback onPress={this.redirectNotification.bind(this)}>
+				<View style={styles.segmentContainer}>
+					<View
+						style={{
+							flex: 1,
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							alignItems: 'center'
+						}}
+					>
+						<View style={{ position: 'relative', flex: 1 }}>
+							<Image
+								source={require('@images/message-notif.png')}
+								style={{ height: 35, width: 35 }}
+							/>
+							{this.renderBadge()}
+						</View>
+						<View style={[styles.messageDescription, { flex: 3 }]}>
+							<Text style={styles.notifTitle}>
+								{this.props.item.title}
+							</Text>
+							<Text style={[styles.notifContent, (this.props.item.status === 'unread') ? { fontFamily: 'ProximaNova-Bold' } : null]}>
+								{this.props.item.content}
+							</Text>
+						</View>
+						<Icon name="keyboard-arrow-right" size={36} color="#000" />
 					</View>
-					<View style={styles.messageDescription}>
-						<Text style={styles.notifTitle}>
-							Lorem Ipsum Dolor sitamet
-						</Text>
-						<Text style={styles.notifContent}>
-							Lorem Ipsum Dolor Sit amet conqueror
-						</Text>
-					</View>
-					<Icon name="keyboard-arrow-right" size={36} color="#000" />
 				</View>
-			</View>
+			</TouchableWithoutFeedback>
 		);
 	}
 }

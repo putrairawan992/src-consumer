@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
+import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
@@ -82,6 +83,7 @@ class OtpResetPasswordComponent extends Component {
 					const check = await setProfileFromRest();
 					this.setState({ baseLoading: false });
 					if (check) {
+						checkPermissionVal();
 						this.redirectDashboard();
 					}
 				}).catch(() => {
@@ -204,5 +206,15 @@ class OtpResetPasswordComponent extends Component {
 		);
 	}
 }
+
+const checkPermissionVal = async() => {
+    const permission = await checkPermission();
+    if (permission) {
+      getToken();
+    }
+    else {
+      requestPermission();
+    }
+};
 
 export default OtpResetPasswordComponent;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
@@ -193,7 +192,7 @@ class routerComponent extends Component {
 				</Router>
 			);
 		}
-		return <View><Text>Loading....</Text></View>;
+		return null;
 	}
 }
 

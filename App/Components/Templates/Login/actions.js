@@ -1,6 +1,7 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
 import { setAuthorization, setProfileFromRest } from '@helpers/Storage';
+import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { LOGIN_PHONE_CHANGED, LOGIN_PASSWORD_CHANGED, SIGN_IN_PROCCESS, SIGN_IN_SUCCESS, SIGN_IN_FAIL, LOGIN_PAGE_UNMOUNT } from './types';
 
 export const loginPhoneChanged = text => {
@@ -31,6 +32,7 @@ export const submitSignIn = payload => {
 				await setAuthorization(response);
 				const profile = await setProfileFromRest();
 				if (profile.status === 'active') {
+					checkPermissionVal();
 					Actions.MainConsumer();
 				}
 				else {
@@ -42,4 +44,14 @@ export const submitSignIn = payload => {
 				dispatch({ type: SIGN_IN_FAIL });
 			});
 	};
+};
+
+const checkPermissionVal = async() => {
+    const permission = await checkPermission();
+    if (permission) {
+      getToken();
+    }
+    else {
+      requestPermission();
+    }
 };

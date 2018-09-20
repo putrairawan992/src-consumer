@@ -24,17 +24,24 @@ class StaticContentComponent extends Component {
 
     render() {
         if (this.state.loaded) {
+            if ('id' in this.state.data) {
+                return (
+                    <ScrollView contentContainerStyle={styles.container}>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: this.state.data.banners[0].image_url }} style={styles.image} />
+                        </View>
+                        <View style={styles.staticContent}>
+                            <Text style={styles.staticTitle}>
+                                {this.state.data.title}
+                            </Text>
+                            <HTML html={this.state.data.body} />
+                        </View>
+                    </ScrollView>
+                );
+            }
             return (
                 <ScrollView contentContainerStyle={styles.container}>
-                    <View style={styles.imageContainer}>
-                        <Image source={{ uri: this.state.data.banners[0].image_url }} style={styles.image} />
-                    </View>
-                    <View style={styles.staticContent}>
-                        <Text style={styles.staticTitle}>
-                            {this.state.data.title}
-                       </Text>
-                        <HTML html={this.state.data.body} />
-                    </View>
+                    <Text>Halaman Tidak Ditemukan</Text>
                 </ScrollView>
             );
         }
