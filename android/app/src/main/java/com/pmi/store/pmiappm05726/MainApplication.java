@@ -16,6 +16,9 @@ import com.facebook.soloader.SoLoader;
 import com.airbnb.android.react.maps.MapsPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;                       
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +42,10 @@ public class MainApplication extends Application implements ShareApplication, Re
             new LinearGradientPackage(),
             new SplashScreenReactPackage(),
             new MapsPackage(),
-            new RNSharePackage()
+            new RNSharePackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseMessagingPackage(),
+            new RNFirebaseNotificationsPackage()
       );
     }
 

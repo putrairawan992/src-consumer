@@ -183,6 +183,14 @@ const getBannerDetail = (context) => {
 	});
 };
 
+const storeFCMToken = (payload) => {
+	return request({
+		url: 'api/general/user_notif',
+		method: 'post',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -206,7 +214,8 @@ const CommonService = {
 	submitPrivacy,
 	deleteUser,
 	getBannerDetail,
-	changeResetPassword
+	changeResetPassword,
+	storeFCMToken
 };
 
 export default CommonService;
