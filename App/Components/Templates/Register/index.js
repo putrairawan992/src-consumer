@@ -94,6 +94,14 @@ class RegisterComponent extends Component {
 		this.props.getCityLists(value);
 	}
 
+	onEmailChange(value) {
+		this.props.registerEmailChanged(value);
+	}
+
+	onReferenceCodeChanged(value) {
+		this.props.registerReferenceCodeChanged(value);
+	}
+
 	onCityChange(value) {
 		this.props.registerCityChanged(value);
 	}
@@ -192,12 +200,14 @@ class RegisterComponent extends Component {
 				id_number: this.props.id_number,
 				city_id: this.props.city_id,
 				province_id: this.props.province_id,
-				is_smoking: this.props.is_smoking
+				is_smoking: this.props.is_smoking,
+				email: this.props.email,
+				refferal_code: this.props.reference_code
 			};
 			this.props.submitSignUp(payload);
 		}
 		else {
-          CustomAlert(null, 'Mohon lengkapi data untuk melanjutkan pendaftaran', [{ text: 'OK' }]);
+			CustomAlert(null, 'Mohon lengkapi data untuk melanjutkan pendaftaran', [{ text: 'OK' }]);
 		}
 	}
 
@@ -303,6 +313,13 @@ class RegisterComponent extends Component {
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
+						placeholder="Alamat Email"
+						onChangeText={this.onEmailChange.bind(this)}
+						value={this.props.email}
+					/>
+				</View>
+				<View style={globalStyles.phoneRow}>
+					<Input
 						placeholder="Kata sandi"
 						onChangeText={this.onPasswordChange.bind(this)}
 						value={this.props.password}
@@ -322,7 +339,13 @@ class RegisterComponent extends Component {
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
-					<Input placeholder="Kode Referensi" />
+					<Input
+						placeholder="Kode Referensi"
+						onChangeText={this.onReferenceCodeChanged.bind(
+							this
+						)}
+						value={this.props.reference_code}
+					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<RadioForm
@@ -378,7 +401,8 @@ const mapStateToProps = state => {
 		cities: state.signUpReducer.cities,
 		is_approved: state.signUpReducer.is_approved,
 		baseLoading: state.signUpReducer.baseLoading,
-		isOver: state.signUpReducer.isOver
+		isOver: state.signUpReducer.isOver,
+		email: state.signUpReducer.email
 	};
 };
 

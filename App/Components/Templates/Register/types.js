@@ -9,6 +9,7 @@ export const REGISTER_PASSWORD_CONFIRMATION_CHANGED = 'register_password_confirm
 export const REGISTER_REFERENCE_CODE_CHANGED = 'register_reference_code_changed';
 export const REGISTER_IS_SMOKING = 'register_is_smoking';
 export const REGISTER_IS_TERM_CONDITION_APPROVED = 'register_is_term_condition_approved';
+export const REGISTER_EMAIL_CHANGED = 'register_email_changed';
 export const PROVINCES_RETRIEVED = 'register_provinces_retrieved';
 export const PROVINCES_FAIL = 'register_provinces_fail';
 export const REGISTER_PROVINCE_CHANGED = 'register_province_changed';

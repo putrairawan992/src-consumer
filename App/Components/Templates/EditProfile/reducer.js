@@ -13,7 +13,8 @@ import {
     EDIT_PROVINCE_CHANGED,
     EDIT_PROVINCES_RETRIEVED,
     EDIT_CITIES_RETRIEVED,
-    EDIT_CITY_CHANGED
+    EDIT_CITY_CHANGED,
+    EDIT_EMAIL_CHANGED
 } from './types';
 
 const INITIAL_STATE = {
@@ -30,7 +31,8 @@ const INITIAL_STATE = {
     image_url: '',
     profileLoaded: false,
     image: '',
-    isOver: false
+    isOver: false,
+    email: ''
 };
 
 const calculateAge = (birthday) => {
@@ -51,6 +53,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, province_id: action.payload, cities: [], city_id: '' };
         case EDIT_PHONE_CHANGED:
             return { ...state, phone: action.payload };
+        case EDIT_EMAIL_CHANGED:
+            return { ...state, email: action.payload };
         case EDIT_PAGE_UNMOUNT:
             return INITIAL_STATE;
         case EDIT_PROVINCES_RETRIEVED:
@@ -66,7 +70,7 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
         case EDIT_ON_WILL_MOUNT:
-            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true, isOver: (calculateAge(action.payload.birth_date) >= 18 ? true : false) };
+            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true, isOver: (calculateAge(action.payload.birth_date) >= 18 ? true : false), email: action.payload.email };
         case EDIT_IMAGE_REPLACED:
             return { ...state, image: action.payload };
         default:

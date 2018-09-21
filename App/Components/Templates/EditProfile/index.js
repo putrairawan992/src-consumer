@@ -78,6 +78,10 @@ class EditProfileComponent extends Component {
 		this.props.editCityChanged(value);
 	}
 
+	onEmailChange(value) {
+		this.props.editEmailChanged(value);
+	}
+
 	submitEdit() {
 		const nameError = validateClass(
 			'name',
@@ -132,7 +136,8 @@ class EditProfileComponent extends Component {
 				phone: '+62' + this.props.phone,
 				image: this.props.image,
 				city_id: this.props.city_id,
-				province_id: this.props.province_id
+				province_id: this.props.province_id,
+				email: this.props.email
 			};
 			this.props.submitEdit(payload);
 		}
@@ -279,6 +284,13 @@ class EditProfileComponent extends Component {
 							editable={false}
 						/>
 					</View>
+					<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Alamat Email"
+						onChangeText={this.onEmailChange.bind(this)}
+						value={this.props.email}
+					/>
+				</View>
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
 					<Loader visible={this.props.baseLoading} text="updating..." />
 				</ScrollView>
@@ -304,7 +316,8 @@ const mapStateToProps = (state) => {
 		city_id: state.editUserReducer.city_id,
 		cities: state.editUserReducer.cities,
 		provinces: state.editUserReducer.provinces,
-		isOver: state.editUserReducer.isOver
+		isOver: state.editUserReducer.isOver,
+		email: state.editUserReducer.email
 	};
 	return newProps;
 };

@@ -9,6 +9,7 @@ import {
 	REGISTER_PASSWORD_CONFIRMATION_CHANGED,
 	REGISTER_REFERENCE_CODE_CHANGED,
 	REGISTER_IS_SMOKING,
+	REGISTER_EMAIL_CHANGED,
 	PROVINCES_RETRIEVED,
 	REGISTER_PROVINCE_CHANGED,
 	CITIES_RETRIEVED,
@@ -35,7 +36,8 @@ const INITIAL_STATE = {
 	provinces: [],
 	cities: [],
 	baseLoading: false,
-	isOver: false
+	isOver: false,
+	email: ''
 };
 
 const calculateAge = (birthday) => {
@@ -53,6 +55,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, password: action.payload };
 		case REGISTER_PASSWORD_CONFIRMATION_CHANGED:
 			return { ...state, password_confirmation: action.payload };
+		case REGISTER_EMAIL_CHANGED:
+			return { ...state, email: action.payload };
 		case REGISTER_GENDER_CHANGED:
 			return { ...state, gender: action.payload };
 		case REGISTER_BIRTHDATE_CHANGED: {

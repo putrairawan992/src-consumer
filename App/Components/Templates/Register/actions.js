@@ -15,6 +15,7 @@ import {
 	REGISTER_IS_TERM_CONDITION_APPROVED,
 	PROVINCES_RETRIEVED,
 	REGISTER_PROVINCE_CHANGED,
+	REGISTER_EMAIL_CHANGED,
 	CITIES_RETRIEVED,
 	REGISTER_PAGE_UNMOUNT,
 	SIGN_UP_PROCCESS,
@@ -88,6 +89,13 @@ export const registerPasswordConfirmationChanged = text => {
 export const registerReferenceCodeChanged = text => {
 	return {
 		type: REGISTER_REFERENCE_CODE_CHANGED,
+		payload: text
+	};
+};
+
+export const registerEmailChanged = text => {
+	return {
+		type: REGISTER_EMAIL_CHANGED,
 		payload: text
 	};
 };

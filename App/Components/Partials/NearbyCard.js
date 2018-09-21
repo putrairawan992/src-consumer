@@ -4,8 +4,9 @@ import {
 	Text,
 	Image,
 	Dimensions,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
 } from 'react-native';
+import { Button } from '@partials';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import globalStyles from '../../GlobalStyles';
@@ -59,14 +60,14 @@ class NearbyCard extends Component {
 									marginTop: 12
 								}}
 							>
-								{/* <View style={{ flexDirection: 'row' }}>
-									<Button
+								<View style={{ flexDirection: 'row' }}>
+									{(this.props.item.banners.length > 0) ? <Button
 										style={globalStyles.labelButton}
 										textStyle={globalStyles.redButtonText}
 									>
 										Promo
-									</Button>
-									<Button
+									</Button> : null}
+									{/* <Button
 										style={[
 											globalStyles.labelButton,
 											{
@@ -81,8 +82,8 @@ class NearbyCard extends Component {
 										]}
 									>
 										Nama Undian
-									</Button>
-								</View> */}
+									</Button> */}
+								</View>
 								<View
 									style={{
 										flexDirection: 'row',

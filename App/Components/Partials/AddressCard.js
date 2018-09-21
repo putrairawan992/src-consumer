@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { Button } from '@partials';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import globalStyles from '../../GlobalStyles';
 
@@ -19,35 +20,19 @@ class AddressCard extends Component {
 					<View
 						style={{
 							flexDirection: 'row',
-							justifyContent: 'space-between',
+							justifyContent: 'flex-start',
 							alignItems: 'center',
 							marginTop: 12
 						}}
 					>
-						{/* <View style={{ flexDirection: 'row' }}>
-							<Button
+						<View style={{ flexDirection: 'row' }}>
+							{(this.props.item.banners.length > 0) ? <Button
 								style={globalStyles.labelButton}
 								textStyle={globalStyles.redButtonText}
 							>
 								Promo
-							</Button>
-							<Button
-								style={[
-									globalStyles.labelButton,
-									{
-										backgroundColor: '#fff',
-										borderWidth: 1,
-										borderColor: '#000'
-									}
-								]}
-								textStyle={[
-									globalStyles.redButtonText,
-									{ color: '#000' }
-								]}
-							>
-								Nama Undian
-							</Button>
-						</View> */}
+							</Button> : null }
+						</View>
 						<View
 							style={{
 								flexDirection: 'row',

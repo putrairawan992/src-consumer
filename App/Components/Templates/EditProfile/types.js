@@ -8,6 +8,7 @@ export const EDIT_PROVINCES_RETRIEVED = 'edit_provinces_retrieved';
 export const EDIT_PROVINCES_FAIL = 'edit_provinces_fail';
 export const EDIT_PROVINCE_CHANGED = 'edit_province_changed';
 export const EDIT_CITIES_RETRIEVED = 'edit_cities_retrieved';
+export const EDIT_EMAIL_CHANGED = 'edit_email_changed';
 export const EDIT_CITIES_FAIL = 'edit_cities_fail';
 export const EDIT_PAGE_UNMOUNT = 'edit_page_unmount';
 export const EDIT_PROCCESS = 'edit_proccess';

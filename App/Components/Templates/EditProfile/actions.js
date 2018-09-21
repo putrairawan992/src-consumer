@@ -18,7 +18,8 @@ import {
     EDIT_CITY_CHANGED,
     EDIT_PROVINCE_CHANGED,
     EDIT_PROVINCES_RETRIEVED,
-    EDIT_CITIES_RETRIEVED
+    EDIT_CITIES_RETRIEVED,
+    EDIT_EMAIL_CHANGED
 } from './types';
 import { refreshProfile } from '../../../Store/GlobalReducer/actions';
  
@@ -69,6 +70,13 @@ export const editProvinceChanged = text => {
 		type: EDIT_PROVINCE_CHANGED,
 		payload: text
 	};
+};
+
+export const editEmailChanged = text => {
+    return {
+        type: EDIT_EMAIL_CHANGED,
+        payload: text
+    };
 };
 
 export const editImageReplaced = (base64) => {
