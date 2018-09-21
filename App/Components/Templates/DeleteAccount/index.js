@@ -65,8 +65,7 @@ class DeleteAccountComponent extends Component {
 							secara permanen
 						</Text>
 						<Text style={globalStyles.leftedText}>
-							Dengan demikian anda tidak akan dapat login
-							menggunakan akun anda kembali pada aplikasi ini
+						Anda tidak akan dapat melakukan login dan menggunakan aplikasi setelah proses berikut. Segala bentuk hadiah (poin, koin, dan kupon) yang sudah dikumpulkan akan hangus dan tidak dapat dikembalikan.
 						</Text>
 					</View>
 				</View>

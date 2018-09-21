@@ -51,7 +51,9 @@ class SubmitSettingComponent extends Component {
                 <Text style={styles.contentText}>
                     {this.state.text}
                 </Text>
-                <Button style={{ margin: 0 }} onPress={this.submitPrivacy.bind(this)}>SETUJU</Button>
+                <Button style={{ margin: 0 }} onPress={this.submitPrivacy.bind(this)}>
+                    {(this.props.typeData === 'contacted')? 'Saya Mengerti': 'Kirim Permohonan'}
+                </Button>
                 <Loader visible={this.state.onSubmit} />
             </View>
         );
