@@ -19,12 +19,18 @@ class StaticContentComponent extends Component {
                 data: data,
                 loaded: true
             });
+        }).catch(() => {
+            this.setState({
+                loaded: true,
+                data: null
+            });
         });
     }
 
     render() {
+        console.log('check state', this.state.data);
         if (this.state.loaded) {
-            if ('id' in this.state.data) {
+            if (this.state.data !== null) {
                 return (
                     <ScrollView contentContainerStyle={styles.container}>
                         <View style={styles.imageContainer}>

@@ -46,7 +46,7 @@ class NotificationSegment extends Component {
 			Actions.Static({ banner: data });
 		}
 		else if (this.props.item.entity_type === 'newsfeed') {
-			Actions.NewsDetail({ news: this.props.item.data });
+			Actions.NewsDetail({ news: JSON.parse(this.props.item.data) });
 		}
 	}
 	renderBadge() {

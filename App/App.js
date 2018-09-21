@@ -21,6 +21,16 @@ import AyoRouter from './Router';
 type Props = {};
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 export default class App extends Component<Props> {
+
+  componentWillMount() {
+    StatusBar.setBackgroundColor('#C31432');
+    debug();
+    NetInfo.isConnected.addEventListener(
+      'connectionChange',
+      this.handleFirstConnectivityChange
+    );
+  }
+
   async componentDidMount() {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
@@ -50,28 +60,20 @@ export default class App extends Component<Props> {
     this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
       // Get the action triggered by the notification being opened
       // Get information about the notification that was opened
-      console.log('on notif opened listener', notificationOpen);
-    });
-    const notificationOpen = await firebase.notifications().getInitialNotification();
-    if (notificationOpen) {
-      // App was opened by a notification
-      // Get the action triggered by the notification being opened
       this.redirectNotification(notificationOpen.notification);
-    }
+    });
+    firebase.notifications().getInitialNotification().then((notificationOpen) => {
+      if (notificationOpen) {
+        // App was opened by a notification
+        // Get the action triggered by the notification being opened
+        this.redirectNotification(notificationOpen.notification);
+      }
+    });
     this.messageListener = firebase.messaging().onMessage((message) => {
       console.warn('notif message', message);
     });
   }
 
-
-  componentWillMount() {
-    StatusBar.setBackgroundColor('#C31432');
-    debug();
-    NetInfo.isConnected.addEventListener(
-      'connectionChange',
-      this.handleFirstConnectivityChange
-    );
-  }
 
   componentWillUnmount() {
     this.notificationDisplayedListener();
@@ -118,16 +120,16 @@ export default class App extends Component<Props> {
   redirectNotification(item) {
     console.log('check item sekarang', item);
     if (item.data.entity_type === 'halamantujuan') {
-			const data = {
-				target_page: {
-					slug: item.data.data
-				}
-			};
-			Actions.Static({ banner: data });
-		}
-		else if (item.data.entity_type === 'newsfeed') {
-			Actions.NewsDetail({ news: JSON.parse(item.data.data) });
-		}
+      const data = {
+        target_page: {
+          slug: item.data.data
+        }
+      };
+      Actions.Static({ banner: data });
+    }
+    else if (item.data.entity_type === 'newsfeed') {
+      Actions.NewsDetail({ news: JSON.parse(item.data.data) });
+    }
   }
 
 
