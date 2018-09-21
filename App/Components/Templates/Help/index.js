@@ -38,12 +38,12 @@ class HelpComponent extends Component {
     }
 
     linkWhatsapp() {
-        Linking.canOpenURL('https://api.whatsapp.com/send?phone=6281977000234').then((supported) => {
+        Linking.canOpenURL('https://api.whatsapp.com/send?phone=6281906000234').then((supported) => {
             if (!supported) {
                 CustomAlert(null, 'Perangkat tidak mendukung', [{ text: 'OK' }]);
             }
             else {
-                return Linking.openURL('https://api.whatsapp.com/send?phone=6281977000234');
+                return Linking.openURL('https://api.whatsapp.com/send?phone=6281906000234');
             }
         });
     }
@@ -128,7 +128,7 @@ class HelpComponent extends Component {
                             <View style={styles.contentItemContainer}>
                                 <View style={styles.contentItemMain}>
                                     <Text style={styles.contentItemMainTitle}>Melalui Telepon</Text>
-                                    <Text style={styles.contentItemMainContent}>021-1267834</Text>
+                                    <Text style={styles.contentItemMainContent}>0804-1000-234</Text>
                                 </View>
                                 <View style={styles.contentItemSecondary}>
                                     <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} >Biaya ditanggung penelepon</Text>
@@ -143,7 +143,7 @@ class HelpComponent extends Component {
                             <View style={styles.contentItemContainer}>
                                 <View style={styles.contentItemMain}>
                                     <Text style={styles.contentItemMainTitle}>Melalui WhatsApp</Text>
-                                    <Text style={styles.contentItemMainContent}>0819-77000-234</Text>
+                                    <Text style={styles.contentItemMainContent}>0819-06000-234</Text>
                                 </View>
                                 <View style={styles.contentItemSecondary}>
                                     <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} />
