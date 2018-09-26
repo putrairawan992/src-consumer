@@ -34,7 +34,7 @@ class HelpComponent extends Component {
     }
 
     linkPhone() {
-        Linking.openURL('tel:+62211267834');
+        Linking.openURL('tel:+628041000234');
     }
 
     linkWhatsapp() {

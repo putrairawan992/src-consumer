@@ -171,7 +171,6 @@ class EditProfileComponent extends Component {
 						onChangeText={this.onKtpChanged.bind(this)}
 						value={this.props.id_number}
 						error={this.state.idNumberError}
-						editable={false}
 					/>
 				</View>
 			);
@@ -212,7 +211,7 @@ class EditProfileComponent extends Component {
 						<View style={{ flex: 3 }}>
 							<Text style={[styles.avaPlaceHolderText, { color: '#000' }]}>Foto Profil</Text>
 							<Text style={styles.avaPlaceHolderText}>
-								Ukuran Maksimal 200Kb JPG, PNG
+								Ukuran Maksimal 2Mb JPG, PNG
 							</Text>
 						</View>
 					</View>
@@ -265,7 +264,6 @@ class EditProfileComponent extends Component {
 							date={this.props.birth_date}
 							onDateChange={this.onDateChanged.bind(this)}
 							error={this.state.dateError}
-							disabled={true}
 						/>
 					</View>
 					{this.renderKtp()}

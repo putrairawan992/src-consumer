@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import HTML from 'react-native-render-html';
 import { CommonService } from '@services';
 import globalStyles from '../../GlobalStyles';
 
@@ -109,9 +110,7 @@ class HelpCard extends Component {
         if (this.props.selectedId === this.props.item.id) {
             return (
                 <View style={styles.innerContainer}>
-                    <Text style={styles.bodyText}>
-                        {this.props.item.body}
-                    </Text>
+                    <HTML html={this.props.item.body} />
                     <Text style={styles.likeText}>
                         Apakah informasi ini berguna?
                 </Text>
