@@ -198,6 +198,13 @@ const getNotifications = () => {
 	});
 };
 
+const updateNotification = (context) => {
+	return request({
+		url: 'api/general/user_notif/' + context.id,
+		method: 'put'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -223,7 +230,8 @@ const CommonService = {
 	getBannerDetail,
 	changeResetPassword,
 	storeFCMToken,
-	getNotifications
+	getNotifications,
+	updateNotification
 };
 
 export default CommonService;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class CustomTabBar extends Component {
@@ -38,6 +39,7 @@ class CustomTabBar extends Component {
               >
                 {this.props.titles[i]}
               </Text>
+              {(i === 2 && this.props.globalProfile.notif_unread > 0) ? <View style={styles.badge} /> : null}
             </TouchableOpacity>
           );
         })}
@@ -61,7 +63,22 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderColor: 'rgba(0,0,0,0.05)',
     backgroundColor: '#fff'
-  }
+  },
+  badge: {
+		backgroundColor: '#DC1E2D',
+		position: 'absolute',
+    top: 0,
+    left: 25,
+		height: 12,
+		width: 12,
+		borderRadius: 20
+	}
 });
 
-export default CustomTabBar;
+const mapStateToProps = (state) => {
+  return {
+    globalProfile: state.globalReducer.globalProfile
+  };
+};
+
+export default connect(mapStateToProps, null)(CustomTabBar);

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '@templates/Notification/actions';
+import { CommonService } from '@services';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 const styles = {
 	segmentContainer: {
@@ -37,6 +41,13 @@ const styles = {
 
 class NotificationSegment extends Component {
 	redirectNotification() {
+		const context = {
+			id: this.props.item.id
+		};
+		if (this.props.item.status === 'unread') {
+			CommonService.updateNotification(context);
+			this.props.updateNotification(this.props.item.id);
+		}
 		if (this.props.item.entity_type === 'halamantujuan') {
 			const data = {
 				target_page: {
@@ -91,4 +102,10 @@ class NotificationSegment extends Component {
 	}
 }
 
-export default NotificationSegment;
+const mapStateToProps = (state) => {
+	return {
+		globalProfile: state.globalReducer.globalProfile
+	};
+};
+
+export default connect(mapStateToProps, actions)(NotificationSegment);

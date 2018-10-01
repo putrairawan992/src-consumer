@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 import { debugStorage, retrieveCustomData } from '@helpers/Storage';
 import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
+import { refreshProfile } from './Store/GlobalReducer/actions';
 import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
 
@@ -55,6 +56,7 @@ export default class App extends Component<Props> {
     });
     this.notificationForeground = firebase.notifications().onNotification((notification) => {
       // Process your notification as required
+      store.dispatch(refreshProfile());
       console.log('on notif listener', notification);
     });
     this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
