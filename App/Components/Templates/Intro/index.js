@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
@@ -76,8 +76,10 @@ class IntroComponent extends Component {
 			>
 				<View style={styles.onbox}>
 					<Image source={props.image} style={styles.image} />
+					<ScrollView>
 					<Text style={styles.introTitle}>{props.title}</Text>
 					<Text style={styles.introCaption}>{props.text}</Text>
+					</ScrollView>
 				</View>
 			</View>
 
@@ -89,7 +91,7 @@ class IntroComponent extends Component {
 			<LinearGradient
 				colors={['#C31432', '#240B36']}
 				start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-				locations={[0.2,1]}
+				locations={[0.2, 1]}
 				style={{ flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }}
 			>
 

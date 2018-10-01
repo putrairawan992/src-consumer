@@ -27,7 +27,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		width: '100%',
 		borderRadius: 14,
-		textAlign: 'center'
+		textAlign: 'center',
+		paddingVertical: 10
 	},
 	image: {
 		height: 234,
