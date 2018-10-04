@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
+import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, RefreshControl } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
@@ -18,19 +18,33 @@ class DashboardComponent extends Component {
 	state = {
 		loaded: false,
 		banners: [],
-		news: []
+		news: [],
+		refreshing: false
 	}
 	componentWillMount() {
 		this.retrieveData();
 	}
 
+	async refreshView() {
+		this.setState({
+			refreshing: true
+		});
+		await this.retrieveData();
+		this.setState({
+			refreshing: false
+		});
+	}
+
 	retrieveData() {
-		this.props.fetchProfile();
-		CommonService.getDashboard().then((home) => {
-			this.setState({
-				banners: home.banners,
-				news: home.news,
-				loaded: true
+		return new Promise((resolve) => {
+			this.props.fetchProfile();
+			CommonService.getDashboard().then((home) => {
+				this.setState({
+					banners: home.banners,
+					news: home.news,
+					loaded: true
+				});
+				resolve(home);
 			});
 		});
 	}
@@ -94,7 +108,13 @@ class DashboardComponent extends Component {
 		if (this.state.loaded) {
 			return (
 				<View style={styles.container}>
-					<ScrollView>
+					<ScrollView
+						refreshControl={
+						<RefreshControl
+							refreshing={this.state.refreshing}
+							onRefresh={this.refreshView.bind(this)}
+						/>}
+					>
 						<ImageBackground
 							style={globalStyles.profileInfo}
 							source={require('@images/profile-bg.png')}
@@ -105,10 +125,10 @@ class DashboardComponent extends Component {
 									source={ayoImg}
 								/>
 							</View>
-							<TouchableWithoutFeedback 
-							onPress={() => {
-								// EventRegister.emit('profileTab');
-							}}
+							<TouchableWithoutFeedback
+								onPress={() => {
+									// EventRegister.emit('profileTab');
+								}}
 							>
 								<View style={globalStyles.detailContainer}>
 									<Image
