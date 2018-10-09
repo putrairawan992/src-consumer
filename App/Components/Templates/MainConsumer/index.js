@@ -9,6 +9,8 @@ import {
 } from '@templates';
 import { EventRegister } from 'react-native-event-listeners';
 import { CustomTabBar } from '@partials';
+import { connect } from 'react-redux';
+import { getNotifications } from '@templates/Notification/actions';
 
 class MainConsumerComponent extends Component {
 	componentWillMount() {
@@ -16,15 +18,20 @@ class MainConsumerComponent extends Component {
 			this.scrollableTabView.goToPage(4);
 		});
 	}
-
 	componentWillUnmount() {
 		this.listener = EventRegister.removeEventListener('profileTab');
+	}
+	tabChangeHandler(index) {
+		if (index.i === 2) {
+			this.props.getNotifications();
+		}
 	}
 	render() {
 		return (
 			<ScrollableTabView
 				ref={(ref) => { this.scrollableTabView = ref; }}
 				tabBarPosition={'bottom'}
+				onChangeTab={this.tabChangeHandler.bind(this)}
 				renderTabBar={() => <CustomTabBar titles={['Beranda', 'Bantuan', 'Notifikasi', 'Berita', 'Akun Saya']} />}
 			>
 				<DashboardComponent tabLabel="home" />
@@ -37,4 +44,4 @@ class MainConsumerComponent extends Component {
 	}
 }
 
-export default MainConsumerComponent;
+export default connect(null, { getNotifications })(MainConsumerComponent);
