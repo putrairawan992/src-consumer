@@ -5,10 +5,13 @@ import RadioForm from 'react-native-simple-radio-button';
 import { Input, Datepicker, Button, Loader, Select } from '@partials';
 import PhotoUpload from 'react-native-photo-upload';
 import validateClass from '@helpers/validator';
+import { trackScreen } from '@helpers/analytic';
 import styles from './styles';
 import * as actions from './actions';
 import validation from './validation';
 import globalStyles from '../../../GlobalStyles';
+
+const pageName = this.pageName = 'edit-profile';
 
 const formatDate = () => {
 	const date = new Date();
@@ -36,6 +39,7 @@ class EditProfileComponent extends Component {
 	};
 
 	async componentWillMount() {
+		trackScreen(pageName);
 		await this.props.getProvinceLists();
 		await this.props.editOnWillMount();
 		this.props.getCityLists(this.props.province_id);

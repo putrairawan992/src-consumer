@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { View, Image, ImageBackground } from 'react-native';
+import { trackScreen } from '@helpers/analytic';
 import { Button } from '@partials';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
+const pageName = this.pageName = 'main-menu';
+
 const ayoImg = require('@images/login-logo.png');
 
 class WelcomeScreenComponent extends Component {
+
+	componentWillMount() {
+		trackScreen(pageName);
+	}
 	
 	redirectLogin() {
 		Actions.Login();

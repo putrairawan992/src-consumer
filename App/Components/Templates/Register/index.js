@@ -5,10 +5,13 @@ import { connect } from 'react-redux';
 import { Input, Select, Datepicker, Button, Checkbox, Loader } from '@partials';
 import validateClass from '@helpers/validator';
 import CustomAlert from '@helpers/CustomAlert';
+import { trackScreen } from '@helpers/analytic';
 import styles from './styles';
 import * as actions from './actions';
 import validation from './validation';
 import globalStyles from '../../../GlobalStyles';
+
+const pageName = this.pageName = 'register';
 
 const formatDate = () => {
 	const date = new Date();
@@ -42,7 +45,10 @@ class RegisterComponent extends Component {
 		idNumberError: '',
 		isTermError: ''
 	};
-
+	
+	componentWillMount() {
+		trackScreen(pageName);
+	}
 	componentDidMount() {
 		this.props.getProvinceLists();
 	}

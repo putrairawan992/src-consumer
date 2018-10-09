@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { FlatList, Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { CustomMapView, AddressCard } from '@partials';
 import { CommonService } from '@services';
+import { trackScreen } from '@helpers/analytic';
 import { CustomAlert } from '@helpers/CustomAlert';
 import styles from './styles';
+
+const pageName = this.pageName = 'nearby-map-view';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 
@@ -21,6 +24,7 @@ class NearbyMapViewComponent extends Component {
 	}
 
 	async componentWillMount() {
+		trackScreen(pageName);
 		await this.loadLocations(true);
 		this.setState({ loaded: true });
 	}

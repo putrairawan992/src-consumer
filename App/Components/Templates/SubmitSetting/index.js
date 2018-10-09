@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Text, View, ToastAndroid } from 'react-native';
 import { Button, Loader } from '@partials';
 import { CommonService } from '@services';
+import { trackScreen } from '@helpers/analytic';
 import { Actions } from 'react-native-router-flux';
 import styles from './styes';
 
+const pageName = this.pageName = 'setting';
 
 class SubmitSettingComponent extends Component {
     state = {
@@ -14,6 +16,8 @@ class SubmitSettingComponent extends Component {
     }
 
     componentWillMount() {
+        const displayName = pageName + '-' + this.props.typeData;
+        trackScreen(displayName);
         const params = {
             type: this.props.typeData,
             user: 'customer'
@@ -52,7 +56,7 @@ class SubmitSettingComponent extends Component {
                     {this.state.text}
                 </Text>
                 <Button style={{ margin: 0 }} onPress={this.submitPrivacy.bind(this)}>
-                    {(this.props.typeData === 'contacted')? 'Saya Mengerti': 'Kirim Permohonan'}
+                    {(this.props.typeData === 'contacted') ? 'Saya Mengerti' : 'Kirim Permohonan'}
                 </Button>
                 <Loader visible={this.state.onSubmit} />
             </View>

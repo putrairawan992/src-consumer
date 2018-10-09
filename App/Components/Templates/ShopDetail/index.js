@@ -3,9 +3,17 @@ import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomAlert from '@helpers/CustomAlert';
+import { trackScreen } from '@helpers/analytic';
 import styles from './styles';
 
+const pageName = this.pageName = 'nearby-list-view';
+
 class ShopDetailComponent extends Component {
+
+	componentWillMount() {
+		const displayName = pageName + '-' + this.props.item.id;
+		trackScreen(displayName);
+	}
 
 	openLink() {
 		navigator.geolocation.getCurrentPosition((info) => {

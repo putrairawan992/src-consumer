@@ -9,6 +9,7 @@ import {
 } from '@templates';
 import { EventRegister } from 'react-native-event-listeners';
 import { CustomTabBar } from '@partials';
+import { trackScreen } from '@helpers/analytic';
 import { connect } from 'react-redux';
 import { getNotifications } from '@templates/Notification/actions';
 
@@ -22,8 +23,21 @@ class MainConsumerComponent extends Component {
 		this.listener = EventRegister.removeEventListener('profileTab');
 	}
 	tabChangeHandler(index) {
-		if (index.i === 2) {
+		if (index.i === 0) {
+			trackScreen('dashboard');
+		}
+		else if (index.i === 1) {
+			trackScreen('help');
+		}
+		else if (index.i === 2) {
+			trackScreen('notifications');
 			this.props.getNotifications();
+		}
+		else if (index.i === 3) {
+			trackScreen('news-list');
+		}
+		else if (index.i === 4) {
+			trackScreen('profile');
 		}
 	}
 	render() {

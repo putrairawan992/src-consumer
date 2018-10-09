@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import { NearbyCard } from '@partials';
 import { CommonService } from '@services';
+import { trackScreen } from '@helpers/analytic';
 import CustomAlert from '@helpers/CustomAlert';
 import styles from './styles';
+
+const pageName = this.pageName = 'nearby-list-view';
 
 class NearbyComponent extends Component {
 	state = {
@@ -16,6 +19,7 @@ class NearbyComponent extends Component {
 	};
 
 	async componentWillMount() {
+		trackScreen(pageName);
 		await this.loadLocations(true);
 		this.setState({ loaded: true });
 	}

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { WebView, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { CommonService } from '@services';
 import { EventRegister } from 'react-native-event-listeners';
+import { trackScreen } from '@helpers/analytic';
 import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const pageName = this.pageName = 'news-detail';
 
 const styles = {
 	fixedBottom: {
@@ -35,6 +38,11 @@ class NewsDetailComponent extends Component {
 	state = {
 		like_status: this.props.news.like_status,
 		likes_count: this.props.news.likes_count
+	}
+
+	componentWillMount() {
+		const showName = pageName + '-' + this.props.news.id;
+		trackScreen(showName);
 	}
 
 	shareNews() {

@@ -6,8 +6,11 @@ import { checkPermission, getToken, requestPermission } from '@helpers/firebase'
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
+import { trackScreen } from '@helpers/analytic';
 import { setAuthorization, setProfileFromRest } from '@helpers/Storage';
 import styles from './styles';
+
+const pageName = this.pageName = 'otp';
 
 class OtpResetPasswordComponent extends Component {
 	constructor(props) {
@@ -24,7 +27,10 @@ class OtpResetPasswordComponent extends Component {
 		fourthInput: '',
 		baseLoading: false
 	}
-
+	
+	componentWillMount() {
+		trackScreen(pageName);
+	}
 	//Helper function
 	focusNextField(nextField) {
 		this.inputs[nextField].focus();

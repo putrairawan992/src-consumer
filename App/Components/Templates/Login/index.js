@@ -3,17 +3,24 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Input, Button, LightText, LinkText, Loader } from '@partials';
+import { trackScreen } from '@helpers/analytic';
 import validateClass from '@helpers/validator';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 import * as actions from './actions';
 import validation from './validation';
 
+const pageName = this.pageName = 'login';
+
 class LoginComponent extends Component {
 	state = {
 		phoneError: '',
 		passwordError: ''
 	};
+
+	componentWillMount() {
+		trackScreen(pageName);
+	}
 	
 	componentWillUnmount() {
 		this.props.loginPageUnmount();

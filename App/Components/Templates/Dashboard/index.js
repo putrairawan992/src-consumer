@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper';
 import { WideButton, NewsCard } from '@partials';
 import PermissionHelpers from '@helpers/Permission';
 import CustomAlert from '@helpers/CustomAlert';
+import { trackScreen } from '@helpers/analytic';
 import { CommonService } from '@services';
 import globalStyles from '../../../GlobalStyles';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
@@ -13,6 +14,8 @@ import styles from './styles';
 
 
 const ayoImg = require('@images/ayo-src-logo-w.png');
+
+const pageName = this.pageName = 'dashboard';
 
 class DashboardComponent extends Component {
 	state = {
@@ -22,6 +25,7 @@ class DashboardComponent extends Component {
 		refreshing: false
 	}
 	componentWillMount() {
+		trackScreen(pageName);
 		this.retrieveData();
 	}
 

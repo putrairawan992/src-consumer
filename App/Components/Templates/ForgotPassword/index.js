@@ -4,14 +4,21 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Input, Button, Loader } from '@partials';
 import validateClass from '@helpers/validator';
+import { trackScreen } from '@helpers/analytic';
 import * as actions from './actions';
 import styles from './styles';
 import validation from './validation';
 import globalStyles from '../../../GlobalStyles';
 
+const pageName = this.pageName = 'forgot-password';
+
 class ForgotPasswordComponent extends Component {
 	state = {
 		phoneError: ''
+	}
+
+	componentWillMount() {
+		trackScreen(pageName);
 	}
 
 	componentWillUnmount() {

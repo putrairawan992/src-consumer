@@ -3,9 +3,9 @@ import { ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Button } from '@partials';
 import { CommonService } from '@services';
+import { trackScreen } from '@helpers/analytic';
 import HTML from 'react-native-render-html';
 import styles from './styles';
-
 
 class TermConditionComponent extends Component {
     state = {
@@ -13,6 +13,8 @@ class TermConditionComponent extends Component {
         loaded: false
     };
     componentWillMount() {
+        const displayName = (this.props.termState === 'term') ? 'terms-conditions' : 'privacy-policy';
+        trackScreen(displayName);
         const staticParam = {
             type: (this.props.termState === 'term') ? 'terms-conditions' : 'privacy-policy',
             user: 'customer'

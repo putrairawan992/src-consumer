@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { trackScreen } from '@helpers/analytic';
 import { NotificationSegment } from '@partials';
 import * as actions from './actions';
 import styles from './styles';
 
+const pageName = this.pageName = 'notifications';
+
 class NotificationComponent extends Component {
 	componentWillMount() {
+		trackScreen(pageName);
 		this.props.getNotifications();
 	}
 	renderItem(item) {

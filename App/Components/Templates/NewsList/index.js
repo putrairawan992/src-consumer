@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { ScrollSegment, NewsCard } from '@partials';
+import { trackScreen } from '@helpers/analytic';
 import { CommonService } from '@services';
+
+const pageName = this.pageName = 'news-list';
 
 class NewsListComponent extends Component {
   state = {
@@ -17,6 +20,7 @@ class NewsListComponent extends Component {
   }
 
   componentWillMount() {
+    trackScreen(pageName);
     CommonService.getNewsCategories().then(async (categories) => {
       this.setState({
         categories: categories.data,

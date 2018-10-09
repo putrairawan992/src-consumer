@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { trackScreen } from '@helpers/analytic';
 import HTML from 'react-native-render-html';
 import { CommonService } from '@services';
 import styles from './styles';
+
+const pageName = this.pageName = 'static';
 
 class StaticContentComponent extends Component {
     state = {
@@ -11,6 +14,8 @@ class StaticContentComponent extends Component {
     }
 
     componentWillMount() {
+        const displayName = pageName + '-' + this.props.banner.target_page.slug;
+        trackScreen(displayName);
         const context = {
             slug: this.props.banner.target_page.slug
         };

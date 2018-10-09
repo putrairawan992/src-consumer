@@ -8,6 +8,7 @@ export default {
 		client_id: 2,
 		client_secret: '0QkMRDzTDe4cpLOYUHdDsqG70msWBX5q1zWXpH0D',
 		grant_type: 'password'
-	}
+	},
+	tracker_id: 'UA-127145319-1'
 };
 

@@ -5,10 +5,13 @@ import { Input, Button, Loader } from '@partials';
 import { connect } from 'react-redux';
 import { CommonService } from '@services';
 import { removeAuthFromStorage } from '@helpers/Storage';
+import { trackScreen } from '@helpers/analytic';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
+
+const pageName = this.pageName = 'delete-account';
 
 
 class DeleteAccountComponent extends Component {
@@ -16,6 +19,10 @@ class DeleteAccountComponent extends Component {
 		password: '',
 		password_confirmation: '',
 		onSubmit: false
+	}
+
+	componentWillMount() {
+		trackScreen(pageName);
 	}
 
 	onPasswordChange(text) {

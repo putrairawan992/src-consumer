@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { trackScreen } from '@helpers/analytic';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
+
+const pageName = this.pageName = 'introduction';
 
 
 const slides = [
@@ -37,6 +40,10 @@ const slides = [
 
 class IntroComponent extends Component {
 	state = { isLast: false };
+
+	componentWillMount() {
+		trackScreen(pageName);
+	}
 	
 	triggerOnDone() {
       Actions.WelcomeScreen({ type: 'reset' });

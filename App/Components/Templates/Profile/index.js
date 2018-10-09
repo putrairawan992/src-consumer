@@ -5,9 +5,12 @@ import { MenuListButton, Loader } from '@partials';
 import { CommonService } from '@services';
 import { removeAuthFromStorage } from '@helpers/Storage';
 import { Actions } from 'react-native-router-flux';
+import { trackScreen } from '@helpers/analytic';
 import globalStyles from '../../../GlobalStyles';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
+
+const pageName = this.pageName = 'profile';
 
 class ProfileComponent extends Component {
 	state = {
@@ -15,6 +18,7 @@ class ProfileComponent extends Component {
 	};
 
 	componentWillMount() {
+		trackScreen(pageName);
 		this.retrieveData();
 	}
 

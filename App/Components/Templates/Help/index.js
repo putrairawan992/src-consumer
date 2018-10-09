@@ -3,8 +3,11 @@ import { View, Text, TouchableOpacity, Image, Linking, ActivityIndicator, FlatLi
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SearchInput, HelpCard } from '@partials';
 import { CustomAlert } from '@helpers/CustomAlert';
+import { trackScreen } from '@helpers/analytic';
 import { CommonService } from '@services';
 import styles from './styles';
+
+const pageName = this.pageName = 'help';
 
 
 class HelpComponent extends Component {
@@ -15,6 +18,7 @@ class HelpComponent extends Component {
         selectedId: null
     }
     componentWillMount() {
+        trackScreen(pageName);
         const staticParam = {
             type: 'help',
             user: 'customer'
