@@ -14,6 +14,7 @@ class ShopDetailComponent extends Component {
 		const displayName = pageName + '-' + this.props.item.id;
 		trackScreen(displayName);
 	}
+	
 
 	openLink() {
 		navigator.geolocation.getCurrentPosition((info) => {
@@ -28,6 +29,18 @@ class ShopDetailComponent extends Component {
 		});
 	}
 
+	linkWhatsapp(param) {
+		const link = 'https://api.whatsapp.com/send?phone=' + param.substring(1);
+        Linking.canOpenURL(link).then((supported) => {
+            if (!supported) {
+                CustomAlert(null, 'Perangkat tidak mendukung', [{ text: 'OK' }]);
+            }
+            else {
+                return Linking.openURL(link);
+            }
+        });
+    }
+
 	redirectStatic(banner) {
 		if (banner.target_page.type === 'static_page') {
 			Actions.Static({ banner: banner });
@@ -38,10 +51,10 @@ class ShopDetailComponent extends Component {
 		return this.props.item.banners.map((value, index) => {
 			return (
 				<TouchableOpacity onPress={() => { this.redirectStatic(value); }} key={index} style={styles.bannerImageContainer}>
-				<Image
-					source={{ uri: value.image_url }}
-					style={styles.bannerImage}
-				/>
+					<Image
+						source={{ uri: value.image_url }}
+						style={styles.bannerImage}
+					/>
 				</TouchableOpacity>
 			);
 		});
@@ -78,10 +91,19 @@ class ShopDetailComponent extends Component {
 						<Text style={styles.addressValue}>
 							{this.props.item.address}
 						</Text>
-						<TouchableOpacity style={styles.buttonDirection} onPress={this.openLink.bind(this)}>
-							<Icon name="directions" size={20} color={'#fff'} />
-							<Text style={styles.textStyle}>Arahkan</Text>
-						</TouchableOpacity>
+						<View style={{ flexDirection: 'row' }}>
+							<TouchableOpacity style={styles.buttonDirection} onPress={this.openLink.bind(this)}>
+								<Icon name="directions" size={20} color={'#fff'} />
+								<Text style={styles.textStyle}>Arahkan</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={[styles.buttonDirection, { backgroundColor: '#25D366', marginLeft: 12, width: 150 }]} onPress={() => {
+								this.linkWhatsapp(this.props.item.phone);
+							}}
+							>
+								<Icon name="phone" size={20} color={'#fff'} />
+								<Text style={styles.textStyle}>{this.props.item.phone}</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</View>
 				<View
