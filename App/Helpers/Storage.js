@@ -57,9 +57,16 @@ const getAuthorization = async () => {
 	}
 };
 
+const getExpiry = () => {
+	return new Promise(async (resolve) => {
+		const expiry = await AsyncStorage.getItem('otp_expiry');
+		resolve(expiry);
+	});
+};
+
 const removeAuthFromStorage = async () => {
 	try {
-		const remove = await AsyncStorage.multiRemove(['authorization', 'profile']);
+		const remove = await AsyncStorage.multiRemove(['authorization', 'profile', 'otp_expiry']);
 		if (remove) {
 			return true;
 		}
@@ -94,11 +101,22 @@ const getProfileFromStorage = async () => {
 	try {
 		const profile = await AsyncStorage.getItem('profile');
 		if (profile !== null) {
-          return JSON.parse(profile);
+			return JSON.parse(profile);
 		}
 		return null;
 	} catch (error) {
 		console.error('Error retrieving data', error);
+		return null;
+	}
+};
+
+const storeExpiryDate = async (expire) => {
+	try {
+		await AsyncStorage.setItem('otp_expiry', expire);
+		return expire;
+	}
+	catch (err) {
+		console.error('Error While store expiry', err);
 		return null;
 	}
 };
@@ -113,5 +131,7 @@ export {
 	setProfileFromRest,
 	getProfileFromStorage,
 	removeAuthFromStorage,
-	checkFirstLaunch
+	checkFirstLaunch,
+	storeExpiryDate,
+	getExpiry
 };

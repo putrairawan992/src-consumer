@@ -6,8 +6,9 @@ import { checkPermission, getToken, requestPermission } from '@helpers/firebase'
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
+import moment from 'moment';
 import { trackScreen } from '@helpers/analytic';
-import { setAuthorization, setProfileFromRest } from '@helpers/Storage';
+import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate } from '@helpers/Storage';
 import styles from './styles';
 
 const pageName = this.pageName = 'otp';
@@ -25,11 +26,24 @@ class OtpResetPasswordComponent extends Component {
 		secondInput: '',
 		thirdInput: '',
 		fourthInput: '',
-		baseLoading: false
+		baseLoading: false,
+		timer: 0,
+		loaded: false
 	}
-	
+
 	componentWillMount() {
+		this.generateTimer();
 		trackScreen(pageName);
+	}
+
+	componentDidMount() {
+		this.clockCall = setInterval(() => {
+			this.decrementClock();
+		}, 1000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.clockCall);
 	}
 	//Helper function
 	focusNextField(nextField) {
@@ -47,6 +61,23 @@ class OtpResetPasswordComponent extends Component {
 			}
 		}
 	}
+
+	async generateTimer() {
+		const currentExpiry = await getExpiry();
+		this.setState({
+			loaded: true,
+			timer: currentExpiry !== null ? moment(currentExpiry, 'YYYY-MM-DD HH:mm:ss').diff(moment(), 'seconds') : 0
+		});
+	}
+
+	decrementClock = () => {
+		this.setState((prevstate) => {
+			if (prevstate.timer > 0) {
+				return { timer: prevstate.timer - 1 };
+			}
+			return { timer: 0 };
+		});
+	};
 
 	redirectSuccessResetPassword() {
 		Actions.SuccessResetPassword();
@@ -69,8 +100,8 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	submitCode() {
-		this.setState({ baseLoading: true });
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
+			this.setState({ baseLoading: true });
 			const verifyPayload = {
 				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
 				phone: (this.props.requestReset) ? this.props.phoneNumber : null
@@ -108,12 +139,33 @@ class OtpResetPasswordComponent extends Component {
 			type: (this.props.requestReset) ? 'reset-password' : 'verify-account',
 			phone: (this.props.requestReset) ? this.props.phoneNumber : null
 		};
-		CommonService.resendActivationCode(resendPayload).then(() => {
+		CommonService.resendActivationCode(resendPayload).then(async (response) => {
+			await storeExpiryDate(response.expiry_at);
 			this.setState({ baseLoading: false });
+			this.generateTimer();
 			CustomAlert(null, 'Kode verifikasi telah terikirim.', [{ text: 'OK' }]);
 		}).catch(() => {
 			this.setState({ baseLoading: false });
 		});
+	}
+
+	renderTimer() {
+		if (this.state.loaded) {
+			if (this.state.timer > 0) {
+				return (
+					<Text style={styles.forgotPasswordText}>
+						Sisa Waktu Penggunaan Kode Verifikasi
+						{'\n'}
+						{moment.utc(this.state.timer * 1000).format('mm:ss')}
+					</Text>
+				);
+			}
+			return (
+				<Text style={[styles.forgotPasswordText, { fontSize: 12 }]}>
+					Waktu Penggunaan Kode Verifikasi Anda Telah Habis, Kirim Ulang Kode Verifikasi Untuk Melanjutkan
+				</Text>
+			);
+		}
 	}
 
 	render() {
@@ -127,6 +179,7 @@ class OtpResetPasswordComponent extends Component {
 				<Text style={styles.forgotPasswordText}>
 					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
 				</Text>
+				{this.renderTimer()}
 				<View style={styles.inputContainerStyle}>
 					<Input
 						style={styles.singularInputStyle}
@@ -213,14 +266,14 @@ class OtpResetPasswordComponent extends Component {
 	}
 }
 
-const checkPermissionVal = async() => {
-    const permission = await checkPermission();
-    if (permission) {
-      getToken();
-    }
-    else {
-      requestPermission();
-    }
+const checkPermissionVal = async () => {
+	const permission = await checkPermission();
+	if (permission) {
+		getToken();
+	}
+	else {
+		requestPermission();
+	}
 };
 
 export default OtpResetPasswordComponent;

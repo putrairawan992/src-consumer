@@ -15,7 +15,7 @@ export default StyleSheet.create({
         color: '#FFF',
         textAlign: 'center',
         lineHeight: 28,
-        paddingBottom: 41
+        paddingBottom: 20
 	},
 	inputContainerStyle: {
 		flexDirection: 'row',

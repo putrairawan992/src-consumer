@@ -1,5 +1,6 @@
 import { CommonService } from '@services';
 import { Actions } from 'react-native-router-flux';
+import { storeExpiryDate } from '@helpers/Storage';
 import {
     FORGOT_PHONE_CHANGES,
     FORGOT_PAGE_UNMOUNT,
@@ -24,7 +25,8 @@ export const forgotPageUnmount = () => {
 export const submitForgotPassword = (payload, isReset = false) => {
     return dispatch => {
         dispatch({ type: FORGOT_PROCCESS });
-        CommonService.resendActivationCode(payload).then(() => {
+        CommonService.resendActivationCode(payload).then(async (response) => {
+            await storeExpiryDate(response.expiry_at);
             dispatch({ type: FORGOT_SUCCESS });
             if (isReset) {
                 Actions.OtpResetPassword({

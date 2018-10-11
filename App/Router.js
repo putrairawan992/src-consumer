@@ -32,6 +32,11 @@ const checkLogin = async () => {
 		if (result.status === 'active') {
 			return true;
 		}
+		else if (result.status === 'inactive') {
+			setTimeout(() => {
+				Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: result.phone });
+			}, 1000);
+		}
 	}
 	return false;
 };
