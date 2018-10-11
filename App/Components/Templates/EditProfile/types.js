@@ -16,3 +16,4 @@ export const EDIT_SUCCESS = 'edit_success';
 export const EDIT_FAIL = 'edit_fail';
 export const EDIT_ON_WILL_MOUNT = 'edit_on_will_mount';
 export const EDIT_IMAGE_REPLACED = 'edit_image_replaced';
+export const EDIT_REFERRAL_CHANGED = 'edit_referral_changed';

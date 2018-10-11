@@ -19,7 +19,8 @@ import {
     EDIT_PROVINCE_CHANGED,
     EDIT_PROVINCES_RETRIEVED,
     EDIT_CITIES_RETRIEVED,
-    EDIT_EMAIL_CHANGED
+    EDIT_EMAIL_CHANGED,
+    EDIT_REFERRAL_CHANGED
 } from './types';
 import { refreshProfile } from '../../../Store/GlobalReducer/actions';
  
@@ -47,6 +48,13 @@ export const editBirthdateChanged = text => {
 export const editKtpChanged = text => {
     return {
         type: EDIT_KTP_CHANGED,
+        payload: text
+    };
+};
+
+export const editReferalChanged = text => {
+    return {
+        type: EDIT_REFERRAL_CHANGED,
         payload: text
     };
 };

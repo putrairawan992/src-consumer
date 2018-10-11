@@ -86,6 +86,10 @@ class EditProfileComponent extends Component {
 		this.props.editEmailChanged(value);
 	}
 
+	onReferalChanged(value) {
+		this.props.editReferalChanged(value);
+	}
+
 	submitEdit() {
 		const nameError = validateClass(
 			'name',
@@ -141,7 +145,8 @@ class EditProfileComponent extends Component {
 				image: this.props.image,
 				city_id: this.props.city_id,
 				province_id: this.props.province_id,
-				email: this.props.email
+				email: this.props.email,
+				refferal_code: this.props.referral_code
 			};
 			this.props.submitEdit(payload);
 		}
@@ -293,6 +298,14 @@ class EditProfileComponent extends Component {
 						value={this.props.email}
 					/>
 				</View>
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Kode Referensi"
+						onChangeText={this.onReferalChanged.bind(this)}
+						value={this.props.referral_code}
+						editable={this.props.already_referral ? false : true}
+					/>
+				</View>
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
 					<Loader visible={this.props.baseLoading} text="updating..." />
 				</ScrollView>
@@ -319,7 +332,9 @@ const mapStateToProps = (state) => {
 		cities: state.editUserReducer.cities,
 		provinces: state.editUserReducer.provinces,
 		isOver: state.editUserReducer.isOver,
-		email: state.editUserReducer.email
+		email: state.editUserReducer.email,
+		referral_code: state.editUserReducer.referral_code,
+		already_referral: state.editUserReducer.already_referral
 	};
 	return newProps;
 };

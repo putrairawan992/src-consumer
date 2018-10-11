@@ -14,7 +14,8 @@ import {
     EDIT_PROVINCES_RETRIEVED,
     EDIT_CITIES_RETRIEVED,
     EDIT_CITY_CHANGED,
-    EDIT_EMAIL_CHANGED
+    EDIT_EMAIL_CHANGED,
+    EDIT_REFERRAL_CHANGED
 } from './types';
 
 const INITIAL_STATE = {
@@ -32,7 +33,9 @@ const INITIAL_STATE = {
     profileLoaded: false,
     image: '',
     isOver: false,
-    email: ''
+    email: '',
+    referral_code: '',
+    already_referral: false
 };
 
 const calculateAge = (birthday) => {
@@ -69,8 +72,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, baseLoading: false };
         case EDIT_FAIL:
             return { ...state, baseLoading: false };
+        case EDIT_REFERRAL_CHANGED:
+            return { ...state, referral_code: action.payload };
         case EDIT_ON_WILL_MOUNT:
-            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true, isOver: (calculateAge(action.payload.birth_date) >= 18 ? true : false), email: action.payload.email };
+            return { ...state, name: action.payload.fullname, gender: action.payload.gender, birth_date: action.payload.birth_date, id_number: action.payload.id_number, phone: action.payload.phone.substring(3), image_url: action.payload.image_url, city_id: action.payload.city_id, province_id: action.payload.province_id, profileLoaded: true, isOver: (calculateAge(action.payload.birth_date) >= 18 ? true : false), email: action.payload.email, referral_code: action.payload.refferal_code, already_referral: action.payload.refferal_code ? true : false };
         case EDIT_IMAGE_REPLACED:
             return { ...state, image: action.payload };
         default:
