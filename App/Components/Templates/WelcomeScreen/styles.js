@@ -30,5 +30,11 @@ export default StyleSheet.create({
 	},
 	buttonContainer: {
 		width: '100%'
+	},
+	whiteText: {
+		fontFamily: 'ProximaNova-Bold',
+		color: '#fff',
+		fontSize: 12,
+		textAlign: 'center'
 	}
 });
