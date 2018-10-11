@@ -239,7 +239,7 @@ class RegisterComponent extends Component {
 				<View style={globalStyles.phoneRow}>
 					<Select
 						items={this.props.cities}
-						placeholder="Pilih Kota"
+						placeholder="Kabupaten Domisili"
 						iteratorKey={'id'}
 						iteratorLabel={'name'}
 						value={this.props.city_id}
@@ -289,7 +289,7 @@ class RegisterComponent extends Component {
 				<View style={globalStyles.phoneRow}>
 					<Select
 						items={this.props.provinces}
-						placeholder="Pilih Provinsi"
+						placeholder="Provinsi Domisili"
 						iteratorKey={'id'}
 						iteratorLabel={'name'}
 						value={this.props.province_id}
