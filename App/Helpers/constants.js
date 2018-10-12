@@ -1,8 +1,8 @@
 //  API endpoint target
 export default {
-	// api_url: 'https://ayo-api.dxtr.asia/',
+	api_url: 'https://ayo-api.dxtr.asia/',
 	// api_url: 'https://api-consumer.src.id/', // production
-	api_url: 'http://192.168.2.228/',
+	// api_url: 'http://192.168.2.228/',
 	// api_url: 'http://43.243.140.58:3232/',
 	oauth_identifier: {
 		client_id: 2,
