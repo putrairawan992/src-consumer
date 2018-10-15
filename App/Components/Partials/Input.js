@@ -92,6 +92,11 @@ class Input extends Component {
 					/>
 					{this.renderVisibility()}
 				</View>
+				{this.props.phoneLabel ? (
+					<Text style={[globalStyles.validationText, { color: '#000' }]}>
+						Contoh : 832000833
+					</Text>
+				) : null}
 				{this.props.error ? (
 					<Text style={globalStyles.validationText}>
 						{this.props.error}

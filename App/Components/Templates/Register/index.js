@@ -315,11 +315,12 @@ class RegisterComponent extends Component {
 						onChangeText={this.onPhoneChange.bind(this)}
 						value={this.props.phone}
 						error={this.state.phoneError}
+						phoneLabel
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
-						placeholder="Alamat Email"
+						placeholder="Alamat Email (Tidak Wajib)"
 						onChangeText={this.onEmailChange.bind(this)}
 						value={this.props.email}
 					/>
@@ -346,7 +347,7 @@ class RegisterComponent extends Component {
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
-						placeholder="Kode Referensi"
+						placeholder="Kode Referensi (Tidak Wajib)"
 						onChangeText={this.onReferenceCodeChanged.bind(
 							this
 						)}
