@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image } from 'react-native';
-import styes from '../Templates/SubmitSetting/styes';
 
 const styles = {
     container: {
@@ -64,7 +63,7 @@ class CouponCard extends Component {
     }
     render() {
         return (
-            <ImageBackground style={styles.container} source={backgroundSource} resizeMode="stretch" >
+            <ImageBackground style={styles.container} source={backgroundSource} resizeMode="cover" borderRadius={8} >
                 <Text style={styles.couponName}>{this.props.couponName}</Text>
                 <View style={styles.couponValue}>
                     <Text style={styles.couponType}>{this.props.couponType}</Text>
