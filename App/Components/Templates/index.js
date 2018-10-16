@@ -23,6 +23,7 @@ import SubmitSettingComponent from './SubmitSetting';
 import StaticContentComponent from './StaticContent';
 import TermConditionComponent from './TermCondition';
 import MyCouponComponent from './MyCoupon';
+import CouponListComponent from './CouponList';
 
 export {
 	IntroComponent,
@@ -49,5 +50,6 @@ export {
 	SubmitSettingComponent,
 	StaticContentComponent,
 	TermConditionComponent,
-	MyCouponComponent
+	MyCouponComponent,
+	CouponListComponent
 };

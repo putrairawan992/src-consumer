@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 
 const styles = {
     container: {
@@ -52,11 +53,19 @@ const backgroundSource = require('@images/coupon-background.png');
 const srcSource = require('@images/src-shape.png');
 
 class CouponCard extends Component {
+    redirectCouponList() {
+        if (this.props.srcLogo) {
+            Actions.CouponList();
+        }
+        else {
+            Actions.CouponList({ isRetailer: true });
+        }
+    }
     renderSrcDiv() {
         if (this.props.srcLogo) {
             return (
                 <View style={styles.srcDiv}>
-                <Image source={srcSource} style={styles.srcImage} />
+                    <Image source={srcSource} style={styles.srcImage} />
                 </View>
             );
         }
@@ -64,13 +73,17 @@ class CouponCard extends Component {
     render() {
         return (
             <ImageBackground style={styles.container} source={backgroundSource} resizeMode="cover" borderRadius={8} >
-                <Text style={styles.couponName}>{this.props.couponName}</Text>
-                <View style={styles.couponValue}>
-                    <Text style={styles.couponType}>{this.props.couponType}</Text>
-                    <Text style={styles.couponValueText}>{this.props.value}</Text>
-                </View>
-                {this.renderSrcDiv()}
+                <TouchableOpacity onPress={this.redirectCouponList.bind(this)}>
+
+                    <Text style={styles.couponName}>{this.props.couponName}</Text>
+                    <View style={styles.couponValue}>
+                        <Text style={styles.couponType}>{this.props.couponType}</Text>
+                        <Text style={styles.couponValueText}>{this.props.value}</Text>
+                    </View>
+                    {this.renderSrcDiv()}
+                </TouchableOpacity>
             </ImageBackground>
+
         );
     }
 }

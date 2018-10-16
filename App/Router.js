@@ -21,7 +21,8 @@ import {
 	SubmitSettingComponent,
 	StaticContentComponent,
 	TermConditionComponent,
-	MyCouponComponent
+	MyCouponComponent,
+	CouponListComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
@@ -197,6 +198,11 @@ class routerComponent extends Component {
 						<Scene
 							key="MyCoupon"
 							component={MyCouponComponent}
+							title="Kupon Saya"
+						/>
+						<Scene
+							key="CouponList"
+							component={CouponListComponent}
 							title="Kupon Saya"
 						/>
 					</Stack>
