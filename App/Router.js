@@ -20,7 +20,8 @@ import {
 	PrivacySettingComponent,
 	SubmitSettingComponent,
 	StaticContentComponent,
-	TermConditionComponent
+	TermConditionComponent,
+	MyCouponComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
@@ -192,6 +193,11 @@ class routerComponent extends Component {
 							key="TermCondition"
 							component={TermConditionComponent}
 							hideNavBar
+						/>
+						<Scene
+							key="MyCoupon"
+							component={MyCouponComponent}
+							title="Kupon Saya"
 						/>
 					</Stack>
 				</Router>

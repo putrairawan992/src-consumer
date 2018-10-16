@@ -62,6 +62,10 @@ class DashboardComponent extends Component {
 		}
 	}
 
+	redirectMyCoupon() {
+		Actions.MyCoupon();
+	}
+
 	async redirectNearby() {
 		const locationStatus = await PermissionHelpers.requestLocationPermission();
 		if (locationStatus === true) {
@@ -165,7 +169,7 @@ class DashboardComponent extends Component {
 						<View style={globalStyles.mainContainer}>
 							<View style={globalStyles.menuRow}>
 								{/* <WideButton onPress={this.redirectNearby.bind(this)} /> */}
-								<MenuButton image={couponImg}>
+								<MenuButton image={couponImg} onPress={this.redirectMyCoupon.bind(this)}>
 									KUPON SAYA
 								</MenuButton>
 								<MenuButton image={qrImg} >

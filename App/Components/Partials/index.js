@@ -19,6 +19,8 @@ import Loader from './Loader';
 import WideButton from './WideButton';
 import SearchInput from './SearchInput';
 import HelpCard from './HelpCard';
+import CouponInfo from './CouponInfo';
+import CouponCard from './CouponCard';
 
 export {
 	Button,
@@ -41,5 +43,7 @@ export {
 	Loader,
 	WideButton,
 	SearchInput,
-	HelpCard
+	HelpCard,
+	CouponInfo,
+	CouponCard
 };
