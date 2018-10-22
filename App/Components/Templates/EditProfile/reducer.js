@@ -39,7 +39,7 @@ const INITIAL_STATE = {
 };
 
 const calculateAge = (birthday) => {
-	return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
+    return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -48,8 +48,14 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, name: action.payload };
         case EDIT_GENDER_CHANGED:
             return { ...state, gender: action.payload };
-        case EDIT_BIRTHDATE_CHANGED:
-            return { ...state, birth_date: action.payload };
+        case EDIT_BIRTHDATE_CHANGED: {
+            const myAge = calculateAge(action.payload);
+            let virOver = false;
+            if (myAge >= 18) {
+                virOver = true;
+            }
+            return { ...state, birth_date: action.payload, isOver: virOver };
+        }
         case EDIT_KTP_CHANGED:
             return { ...state, id_number: action.payload };
         case EDIT_PROVINCE_CHANGED:
