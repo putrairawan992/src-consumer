@@ -66,6 +66,10 @@ class DashboardComponent extends Component {
 		Actions.MyCoupon();
 	}
 
+	redirectMyQr() {
+		Actions.MyQr();
+	}
+
 	async redirectNearby() {
 		const locationStatus = await PermissionHelpers.requestLocationPermission();
 		if (locationStatus === true) {
@@ -172,7 +176,7 @@ class DashboardComponent extends Component {
 								<MenuButton image={couponImg} onPress={this.redirectMyCoupon.bind(this)}>
 									KUPON SAYA
 								</MenuButton>
-								<MenuButton image={qrImg} >
+								<MenuButton image={qrImg} onPress={this.redirectMyQr.bind(this)} >
 									KODE QR
 								</MenuButton>
 								<MenuButton image={terdekatImg} onPress={this.redirectNearby.bind(this)}>

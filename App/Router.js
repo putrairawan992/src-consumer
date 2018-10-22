@@ -22,7 +22,8 @@ import {
 	StaticContentComponent,
 	TermConditionComponent,
 	MyCouponComponent,
-	CouponListComponent
+	CouponListComponent,
+	MyQrComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
@@ -204,6 +205,11 @@ class routerComponent extends Component {
 							key="CouponList"
 							component={CouponListComponent}
 							title="Kupon Saya"
+						/>
+						<Scene
+							key="MyQr"
+							component={MyQrComponent}
+							title="Kode QR saya"
 						/>
 					</Stack>
 				</Router>

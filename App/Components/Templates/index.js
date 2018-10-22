@@ -24,6 +24,7 @@ import StaticContentComponent from './StaticContent';
 import TermConditionComponent from './TermCondition';
 import MyCouponComponent from './MyCoupon';
 import CouponListComponent from './CouponList';
+import MyQrComponent from './MyQr';
 
 export {
 	IntroComponent,
@@ -51,5 +52,6 @@ export {
 	StaticContentComponent,
 	TermConditionComponent,
 	MyCouponComponent,
-	CouponListComponent
+	CouponListComponent,
+	MyQrComponent
 };
