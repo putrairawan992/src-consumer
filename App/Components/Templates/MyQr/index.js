@@ -8,7 +8,8 @@ class MyQrComponent extends Component {
     myQuery = {
         id: this.props.globalProfile.id,
         name: this.props.globalProfile.fullname,
-        phone: this.props.globalProfile.phone
+        phone: this.props.globalProfile.phone,
+        ayo_consumer_qr: true
     }
     render() {
         console.log('user query', this.myQuery);
