@@ -114,7 +114,12 @@ class EditProfileComponent extends Component {
 			this.props.id_number,
 			validation,
 			'idNumber'
-		) && this.props.isOver;
+		) && this.props.isOver ? validateClass(
+			'idNumber',
+			this.props.id_number,
+			validation,
+			'idNumber'
+		) : null;
 		const cityError = validateClass(
 			'city',
 			this.props.city_id,
@@ -171,7 +176,6 @@ class EditProfileComponent extends Component {
 	}
 
 	renderKtp() {
-		console.log(this.props.isOver);
 		if (this.props.isOver) {
 			return (
 				<View style={globalStyles.phoneRow}>
