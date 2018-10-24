@@ -131,7 +131,7 @@ class DashboardComponent extends Component {
 							</View>
 							<TouchableWithoutFeedback
 								onPress={() => {
-									// EventRegister.emit('profileTab');
+									Actions.EditProfile();
 								}}
 							>
 								<View style={globalStyles.detailContainer}>
