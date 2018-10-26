@@ -256,7 +256,7 @@ class RegisterComponent extends Component {
 			<ScrollView contentContainerStyle={styles.container}>
 				<View style={globalStyles.phoneRow}>
 					<Input
-						placeholder="Nama"
+						placeholder="Nama Lengkap"
 						onChangeText={this.onNameChange.bind(this)}
 						value={this.props.name}
 						error={this.state.nameError}
