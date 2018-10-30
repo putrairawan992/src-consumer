@@ -66,7 +66,7 @@ const getExpiry = () => {
 
 const removeAuthFromStorage = async () => {
 	try {
-		const remove = await AsyncStorage.multiRemove(['authorization', 'profile', 'otp_expiry']);
+		const remove = await AsyncStorage.multiRemove(['authorization', 'profile', 'otp_expiry', 'session']);
 		if (remove) {
 			return true;
 		}
@@ -121,6 +121,28 @@ const storeExpiryDate = async (expire) => {
 	}
 };
 
+const storeSession = async (phone) => {
+		try {
+			await AsyncStorage.setItem('session', phone);
+			return phone;
+		}
+		catch (err) {
+			console.error('Error while store session', err);
+			return null;
+		}
+	};
+	
+const hasSession = async () => {
+	try {
+		const session = await AsyncStorage.getItem('session');
+		return session;
+	}
+	catch (err) {
+		console.error('Error while retrieve session', err);
+		return null;
+	}
+};
+
 
 export {
 	storeCustomData,
@@ -133,5 +155,7 @@ export {
 	removeAuthFromStorage,
 	checkFirstLaunch,
 	storeExpiryDate,
-	getExpiry
+	getExpiry,
+	storeSession,
+	hasSession
 };

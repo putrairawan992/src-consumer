@@ -23,20 +23,19 @@ import {
 	TermConditionComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
-import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
+import { getProfileFromStorage, checkFirstLaunch, hasSession } from '@helpers/Storage';
 import SplashScreen from 'react-native-splash-screen';
 
 const checkLogin = async () => {
-	const result = await getProfileFromStorage();
-	if (result) {
-		if (result.status === 'active') {
-			return true;
-		}
-		else if (result.status === 'inactive') {
-			setTimeout(() => {
-				Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: result.phone });
-			}, 1000);
-		}
+	const myProfile = await getProfileFromStorage();
+	if (myProfile) {
+		return true;
+	}
+	const mySession = await hasSession();
+	if (mySession) {
+		setTimeout(() => {
+			Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: mySession });
+		}, 1000);
 	}
 	return false;
 };
