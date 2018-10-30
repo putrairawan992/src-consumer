@@ -64,7 +64,7 @@ const resetPassword = (payload) => {
 
 const changePassword = (payload) => {
 	return request({
-		url: 'oauth/password/change',
+		url: 'oauth/password/change-external',
 		method: 'POST',
 		data: payload
 	});
