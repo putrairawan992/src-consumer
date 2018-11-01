@@ -8,7 +8,7 @@ import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
 import moment from 'moment';
 import { trackScreen } from '@helpers/analytic';
-import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate } from '@helpers/Storage';
+import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession } from '@helpers/Storage';
 import styles from './styles';
 
 const pageName = this.pageName = 'otp';
@@ -99,12 +99,13 @@ class OtpResetPasswordComponent extends Component {
 		}
 	}
 
-	submitCode() {
+	async submitCode() {
+		const currentSession = await hasSession();
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
 			this.setState({ baseLoading: true });
 			const verifyPayload = {
 				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
-				phone: (this.props.requestReset) ? this.props.phoneNumber : null
+				phone: (this.props.requestReset) ? this.props.phoneNumber : currentSession
 			};
 			if (this.props.requestReset) {
 				CommonService.resetPassword(verifyPayload).then(async (response) => {
@@ -116,7 +117,8 @@ class OtpResetPasswordComponent extends Component {
 				});
 			}
 			else {
-				CommonService.verifyUser(verifyPayload).then(async () => {
+				CommonService.verifyUser(verifyPayload).then(async (response) => {
+					await setAuthorization(response.token);
 					const check = await setProfileFromRest();
 					this.setState({ baseLoading: false });
 					if (check) {
@@ -133,11 +135,12 @@ class OtpResetPasswordComponent extends Component {
 		}
 	}
 
-	resendActivationCode() {
+	async resendActivationCode() {
 		this.setState({ baseLoading: true });
+		const currentSession = await hasSession();
 		const resendPayload = {
 			type: (this.props.requestReset) ? 'reset-password' : 'verify-account',
-			phone: (this.props.requestReset) ? this.props.phoneNumber : null
+			phone: (this.props.requestReset) ? this.props.phoneNumber : currentSession
 		};
 		CommonService.resendActivationCode(resendPayload).then(async (response) => {
 			await storeExpiryDate(response.expiry_at);

@@ -230,7 +230,7 @@ class EditProfileComponent extends Component {
 					</View>
 					<View style={globalStyles.phoneRow}>
 						<Input
-							placeholder="Nama"
+							placeholder="Nama Lengkap"
 							onChangeText={this.onNameChanged.bind(this)}
 							value={this.props.name}
 							error={this.state.nameError}

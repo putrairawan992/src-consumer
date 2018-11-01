@@ -32,7 +32,7 @@ const signUp = (payload) => {
 
 const signIn = (payload) => {
 	return request({
-		url: 'api/customer/token',
+		url: 'api/customer/token-v2',
 		method: 'POST',
 		data: { ...constants.oauth_identifier, ...payload }
 	});
@@ -64,7 +64,7 @@ const resetPassword = (payload) => {
 
 const changePassword = (payload) => {
 	return request({
-		url: 'oauth/password/change',
+		url: 'oauth/password/change-external',
 		method: 'POST',
 		data: payload
 	});
