@@ -205,6 +205,14 @@ const updateNotification = (context) => {
 	});
 };
 
+const checkAppVersion = (param) => {
+	return request({
+		url: 'api/general/mobile-apps/check',
+		params: param,
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -231,7 +239,8 @@ const CommonService = {
 	changeResetPassword,
 	storeFCMToken,
 	getNotifications,
-	updateNotification
+	updateNotification,
+	checkAppVersion
 };
 
 export default CommonService;
