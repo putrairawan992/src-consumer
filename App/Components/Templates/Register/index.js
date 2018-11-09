@@ -145,7 +145,7 @@ class RegisterComponent extends Component {
 		);
 		const idNumberError = validateClass(
 			'idNumber',
-			this.props.id_number,
+			this.props.id_number.trim(),
 			validation,
 			'idNumber'
 		) && this.props.isOver ? validateClass(
