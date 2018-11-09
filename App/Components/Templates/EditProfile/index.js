@@ -190,6 +190,21 @@ class EditProfileComponent extends Component {
 		}
 	}
 
+	renderRefferalCode() {
+		if (this.props.already_referral) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Kode Referensi"
+						onChangeText={this.onReferalChanged.bind(this)}
+						value={this.props.referral_code}
+						editable={this.props.already_referral ? false : true}
+					/>
+				</View>
+			);
+		}
+	}
+
 
 	render() {
 		if (this.props.profileLoaded) {
@@ -302,14 +317,7 @@ class EditProfileComponent extends Component {
 						value={this.props.email}
 					/>
 				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Kode Referensi"
-						onChangeText={this.onReferalChanged.bind(this)}
-						value={this.props.referral_code}
-						editable={this.props.already_referral ? false : true}
-					/>
-				</View>
+				{this.renderRefferalCode()}
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
 					<Loader visible={this.props.baseLoading} text="updating..." />
 				</ScrollView>
