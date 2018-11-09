@@ -165,7 +165,7 @@ class DashboardComponent extends Component {
 							</View>
 							<View style={{ flexDirection: 'row' }} >
 								<Swiper
-									style={globalStyles.horizontalSlider} dotColor="#fff" activeDotColor="#DC1E2D"
+									style={globalStyles.horizontalSlider} dotColor="#fff" activeDotColor="#DC1E2D" autoplay autoplayTimeout={4}
 								>
 									{this.renderBanner()}
 								</Swiper>
