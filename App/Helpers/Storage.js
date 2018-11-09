@@ -1,4 +1,6 @@
 import { AsyncStorage } from 'react-native';
+import SInfo from 'react-native-sensitive-info';
+import CryptoJS from 'crypto-js';
 import CommonService from '../Services/Api/Common';
 
 const storeCustomData = async (key, value) => {
@@ -38,7 +40,8 @@ const checkFirstLaunch = async () => {
 
 const setAuthorization = async value => {
 	try {
-		await AsyncStorage.setItem('authorization', JSON.stringify(value));
+		const encrypt = CryptoJS.AES.encrypt(JSON.stringify(value), 'SAMP-CRYPT').toString();
+		await SInfo.setItem('authorization', encrypt, {});
 	} catch (error) {
 		console.error('Error Saving Data', error);
 	}
@@ -46,9 +49,10 @@ const setAuthorization = async value => {
 
 const getAuthorization = async () => {
 	try {
-		const auth = await AsyncStorage.getItem('authorization');
+		const auth = await SInfo.getItem('authorization', {});
 		if (auth !== null) {
-			return JSON.parse(auth);
+			const bytes = CryptoJS.AES.decrypt(auth, 'SAMP-CRYPT');
+			return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 		}
 		return null;
 	} catch (error) {
@@ -66,11 +70,10 @@ const getExpiry = () => {
 
 const removeAuthFromStorage = async () => {
 	try {
-		const remove = await AsyncStorage.multiRemove(['authorization', 'profile', 'otp_expiry', 'session']);
-		if (remove) {
-			return true;
-		}
-		return false;
+		await AsyncStorage.multiRemove(['otp_expiry', 'session']);
+		await SInfo.deleteItem('authorization', {});
+		await SInfo.deleteItem('profile', {});
+		return true;
 	} catch (err) {
 		console.error('Error while removing data', err);
 		return false;
@@ -89,7 +92,8 @@ const debugStorage = async () => {
 const setProfileFromRest = async () => {
 	try {
 		const profile = await CommonService.getProfile();
-		await AsyncStorage.setItem('profile', JSON.stringify(profile));
+		const encrypt = CryptoJS.AES.encrypt(JSON.stringify(profile), 'SAMP-CRYPT-PROFILE').toString();
+		await SInfo.setItem('profile', encrypt, {});
 		return profile;
 	} catch (err) {
 		console.error('something went wrong', err);
@@ -99,9 +103,10 @@ const setProfileFromRest = async () => {
 
 const getProfileFromStorage = async () => {
 	try {
-		const profile = await AsyncStorage.getItem('profile');
+		const profile = await SInfo.getItem('profile', {});
 		if (profile !== null) {
-			return JSON.parse(profile);
+			const bytes = CryptoJS.AES.decrypt(profile, 'SAMP-CRYPT-PROFILE');
+			return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 		}
 		return null;
 	} catch (error) {
