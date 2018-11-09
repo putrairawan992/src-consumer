@@ -28,7 +28,7 @@ export default (state = INITIAL_STATE, action) => {
         case CHANGE_PASS_PROCCESS:
             return { ...state, baseLoading: true };
         case CHANGE_PASS_SUCCESS:
-            return { ...state, baseLoading: false };
+            return { state: INITIAL_STATE, baseLoading: false };
         case CHANGE_PASS_FAIL:
             return { ...state, baseLoading: false };
         default:

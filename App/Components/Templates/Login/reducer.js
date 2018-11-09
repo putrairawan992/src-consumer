@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
 		case SIGN_IN_PROCCESS:
 			return { ...state, baseLoading: true };
 		case SIGN_IN_SUCCESS:
-			return { ...state, baseLoading: false }; 
+			return { state: INITIAL_STATE, baseLoading: false }; 
 		case SIGN_IN_FAIL:
 			return { ...state, baseLoading: false };
 		default:
