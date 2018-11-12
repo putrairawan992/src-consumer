@@ -86,7 +86,7 @@ export default (state = INITIAL_STATE, action) => {
 		case SIGN_UP_PROCCESS:
 			return { ...state, baseLoading: true };
 		case SIGN_UP_SUCCESS:
-			return { state: INITIAL_STATE, baseLoading: false };
+			return { ...state, baseLoading: false };
 		case SIGN_UP_FAIL:
 			return { ...state, baseLoading: false };
 		case REGISTER_PAGE_UNMOUNT:
