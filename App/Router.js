@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
-	WelcomeScreenComponent,
-	LoginComponent,
 	MainConsumerComponent,
 	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
@@ -20,7 +18,8 @@ import {
 	PrivacySettingComponent,
 	SubmitSettingComponent,
 	StaticContentComponent,
-	TermConditionComponent
+	TermConditionComponent,
+	LoginPageComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch, hasSession } from '@helpers/Storage';
@@ -47,7 +46,7 @@ class routerComponent extends Component {
 		checking: true,
 		isFirst: false
 	}
-	
+
 
 	componentWillMount() {
 		checkLogin().then((result) => {
@@ -79,7 +78,7 @@ class routerComponent extends Component {
 
 	onBackPress() {
 		if (Actions.state.index === 0) {
-	return false;
+			return false;
 		}
 		Actions.pop();
 		return true;
@@ -90,14 +89,7 @@ class routerComponent extends Component {
 			return (
 				<Router backAndroidHandler={this.onBackPress}>
 					<Stack key="root" navBar={CustomNavBar}>
-						<Scene
-							key="WelcomeScreen"
-							component={WelcomeScreenComponent}
-							initial={!this.state.isAuth && !this.state.isFirst}
-							hideNavBar
-						/>
 						<Scene key="Intro" component={IntroComponent} hideNavBar initial={!this.state.isAuth && this.state.isFirst} />
-						<Scene key="Login" component={LoginComponent} title="Masuk" />
 						<Scene
 							key="MainConsumer"
 							component={MainConsumerComponent}
@@ -145,18 +137,20 @@ class routerComponent extends Component {
 							component={NearbyComponent}
 							title="Toko terdekat"
 							withIcon={'map'}
-							rightPress={() => { 
+							rightPress={() => {
 								Actions.pop();
-								Actions.NearbyMapView(); }}
+								Actions.NearbyMapView();
+							}}
 						/>
 						<Scene
 							key="NearbyMapView"
 							component={NearbyMapViewComponent}
 							title="Toko terdekat"
 							withIcon={'grid-on'}
-							rightPress={() => { 
+							rightPress={() => {
 								Actions.pop();
-								Actions.Nearby(); }}
+								Actions.Nearby();
+							}}
 						/>
 						<Scene
 							key="ShopDetail"
@@ -190,6 +184,12 @@ class routerComponent extends Component {
 						<Scene
 							key="TermCondition"
 							component={TermConditionComponent}
+							hideNavBar
+						/>
+						<Scene
+							key="LoginPage"
+							component={LoginPageComponent}
+							initial={!this.state.isAuth && !this.state.isFirst}
 							hideNavBar
 						/>
 					</Stack>

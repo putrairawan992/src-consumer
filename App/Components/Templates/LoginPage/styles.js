@@ -12,12 +12,13 @@ export default StyleSheet.create({
 		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
-		paddingHorizontal: 35
+		paddingHorizontal: 16
 	},
 	topperImg: {
-		height: 224,
-		width: 224,
-		resizeMode: 'contain'
+		height: 162,
+		width: 162,
+        resizeMode: 'contain',
+        marginBottom: 42
 	},
 	buttonStyle: {
 		backgroundColor: '#FFF',
@@ -36,5 +37,12 @@ export default StyleSheet.create({
 		color: '#fff',
 		fontSize: 12,
 		textAlign: 'center'
-	}
+    },
+    inputStyle: {
+        backgroundColor: 'transparent',
+        paddingVertical: 12,
+        color: '#fff',
+        fontWeight: '600'
+    }
 });
+

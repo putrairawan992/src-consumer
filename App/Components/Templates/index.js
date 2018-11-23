@@ -1,6 +1,4 @@
 import IntroComponent from './Intro';
-import WelcomeScreenComponent from './WelcomeScreen';
-import LoginComponent from './Login';
 import DashboardComponent from './Dashboard';
 import NotificationComponent from './Notification';
 import ProfileComponent from './Profile';
@@ -22,11 +20,10 @@ import PrivacySettingComponent from './PrivacySetting';
 import SubmitSettingComponent from './SubmitSetting';
 import StaticContentComponent from './StaticContent';
 import TermConditionComponent from './TermCondition';
+import LoginPageComponent from './LoginPage';
 
 export {
 	IntroComponent,
-	WelcomeScreenComponent,
-	LoginComponent,
 	DashboardComponent,
 	NotificationComponent,
 	ProfileComponent,
@@ -47,5 +44,6 @@ export {
 	PrivacySettingComponent,
 	SubmitSettingComponent,
 	StaticContentComponent,
-	TermConditionComponent
+	TermConditionComponent,
+	LoginPageComponent
 };
