@@ -141,10 +141,10 @@ export const submitSignUp = payload => {
 		dispatch({ type: SIGN_UP_PROCCESS });
 		CommonService.signUp(payload)
 			.then(async(response) => {
-				await storeSession(payload.phone);
+				await storeSession(payload.phone, response.type);
 				await storeExpiryDate(response.expiry_at);
 				dispatch({ type: SIGN_UP_SUCCESS });
-				Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: payload.phone });
+				Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: payload.phone, actionType: 'verify-account' });
 			})
 			.catch(() => {
 				dispatch({ type: SIGN_UP_FAIL });

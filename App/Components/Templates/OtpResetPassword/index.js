@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
-import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
-import moment from 'moment';
 import { trackScreen } from '@helpers/analytic';
+import moment from 'moment';
+import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession } from '@helpers/Storage';
 import styles from './styles';
+
 
 const pageName = this.pageName = 'otp';
 
@@ -45,6 +46,7 @@ class OtpResetPasswordComponent extends Component {
 	componentWillUnmount() {
 		clearInterval(this.clockCall);
 	}
+
 	//Helper function
 	focusNextField(nextField) {
 		this.inputs[nextField].focus();
@@ -61,23 +63,6 @@ class OtpResetPasswordComponent extends Component {
 			}
 		}
 	}
-
-	async generateTimer() {
-		const currentExpiry = await getExpiry();
-		this.setState({
-			loaded: true,
-			timer: currentExpiry !== null ? moment(currentExpiry, 'YYYY-MM-DD HH:mm:ss').diff(moment(), 'seconds') : 0
-		});
-	}
-
-	decrementClock = () => {
-		this.setState((prevstate) => {
-			if (prevstate.timer > 0) {
-				return { timer: prevstate.timer - 1 };
-			}
-			return { timer: 0 };
-		});
-	};
 
 	redirectSuccessResetPassword() {
 		Actions.SuccessResetPassword();
@@ -104,31 +89,21 @@ class OtpResetPasswordComponent extends Component {
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
 			this.setState({ baseLoading: true });
 			const verifyPayload = {
-				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
-				phone: (this.props.requestReset) ? this.props.phoneNumber : currentSession
+				password: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
+				username: currentSession.phone
 			};
-			if (this.props.requestReset) {
-				CommonService.resetPassword(verifyPayload).then(async (response) => {
-					this.setState({ baseLoading: false });
-					await setAuthorization(response.token);
-					this.redirectChangePassword();
-				}).catch(() => {
-					this.setState({ baseLoading: false });
-				});
-			}
-			else {
-				CommonService.verifyUser(verifyPayload).then(async (response) => {
-					await setAuthorization(response.token);
-					const check = await setProfileFromRest();
-					this.setState({ baseLoading: false });
-					if (check) {
-						checkPermissionVal();
-						this.redirectDashboard();
-					}
-				}).catch(() => {
-					this.setState({ baseLoading: false });
-				});
-			}
+
+			CommonService.signIn(verifyPayload).then(async (response) => {
+				await setAuthorization(response);
+				const check = await setProfileFromRest();
+				this.setState({ baseLoading: false });
+				if (check) {
+					checkPermissionVal();
+					this.redirectDashboard();
+				}
+			}).catch(() => {
+				this.setState({ baseLoading: false });
+			});
 		}
 		else {
 			CustomAlert(null, 'Lengkapi kode verifikasi anda.', [{ text: 'OK' }]);
@@ -139,8 +114,8 @@ class OtpResetPasswordComponent extends Component {
 		this.setState({ baseLoading: true });
 		const currentSession = await hasSession();
 		const resendPayload = {
-			type: (this.props.requestReset) ? 'reset-password' : 'verify-account',
-			phone: (this.props.requestReset) ? this.props.phoneNumber : currentSession
+			type: currentSession.type,
+			phone: currentSession.phone
 		};
 		CommonService.resendActivationCode(resendPayload).then(async (response) => {
 			await storeExpiryDate(response.expiry_at);
@@ -152,13 +127,31 @@ class OtpResetPasswordComponent extends Component {
 		});
 	}
 
+
+	async generateTimer() {
+		const currentExpiry = await getExpiry();
+		this.setState({
+			loaded: true,
+			timer: currentExpiry !== null ? moment(currentExpiry, 'YYYY-MM-DD HH:mm:ss').diff(moment(), 'seconds') : 0
+		});
+	}
+
+	decrementClock = () => {
+		this.setState((prevstate) => {
+			if (prevstate.timer > 0) {
+				return { timer: prevstate.timer - 1 };
+			}
+			return { timer: 0 };
+		});
+	};
+
 	renderTimer() {
 		if (this.state.loaded) {
 			if (this.state.timer > 0) {
 				return (
 					<Text style={styles.forgotPasswordText}>
 						Sisa Waktu Penggunaan Kode Verifikasi
-						{'\n'}
+									{'\n'}
 						{moment.utc(this.state.timer * 1000).format('mm:ss')}
 					</Text>
 				);
@@ -166,7 +159,7 @@ class OtpResetPasswordComponent extends Component {
 			return (
 				<Text style={[styles.forgotPasswordText, { fontSize: 12 }]}>
 					Waktu Penggunaan Kode Verifikasi Anda Telah Habis, Kirim Ulang Kode Verifikasi Untuk Melanjutkan
-				</Text>
+							</Text>
 			);
 		}
 	}

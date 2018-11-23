@@ -48,7 +48,7 @@ class ProfileComponent extends Component {
 			await removeAuthFromStorage();
 			this.props.revokeProfile();
 			this.setState({ baseLoading: false });
-			Actions.reset('WelcomeScreen');
+			Actions.reset('LoginPage');
 		}).catch(() => {
 			this.setState({ baseLoading: false });
 		});

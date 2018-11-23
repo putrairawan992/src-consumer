@@ -327,26 +327,6 @@ class RegisterComponent extends Component {
 				</View>
 				<View style={globalStyles.phoneRow}>
 					<Input
-						placeholder="Kata sandi"
-						onChangeText={this.onPasswordChange.bind(this)}
-						value={this.props.password}
-						error={this.state.passwordError}
-						secureTextEntry
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Konfirmasi kata sandi"
-						onChangeText={this.onPasswordConfirmationChange.bind(
-							this
-						)}
-						value={this.props.password_confirmation}
-						error={this.state.passwordConfirmationError}
-						secureTextEntry
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
 						placeholder="Kode Referensi (Tidak Wajib)"
 						onChangeText={this.onReferenceCodeChanged.bind(
 							this

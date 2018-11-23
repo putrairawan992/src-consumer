@@ -43,6 +43,15 @@ export default StyleSheet.create({
         paddingVertical: 12,
         color: '#fff',
         fontWeight: '600'
+    },
+    linkText: {
+        color: '#fff',
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 15
+    },
+    linkRow: {
+        flexDirection: 'row',
+        width: '55%'
     }
 });
 

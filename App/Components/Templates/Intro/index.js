@@ -46,7 +46,7 @@ class IntroComponent extends Component {
 	}
 	
 	triggerOnDone() {
-      Actions.WelcomeScreen({ type: 'reset' });
+		Actions.LoginPage({ type: 'reset' });
 	}
 
 	renderSlider(props) {

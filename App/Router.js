@@ -33,7 +33,7 @@ const checkLogin = async () => {
 	const mySession = await hasSession();
 	if (mySession) {
 		setTimeout(() => {
-			Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: mySession });
+			Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: mySession.phone });
 		}, 1000);
 	}
 	return false;

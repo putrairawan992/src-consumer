@@ -126,21 +126,25 @@ const storeExpiryDate = async (expire) => {
 	}
 };
 
-const storeSession = async (phone) => {
-		try {
-			await AsyncStorage.setItem('session', phone);
-			return phone;
-		}
-		catch (err) {
-			console.error('Error while store session', err);
-			return null;
-		}
-	};
-	
+const storeSession = async (phone, type) => {
+	try {
+		const data = {
+			phone,
+			type
+		};
+		await AsyncStorage.setItem('session', JSON.stringify(data));
+		return phone;
+	}
+	catch (err) {
+		console.error('Error while store session', err);
+		return null;
+	}
+};
+
 const hasSession = async () => {
 	try {
 		const session = await AsyncStorage.getItem('session');
-		return session;
+		return JSON.parse(session);
 	}
 	catch (err) {
 		console.error('Error while retrieve session', err);

@@ -32,7 +32,7 @@ const signUp = (payload) => {
 
 const signIn = (payload) => {
 	return request({
-		url: 'api/customer/token-v2',
+		url: 'api/customer/token-v3',
 		method: 'POST',
 		data: { ...constants.oauth_identifier, ...payload }
 	});

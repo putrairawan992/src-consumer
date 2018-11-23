@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image, ImageBackground, Text, Keyboard } from 'react-native';
-import { Button, Input } from '@partials';
+import { View, Image, ImageBackground, Text, Keyboard, TouchableOpacity } from 'react-native';
+import { Button, Input, Loader } from '@partials';
 import { trackScreen } from '@helpers/analytic';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
+import * as actions from './actions';
 import globalStyles from '../../../GlobalStyles';
 
 const pageName = this.pageName = 'login-page';
@@ -27,12 +29,21 @@ class LoginPageComponent extends Component {
         this.keyboardDidShowListener.remove();
     }
 
+    onPhoneChange(text) {
+        this.props.phoneNumberChanged(text);
+    }
+
     redirectLogin() {
-        Actions.Login();
+        const payload = {
+            phone: '+62' + this.props.phone,
+            type: 'login',
+            from: 'customer'
+        };
+        this.props.submitPhone(payload);
     }
 
     redirectRegister() {
-        Actions.ShopRegister();
+        Actions.Register();
     }
 
     _keyboardDidShow() {
@@ -68,16 +79,16 @@ class LoginPageComponent extends Component {
                     <Image source={ayoImg} style={styles.topperImg} />
                     <View style={styles.buttonContainer}>
                         <View style={globalStyles.phoneRow}>
-                            <Input value="62" editable={false} style={styles.inputStyle} placeholderTextColor={'#fff'} />
+                            <Input value="+62" editable={false} style={styles.inputStyle} placeholderTextColor={'#fff'} />
                             <Input
                                 placeholder="Nomor Ponsel"
                                 keyboardType={'phone-pad'}
                                 flexItem={{ flex: 3 }}
                                 style={styles.inputStyle}
                                 placeholderTextColor={'#fff'}
-                            // onChangeText={this.onPhoneChange.bind(this)}
-                            // value={this.props.phone}
-                            // error={this.state.phoneError}
+                                onChangeText={this.onPhoneChange.bind(this)}
+                                value={this.props.phone}
+                                error={this.state.phoneError}
                             />
                         </View>
                         <Button
@@ -88,11 +99,25 @@ class LoginPageComponent extends Component {
                             MASUK
 						</Button>
                     </View>
+                    <View style={styles.linkRow}>
+                        <Text style={styles.linkText}>Pengguna Baru?</Text>
+                        <TouchableOpacity onPress={this.redirectRegister.bind(this)}>
+                        <Text style={[styles.linkText, { textDecorationLine: 'underline' }]}> Daftar Disini</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-             {this.renderInfo()}
+                {this.renderInfo()}
+                <Loader visible={this.props.baseLoading} text="Submitting..." />
             </ImageBackground>
         );
     }
 }
 
-export default LoginPageComponent;
+const mapStateToProps = (state) => {
+    return {
+        phone: state.loginReducer.phone,
+        baseLoading: state.loginReducer.baseLoading
+    };
+};
+
+export default connect(mapStateToProps, actions)(LoginPageComponent);
