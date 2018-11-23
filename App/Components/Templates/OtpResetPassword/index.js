@@ -6,7 +6,9 @@ import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
 import { trackScreen } from '@helpers/analytic';
+import { connect } from 'react-redux';
 import moment from 'moment';
+import { submitEdit } from '@templates/EditProfile/actions';
 import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession } from '@helpers/Storage';
 import styles from './styles';
@@ -92,18 +94,33 @@ class OtpResetPasswordComponent extends Component {
 				password: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
 				username: currentSession.phone
 			};
-
-			CommonService.signIn(verifyPayload).then(async (response) => {
-				await setAuthorization(response);
-				const check = await setProfileFromRest();
-				this.setState({ baseLoading: false });
-				if (check) {
-					checkPermissionVal();
-					this.redirectDashboard();
-				}
-			}).catch(() => {
-				this.setState({ baseLoading: false });
-			});
+			if (this.props.editSession) {
+				const finalPayload = {
+					...this.props.editPayload,
+					otp_code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput
+				};
+				this.props.submitEdit(finalPayload).then(() => {
+					Actions.pop();
+				})
+				.finally(() => {
+					this.setState({
+						baseLoading: false
+					});
+				});
+			}
+			else {
+				CommonService.signIn(verifyPayload).then(async (response) => {
+					await setAuthorization(response);
+					const check = await setProfileFromRest();
+					this.setState({ baseLoading: false });
+					if (check) {
+						checkPermissionVal();
+						this.redirectDashboard();
+					}
+				}).catch(() => {
+					this.setState({ baseLoading: false });
+				});
+			}
 		}
 		else {
 			CustomAlert(null, 'Lengkapi kode verifikasi anda.', [{ text: 'OK' }]);
@@ -114,8 +131,8 @@ class OtpResetPasswordComponent extends Component {
 		this.setState({ baseLoading: true });
 		const currentSession = await hasSession();
 		const resendPayload = {
-			type: currentSession.type,
-			phone: currentSession.phone
+			type: this.props.editSession ? this.props.editSession.type : currentSession.type,
+			phone: this.props.editSession ? this.props.editSession.phone : currentSession.phone
 		};
 		CommonService.resendActivationCode(resendPayload).then(async (response) => {
 			await storeExpiryDate(response.expiry_at);
@@ -165,6 +182,7 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	render() {
+		const displayNumber = this.props.editSession ? this.props.editSession.phone : this.props.phoneNumber;
 		return (
 			<LinearGradient
 				colors={['#C31432', '#240B36']}
@@ -173,7 +191,7 @@ class OtpResetPasswordComponent extends Component {
 				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#000' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
-					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
+					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {displayNumber.substring(0, displayNumber.length - 3)} XXX
 				</Text>
 				{this.renderTimer()}
 				<View style={styles.inputContainerStyle}>
@@ -272,4 +290,4 @@ const checkPermissionVal = async () => {
 	}
 };
 
-export default OtpResetPasswordComponent;
+export default connect(null, { submitEdit })(OtpResetPasswordComponent);

@@ -3,11 +3,9 @@ import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
 	MainConsumerComponent,
-	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
 	SuccessResetPasswordComponent,
 	EditProfileComponent,
-	ChangePasswordComponent,
 	RegisterComponent,
 	DeleteAccountComponent,
 	NearbyComponent,
@@ -98,11 +96,6 @@ class routerComponent extends Component {
 							initial={this.state.isAuth}
 						/>
 						<Scene
-							key="ForgotPassword"
-							component={ForgotPasswordComponent}
-							title="Lupa kata sandi"
-						/>
-						<Scene
 							key="OtpResetPassword"
 							component={OtpResetPasswordComponent}
 							hideNavBar
@@ -116,11 +109,6 @@ class routerComponent extends Component {
 							key="EditProfile"
 							component={EditProfileComponent}
 							title="Edit Profil"
-						/>
-						<Scene
-							key="ChangePassword"
-							component={ChangePasswordComponent}
-							title="Ubah kata sandi"
 						/>
 						<Scene
 							key="Register"

@@ -153,7 +153,12 @@ class EditProfileComponent extends Component {
 				email: this.props.email,
 				refferal_code: this.props.referral_code
 			};
-			this.props.submitEdit(payload);
+			if (payload.phone !== this.props.globalProfile.phone) {
+				this.props.redirectOtp(payload);
+			}
+			else {
+				this.props.submitEdit(payload);
+			}
 		}
 	}
 
@@ -307,17 +312,16 @@ class EditProfileComponent extends Component {
 							value={this.props.phone}
 							error={this.state.phoneError}
 							flexItem={{ flex: 3 }}
-							editable={false}
 						/>
 					</View>
 					<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Alamat Email"
-						onChangeText={this.onEmailChange.bind(this)}
-						value={this.props.email}
-					/>
-				</View>
-				{this.renderRefferalCode()}
+						<Input
+							placeholder="Alamat Email"
+							onChangeText={this.onEmailChange.bind(this)}
+							value={this.props.email}
+						/>
+					</View>
+					{this.renderRefferalCode()}
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
 					<Loader visible={this.props.baseLoading} text="updating..." />
 				</ScrollView>
@@ -346,7 +350,8 @@ const mapStateToProps = (state) => {
 		isOver: state.editUserReducer.isOver,
 		email: state.editUserReducer.email,
 		referral_code: state.editUserReducer.referral_code,
-		already_referral: state.editUserReducer.already_referral
+		already_referral: state.editUserReducer.already_referral,
+		globalProfile: state.globalReducer.globalProfile
 	};
 	return newProps;
 };
