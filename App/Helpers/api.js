@@ -57,7 +57,7 @@ const request = async options => {
         }
         else if (error.config.method === 'get') {
           removeAuthFromStorage();
-          Actions.WelcomeScreen({ type: 'reset' });
+          Actions.LoginPage({ type: 'reset' });
         }
       }
     } else {

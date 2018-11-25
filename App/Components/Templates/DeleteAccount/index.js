@@ -51,7 +51,7 @@ class DeleteAccountComponent extends Component {
 			this.setState({
 				onSubmit: false
 			});
-			Actions.reset('WelcomeScreen');
+			Actions.reset('LoginPage');
 		}).catch(() => {
 			this.setState({
 				onSubmit: false
