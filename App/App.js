@@ -10,11 +10,14 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import { StatusBar, UIManager, Platform, NetInfo, ToastAndroid } from 'react-native';
+import { StatusBar, UIManager, Platform, NetInfo, ToastAndroid, Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 import { debugStorage, retrieveCustomData } from '@helpers/Storage';
 import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
+import DeviceInfo from 'react-native-device-info';
+import { CommonService } from '@services';
+import CustomAlert from '@helpers/CustomAlert';
 import { refreshProfile } from './Store/GlobalReducer/actions';
 import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
@@ -48,7 +51,8 @@ export default class App extends Component<Props> {
         return response;
       });
     };
-    this.checkPermission();
+    await this.checkPermission();
+    this.checkAppsInfo();
     this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification) => {
       // Process your notification as required
       // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
@@ -105,6 +109,41 @@ export default class App extends Component<Props> {
       'connectionChange',
       this.handleFirstConnectivityChange
     );
+  }
+
+  async checkAppsInfo() {
+    const obj = {
+      version: DeviceInfo.getVersion(),
+      os: 'android',
+      name: 'customer'
+    };
+    const checkVersion = await CommonService.checkAppVersion(obj);
+    console.log('versi sekarang', checkVersion);
+    if (checkVersion.current_version === false && checkVersion.force_update === true) {
+      this.callUpdateAlert();
+    }
+    else if (checkVersion.current_version === false && checkVersion.force_update === false) {
+      this.callAdditionalUpdateAlert();
+    }
+  }
+
+  callUpdateAlert() {
+    CustomAlert(null, 'Anda harus memperbaharui aplikasi anda terlebih dahulu', [{ text: 'OK', 
+      onPress: () => {
+        this.callUpdateAlert();
+        Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
+      } }]);
+  }
+
+  callAdditionalUpdateAlert() {
+    CustomAlert(null, 'Aplikasi sudah diperbaharui, apakah anda ingin memperbaharui sekarang ?', [{
+      text: 'Perbaharui Sekarang',
+      onPress: () => {
+        Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
+      }
+    }, {
+      text: 'Lain Kali'
+    }]);
   }
 
 

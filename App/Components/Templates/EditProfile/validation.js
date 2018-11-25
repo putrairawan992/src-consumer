@@ -13,10 +13,10 @@ const validation = {
         }
     },
     idNumber: {
-        presence: {
-            allowEmpty: false,
-            message: '^Nomor KTP tidak boleh kosong.'
-        }
+        format: {
+            pattern: '^(|[0-9]{16})$',
+            message: '^KTP harus terdiri dari 16 karakter'
+          }
     },
     phone: {
         presence: {

@@ -4,7 +4,7 @@ import { CouponInfo, CouponCard } from '@partials';
 import styles from './styles';
 import globalStyles from '../../../GlobalStyles';
 
-const coinLogo = require('@images/coin-logo.png');
+const coinLogo = require('@images/red-coupon.png');
 
 class MyCouponComponent extends Component {
     state = {

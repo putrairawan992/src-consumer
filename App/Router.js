@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import {
 	IntroComponent,
-	WelcomeScreenComponent,
-	LoginComponent,
 	MainConsumerComponent,
-	ForgotPasswordComponent,
 	OtpResetPasswordComponent,
 	SuccessResetPasswordComponent,
 	EditProfileComponent,
-	ChangePasswordComponent,
 	RegisterComponent,
 	DeleteAccountComponent,
 	NearbyComponent,
@@ -23,23 +19,23 @@ import {
 	TermConditionComponent,
 	MyCouponComponent,
 	CouponListComponent,
-	MyQrComponent
+	MyQrComponent,
+	LoginPageComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
-import { getProfileFromStorage, checkFirstLaunch } from '@helpers/Storage';
+import { getProfileFromStorage, checkFirstLaunch, hasSession } from '@helpers/Storage';
 import SplashScreen from 'react-native-splash-screen';
 
 const checkLogin = async () => {
-	const result = await getProfileFromStorage();
-	if (result) {
-		if (result.status === 'active') {
-			return true;
-		}
-		else if (result.status === 'inactive') {
-			setTimeout(() => {
-				Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: result.phone });
-			}, 1000);
-		}
+	const myProfile = await getProfileFromStorage();
+	if (myProfile) {
+		return true;
+	}
+	const mySession = await hasSession();
+	if (mySession) {
+		setTimeout(() => {
+			Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', phoneNumber: mySession.phone });
+		}, 1000);
 	}
 	return false;
 };
@@ -51,7 +47,7 @@ class routerComponent extends Component {
 		checking: true,
 		isFirst: false
 	}
-	
+
 
 	componentWillMount() {
 		checkLogin().then((result) => {
@@ -83,7 +79,7 @@ class routerComponent extends Component {
 
 	onBackPress() {
 		if (Actions.state.index === 0) {
-	return false;
+			return false;
 		}
 		Actions.pop();
 		return true;
@@ -94,25 +90,13 @@ class routerComponent extends Component {
 			return (
 				<Router backAndroidHandler={this.onBackPress}>
 					<Stack key="root" navBar={CustomNavBar}>
-						<Scene
-							key="WelcomeScreen"
-							component={WelcomeScreenComponent}
-							initial={!this.state.isAuth && !this.state.isFirst}
-							hideNavBar
-						/>
 						<Scene key="Intro" component={IntroComponent} hideNavBar initial={!this.state.isAuth && this.state.isFirst} />
-						<Scene key="Login" component={LoginComponent} title="Masuk" />
 						<Scene
 							key="MainConsumer"
 							component={MainConsumerComponent}
 							hideNavBar
 							type="reset"
 							initial={this.state.isAuth}
-						/>
-						<Scene
-							key="ForgotPassword"
-							component={ForgotPasswordComponent}
-							title="Lupa kata sandi"
 						/>
 						<Scene
 							key="OtpResetPassword"
@@ -130,11 +114,6 @@ class routerComponent extends Component {
 							title="Edit Profil"
 						/>
 						<Scene
-							key="ChangePassword"
-							component={ChangePasswordComponent}
-							title="Ubah kata sandi"
-						/>
-						<Scene
 							key="Register"
 							component={RegisterComponent}
 							title="Daftar"
@@ -149,18 +128,20 @@ class routerComponent extends Component {
 							component={NearbyComponent}
 							title="Toko terdekat"
 							withIcon={'map'}
-							rightPress={() => { 
+							rightPress={() => {
 								Actions.pop();
-								Actions.NearbyMapView(); }}
+								Actions.NearbyMapView();
+							}}
 						/>
 						<Scene
 							key="NearbyMapView"
 							component={NearbyMapViewComponent}
 							title="Toko terdekat"
 							withIcon={'grid-on'}
-							rightPress={() => { 
+							rightPress={() => {
 								Actions.pop();
-								Actions.Nearby(); }}
+								Actions.Nearby();
+							}}
 						/>
 						<Scene
 							key="ShopDetail"
@@ -197,7 +178,13 @@ class routerComponent extends Component {
 							hideNavBar
 						/>
 						<Scene
-							key="MyCoupon"
+							key="LoginPage"
+							component={LoginPageComponent}
+							initial={!this.state.isAuth && !this.state.isFirst}
+							hideNavBar
+						/>
+						<Scene
+						key="MyCoupon"
 							component={MyCouponComponent}
 							title="Kupon Saya"
 						/>

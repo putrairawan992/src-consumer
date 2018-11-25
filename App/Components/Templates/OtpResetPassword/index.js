@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
-import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
 import { Input, Button, LinkText, Loader } from '@partials';
 import { CommonService } from '@services';
 import CustomAlert from '@helpers/CustomAlert';
-import moment from 'moment';
 import { trackScreen } from '@helpers/analytic';
-import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate } from '@helpers/Storage';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import { submitEdit } from '@templates/EditProfile/actions';
+import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
+import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession } from '@helpers/Storage';
 import styles from './styles';
+
 
 const pageName = this.pageName = 'otp';
 
@@ -45,6 +48,7 @@ class OtpResetPasswordComponent extends Component {
 	componentWillUnmount() {
 		clearInterval(this.clockCall);
 	}
+
 	//Helper function
 	focusNextField(nextField) {
 		this.inputs[nextField].focus();
@@ -61,23 +65,6 @@ class OtpResetPasswordComponent extends Component {
 			}
 		}
 	}
-
-	async generateTimer() {
-		const currentExpiry = await getExpiry();
-		this.setState({
-			loaded: true,
-			timer: currentExpiry !== null ? moment(currentExpiry, 'YYYY-MM-DD HH:mm:ss').diff(moment(), 'seconds') : 0
-		});
-	}
-
-	decrementClock = () => {
-		this.setState((prevstate) => {
-			if (prevstate.timer > 0) {
-				return { timer: prevstate.timer - 1 };
-			}
-			return { timer: 0 };
-		});
-	};
 
 	redirectSuccessResetPassword() {
 		Actions.SuccessResetPassword();
@@ -99,24 +86,31 @@ class OtpResetPasswordComponent extends Component {
 		}
 	}
 
-	submitCode() {
+	async submitCode() {
+		const currentSession = await hasSession();
 		if (this.state.firstInput && this.state.secondInput && this.state.thirdInput && this.state.fourthInput) {
 			this.setState({ baseLoading: true });
 			const verifyPayload = {
-				code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
-				phone: (this.props.requestReset) ? this.props.phoneNumber : null
+				password: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput,
+				username: currentSession.phone
 			};
-			if (this.props.requestReset) {
-				CommonService.resetPassword(verifyPayload).then(async (response) => {
-					this.setState({ baseLoading: false });
-					await setAuthorization(response.token);
-					this.redirectChangePassword();
-				}).catch(() => {
-					this.setState({ baseLoading: false });
+			if (this.props.editSession) {
+				const finalPayload = {
+					...this.props.editPayload,
+					otp_code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput
+				};
+				this.props.submitEdit(finalPayload).then(() => {
+					Actions.pop();
+				})
+				.finally(() => {
+					this.setState({
+						baseLoading: false
+					});
 				});
 			}
 			else {
-				CommonService.verifyUser(verifyPayload).then(async () => {
+				CommonService.signIn(verifyPayload).then(async (response) => {
+					await setAuthorization(response);
 					const check = await setProfileFromRest();
 					this.setState({ baseLoading: false });
 					if (check) {
@@ -133,11 +127,12 @@ class OtpResetPasswordComponent extends Component {
 		}
 	}
 
-	resendActivationCode() {
+	async resendActivationCode() {
 		this.setState({ baseLoading: true });
+		const currentSession = await hasSession();
 		const resendPayload = {
-			type: (this.props.requestReset) ? 'reset-password' : 'verify-account',
-			phone: (this.props.requestReset) ? this.props.phoneNumber : null
+			type: this.props.editSession ? this.props.editSession.type : currentSession.type,
+			phone: this.props.editSession ? this.props.editSession.phone : currentSession.phone
 		};
 		CommonService.resendActivationCode(resendPayload).then(async (response) => {
 			await storeExpiryDate(response.expiry_at);
@@ -149,13 +144,31 @@ class OtpResetPasswordComponent extends Component {
 		});
 	}
 
+
+	async generateTimer() {
+		const currentExpiry = await getExpiry();
+		this.setState({
+			loaded: true,
+			timer: currentExpiry !== null ? moment(currentExpiry, 'YYYY-MM-DD HH:mm:ss').diff(moment(), 'seconds') : 0
+		});
+	}
+
+	decrementClock = () => {
+		this.setState((prevstate) => {
+			if (prevstate.timer > 0) {
+				return { timer: prevstate.timer - 1 };
+			}
+			return { timer: 0 };
+		});
+	};
+
 	renderTimer() {
 		if (this.state.loaded) {
 			if (this.state.timer > 0) {
 				return (
 					<Text style={styles.forgotPasswordText}>
 						Sisa Waktu Penggunaan Kode Verifikasi
-						{'\n'}
+									{'\n'}
 						{moment.utc(this.state.timer * 1000).format('mm:ss')}
 					</Text>
 				);
@@ -163,12 +176,13 @@ class OtpResetPasswordComponent extends Component {
 			return (
 				<Text style={[styles.forgotPasswordText, { fontSize: 12 }]}>
 					Waktu Penggunaan Kode Verifikasi Anda Telah Habis, Kirim Ulang Kode Verifikasi Untuk Melanjutkan
-				</Text>
+							</Text>
 			);
 		}
 	}
 
 	render() {
+		const displayNumber = this.props.editSession ? this.props.editSession.phone : this.props.phoneNumber;
 		return (
 			<LinearGradient
 				colors={['#C31432', '#240B36']}
@@ -177,7 +191,7 @@ class OtpResetPasswordComponent extends Component {
 				style={[styles.container, this.props.title ? { borderTopWidth: 1, borderColor: '#000' } : false]}
 			>
 				<Text style={styles.forgotPasswordText}>
-					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {this.props.phoneNumber.substring(0, this.props.phoneNumber.length - 3)} XXX
+					Masukkan 4 Digit Kode Verifikasi yang dikirim melalui {displayNumber.substring(0, displayNumber.length - 3)} XXX
 				</Text>
 				{this.renderTimer()}
 				<View style={styles.inputContainerStyle}>
@@ -276,4 +290,4 @@ const checkPermissionVal = async () => {
 	}
 };
 
-export default OtpResetPasswordComponent;
+export default connect(null, { submitEdit })(OtpResetPasswordComponent);

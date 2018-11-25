@@ -26,10 +26,6 @@ class ProfileComponent extends Component {
 		Actions.EditProfile();
 	}
 
-	redirectChangePassword() {
-		Actions.ChangePassword();
-	}
-
 	redirectDelete() {
 		Actions.DeleteAccount();
 	}
@@ -48,7 +44,7 @@ class ProfileComponent extends Component {
 			await removeAuthFromStorage();
 			this.props.revokeProfile();
 			this.setState({ baseLoading: false });
-			Actions.reset('WelcomeScreen');
+			Actions.reset('LoginPage');
 		}).catch(() => {
 			this.setState({ baseLoading: false });
 		});
@@ -110,7 +106,6 @@ class ProfileComponent extends Component {
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.listContainer}>
 							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
-							<MenuListButton onPress={this.redirectChangePassword.bind(this)}>Ubah Kata Sandi</MenuListButton>
 							<MenuListButton onPress={this.redirectPrivacy.bind(this)}>Pengaturan Privasi</MenuListButton>
 							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>

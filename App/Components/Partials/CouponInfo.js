@@ -31,8 +31,8 @@ const styles = {
         color: '#DC1E2D'
     },
     imageStyle: {
-        height: 40,
-        width: 40
+        height: 60,
+        width: 90
     }
 };
 

@@ -1,7 +1,7 @@
 import { Actions } from 'react-native-router-flux';
 import { CommonService } from '@services';
 import { ToastAndroid } from 'react-native';
-import { setProfileFromRest, getProfileFromStorage } from '@helpers/Storage';
+import { setProfileFromRest, getProfileFromStorage, storeExpiryDate } from '@helpers/Storage';
 // import PermissionHelpers from '@helpers/Permission';
 import {
     EDIT_NAME_CHANGED,
@@ -20,7 +20,9 @@ import {
     EDIT_PROVINCES_RETRIEVED,
     EDIT_CITIES_RETRIEVED,
     EDIT_EMAIL_CHANGED,
-    EDIT_REFERRAL_CHANGED
+    EDIT_REFERRAL_CHANGED,
+    EDIT_REDIRECT_OTP_PROCCESS,
+    EDIT_REDIRECT_OTP_DONE
 } from './types';
 import { refreshProfile } from '../../../Store/GlobalReducer/actions';
  
@@ -125,17 +127,38 @@ export const editOnWillMount = () => {
 
 export const submitEdit = payload => {
     return dispatch => {
-        dispatch({ type: EDIT_PROCCESS });
-        CommonService.editProfile(payload)
-            .then(async () => {
-                await setProfileFromRest();
-                dispatch({ type: EDIT_SUCCESS });
-                dispatch(refreshProfile());
-                ToastAndroid.show('Sukses Memperbarui Profil', ToastAndroid.SHORT);
-                Actions.pop();
-            })
-            .catch(() => {
-                dispatch({ type: EDIT_FAIL });
+        return new Promise((resolve, reject) => {
+            dispatch({ type: EDIT_PROCCESS });
+            CommonService.editProfile(payload)
+                .then(async (res) => {
+                    await setProfileFromRest();
+                    dispatch({ type: EDIT_SUCCESS });
+                    dispatch(refreshProfile());
+                    ToastAndroid.show('Sukses Memperbarui Profil', ToastAndroid.SHORT);
+                    Actions.pop();
+                    resolve(res);
+                })
+                .catch((err) => {
+                    dispatch({ type: EDIT_FAIL });
+                    reject(err);
+                });
+        });
+    };
+};
+
+export const redirectOtp = (editPayload) => {
+    return (dispatch) => {
+        dispatch({ type: EDIT_REDIRECT_OTP_PROCCESS });
+        const otpPayload = {
+            phone: editPayload.phone,
+            type: 'update-account'
+        };
+        CommonService.resendActivationCode(otpPayload).then(async (res) => {
+            await storeExpiryDate(res.expiry_at);
+            Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', editSession: otpPayload, editPayload: editPayload });
+        })
+            .finally(() => {
+                dispatch({ type: EDIT_REDIRECT_OTP_DONE });
             });
     };
 };

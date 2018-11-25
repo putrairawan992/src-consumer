@@ -111,7 +111,7 @@ class EditProfileComponent extends Component {
 		);
 		const idNumberError = validateClass(
 			'idNumber',
-			this.props.id_number,
+			this.props.id_number.trim(),
 			validation,
 			'idNumber'
 		) && this.props.isOver ? validateClass(
@@ -153,7 +153,12 @@ class EditProfileComponent extends Component {
 				email: this.props.email,
 				refferal_code: this.props.referral_code
 			};
-			this.props.submitEdit(payload);
+			if (payload.phone !== this.props.globalProfile.phone) {
+				this.props.redirectOtp(payload);
+			}
+			else {
+				this.props.submitEdit(payload);
+			}
 		}
 	}
 
@@ -184,6 +189,21 @@ class EditProfileComponent extends Component {
 						onChangeText={this.onKtpChanged.bind(this)}
 						value={this.props.id_number}
 						error={this.state.idNumberError}
+					/>
+				</View>
+			);
+		}
+	}
+
+	renderRefferalCode() {
+		if (this.props.already_referral) {
+			return (
+				<View style={globalStyles.phoneRow}>
+					<Input
+						placeholder="Kode Referensi"
+						onChangeText={this.onReferalChanged.bind(this)}
+						value={this.props.referral_code}
+						editable={this.props.already_referral ? false : true}
 					/>
 				</View>
 			);
@@ -230,7 +250,7 @@ class EditProfileComponent extends Component {
 					</View>
 					<View style={globalStyles.phoneRow}>
 						<Input
-							placeholder="Nama"
+							placeholder="Nama Lengkap"
 							onChangeText={this.onNameChanged.bind(this)}
 							value={this.props.name}
 							error={this.state.nameError}
@@ -292,24 +312,16 @@ class EditProfileComponent extends Component {
 							value={this.props.phone}
 							error={this.state.phoneError}
 							flexItem={{ flex: 3 }}
-							editable={false}
 						/>
 					</View>
 					<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Alamat Email"
-						onChangeText={this.onEmailChange.bind(this)}
-						value={this.props.email}
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Kode Referensi"
-						onChangeText={this.onReferalChanged.bind(this)}
-						value={this.props.referral_code}
-						editable={this.props.already_referral ? false : true}
-					/>
-				</View>
+						<Input
+							placeholder="Alamat Email"
+							onChangeText={this.onEmailChange.bind(this)}
+							value={this.props.email}
+						/>
+					</View>
+					{this.renderRefferalCode()}
 					<Button onPress={this.submitEdit.bind(this)}>KIRIM</Button>
 					<Loader visible={this.props.baseLoading} text="updating..." />
 				</ScrollView>
@@ -338,7 +350,8 @@ const mapStateToProps = (state) => {
 		isOver: state.editUserReducer.isOver,
 		email: state.editUserReducer.email,
 		referral_code: state.editUserReducer.referral_code,
-		already_referral: state.editUserReducer.already_referral
+		already_referral: state.editUserReducer.already_referral,
+		globalProfile: state.globalReducer.globalProfile
 	};
 	return newProps;
 };

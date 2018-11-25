@@ -32,7 +32,7 @@ const signUp = (payload) => {
 
 const signIn = (payload) => {
 	return request({
-		url: 'api/customer/token',
+		url: 'api/customer/token-v3',
 		method: 'POST',
 		data: { ...constants.oauth_identifier, ...payload }
 	});
@@ -64,7 +64,7 @@ const resetPassword = (payload) => {
 
 const changePassword = (payload) => {
 	return request({
-		url: 'oauth/password/change',
+		url: 'oauth/password/change-external',
 		method: 'POST',
 		data: payload
 	});
@@ -205,6 +205,14 @@ const updateNotification = (context) => {
 	});
 };
 
+const checkAppVersion = (param) => {
+	return request({
+		url: 'api/general/mobile-apps/check',
+		params: param,
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -231,7 +239,8 @@ const CommonService = {
 	changeResetPassword,
 	storeFCMToken,
 	getNotifications,
-	updateNotification
+	updateNotification,
+	checkAppVersion
 };
 
 export default CommonService;

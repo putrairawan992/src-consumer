@@ -17,3 +17,5 @@ export const EDIT_FAIL = 'edit_fail';
 export const EDIT_ON_WILL_MOUNT = 'edit_on_will_mount';
 export const EDIT_IMAGE_REPLACED = 'edit_image_replaced';
 export const EDIT_REFERRAL_CHANGED = 'edit_referral_changed';
+export const EDIT_REDIRECT_OTP_PROCCESS = 'edit_redirect_otp_proccess';
+export const EDIT_REDIRECT_OTP_DONE = 'edit_redirect_otp_done';

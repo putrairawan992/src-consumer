@@ -81,7 +81,7 @@ class Input extends Component {
 						autoCorrect={false}
 						placeholder={this.props.placeholder}
 						secureTextEntry={this.state.secureTextEntry}
-						placeholderTextColor={'rgba(0,0,0,0.6)'}
+						placeholderTextColor={this.props.placeholderTextColor ? this.props.placeholderTextColor : 'rgba(0,0,0,0.6)'}
 						editable={this.props.editable}
 						keyboardType={this.props.keyboardType}
 						maxLength={this.props.maxLength}

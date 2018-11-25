@@ -145,7 +145,7 @@ class RegisterComponent extends Component {
 		);
 		const idNumberError = validateClass(
 			'idNumber',
-			this.props.id_number,
+			this.props.id_number.trim(),
 			validation,
 			'idNumber'
 		) && this.props.isOver ? validateClass(
@@ -256,7 +256,7 @@ class RegisterComponent extends Component {
 			<ScrollView contentContainerStyle={styles.container}>
 				<View style={globalStyles.phoneRow}>
 					<Input
-						placeholder="Nama"
+						placeholder="Nama Lengkap"
 						onChangeText={this.onNameChange.bind(this)}
 						value={this.props.name}
 						error={this.state.nameError}
@@ -323,26 +323,6 @@ class RegisterComponent extends Component {
 						placeholder="Alamat Email (Tidak Wajib)"
 						onChangeText={this.onEmailChange.bind(this)}
 						value={this.props.email}
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Kata sandi"
-						onChangeText={this.onPasswordChange.bind(this)}
-						value={this.props.password}
-						error={this.state.passwordError}
-						secureTextEntry
-					/>
-				</View>
-				<View style={globalStyles.phoneRow}>
-					<Input
-						placeholder="Konfirmasi kata sandi"
-						onChangeText={this.onPasswordConfirmationChange.bind(
-							this
-						)}
-						value={this.props.password_confirmation}
-						error={this.state.passwordConfirmationError}
-						secureTextEntry
 					/>
 				</View>
 				<View style={globalStyles.phoneRow}>

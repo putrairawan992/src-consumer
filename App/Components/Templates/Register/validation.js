@@ -5,28 +5,6 @@ const validation = {
       message: '^Nama tidak boleh kosong.'
     }
   },
-
-  password: {
-    presence: {
-      allowEmpty: false,
-      message: '^Password tidak boleh kosong.'
-    },
-    format: {
-      pattern: '^(?=.*?[A-Z])(?=.*?[0-9]).{8,15}$',
-      message:
-        '^Password harus memiliki 1 digit angka, 1 huruf kapital, minimum 8 karakter dan maksimum 15 karakter.'
-    }
-  },
-  passwordConfirmation: {
-    presence: {
-      allowEmpty: false,
-      message: '^Konfirmasi password tidak boleh kosong.'
-    },
-    equality: {
-      attribute: 'password',
-      message: '^Konfirmasi kata sandi anda tidak sesuai'
-    }
-  },
   city: {
     presence: {
       allowEmpty: false,
@@ -46,15 +24,9 @@ const validation = {
     }
   },
   idNumber: {
-    presence: {
-      allowEmpty: false,
-      message: '^Nomor KTP tidak boleh kosong.'
-    },
-    length: {
-      minimum: 16,
-      maximum: 16,
-      tooShort: '^Nomor KTP harus 16 digit',
-      tooLong: '^Nomor KTP harus 16 digit'
+    format: {
+      pattern: '^(|[0-9]{16})$',
+      message: '^KTP harus terdiri dari 16 karakter'
     }
   },
   phone: {
