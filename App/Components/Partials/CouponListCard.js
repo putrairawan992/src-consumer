@@ -118,7 +118,7 @@ class CouponListCard extends Component {
                         <Text style={styles.couponType}>KUPON UNDIAN</Text>
                         <View style={styles.couponValue}>
                             <Text style={styles.couponDetail}>{this.props.item.group_name}</Text>
-                            <Text style={styles.couponDetail}>12345678</Text>
+                            <Text style={styles.couponDetail}>{this.props.item.coupon}</Text>
                         </View>
                         <Text style={styles.couponDisplayName}>{this.props.item.customer_name}</Text>
                         {this.renderSrcDiv()}
