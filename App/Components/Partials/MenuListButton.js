@@ -20,6 +20,15 @@ const styles = {
 		color: '#000',
 		fontSize: 12
 	},
+	badge: {
+		backgroundColor: '#DC1E2D',
+		position: 'absolute',
+		top: '75%',
+		right: '20%',
+		height: 12,
+		width: 12,
+		borderRadius: 20
+	}
 	
 };
 
@@ -34,6 +43,7 @@ class MenuListButton extends Component {
 							{this.props.children}
 						</Text>
 						<Icon name="chevron-right" size={24} color="#4a4a4a" />
+						{(this.props.bubble) ? <View style={styles.badge} /> : null}
 					</View>
 				</TouchableWithoutFeedback>
 		);

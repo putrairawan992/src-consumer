@@ -111,12 +111,12 @@ class EditProfileComponent extends Component {
 		);
 		const idNumberError = validateClass(
 			'idNumber',
-			this.props.id_number.trim(),
+			this.props.id_number,
 			validation,
 			'idNumber'
 		) && this.props.isOver ? validateClass(
 			'idNumber',
-			this.props.id_number,
+			this.props.id_number.trim(),
 			validation,
 			'idNumber'
 		) : null;

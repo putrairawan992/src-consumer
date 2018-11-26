@@ -50,6 +50,13 @@ class ProfileComponent extends Component {
 		});
 	}
 
+	isNotComplete() {
+		if (this.props.globalProfile.fullname && this.props.globalProfile.phone && this.props.globalProfile.gender && this.props.globalProfile.birth_date && (calculateAge(this.props.globalProfile.birth_date) >= 18 ? this.props.globalProfile.id_number : true) && this.props.globalProfile.city_id && this.props.globalProfile.province_id && this.props.globalProfile.email) {
+			return false;
+		}
+		return true;
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -67,10 +74,10 @@ class ProfileComponent extends Component {
 								{ paddingTop: 0 }
 							]}
 						>
-							<TouchableWithoutFeedback 
-							onPress={() => {
-								Actions.EditProfile();
-							}}
+							<TouchableWithoutFeedback
+								onPress={() => {
+									Actions.EditProfile();
+								}}
 							>
 								<Image
 									style={globalStyles.personImg}
@@ -105,7 +112,7 @@ class ProfileComponent extends Component {
 					</View> */}
 					<View style={globalStyles.mainContainer}>
 						<View style={globalStyles.listContainer}>
-							<MenuListButton onPress={this.redirectEditProfile.bind(this)}>Ubah Profil</MenuListButton>
+							<MenuListButton onPress={this.redirectEditProfile.bind(this)} bubble={this.isNotComplete()}>Ubah Profil</MenuListButton>
 							<MenuListButton onPress={this.redirectPrivacy.bind(this)}>Pengaturan Privasi</MenuListButton>
 							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>
@@ -121,6 +128,10 @@ const mapStateToProps = (state) => {
 	return {
 		globalProfile: state.globalReducer.globalProfile
 	};
+};
+
+const calculateAge = (birthday) => {
+	return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
 };
 
 export default connect(mapStateToProps, globalActions)(ProfileComponent);

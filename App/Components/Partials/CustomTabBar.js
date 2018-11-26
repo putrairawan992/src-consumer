@@ -6,7 +6,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class CustomTabBar extends Component {
   tabIcons = [];
 
+  isNotComplete() {
+    if (this.props.globalProfile.fullname && this.props.globalProfile.phone && this.props.globalProfile.gender && this.props.globalProfile.birth_date && (calculateAge(this.props.globalProfile.birth_date) >= 18 ? this.props.globalProfile.id_number : true) && this.props.globalProfile.city_id && this.props.globalProfile.province_id && this.props.globalProfile.email) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
+    console.log('check is not complete value', this.isNotComplete());
     return (
       <View style={[styles.tabs, this.props.style]}>
         {this.props.tabs.map((tab, i) => {
@@ -40,6 +48,7 @@ class CustomTabBar extends Component {
                 {this.props.titles[i]}
               </Text>
               {(i === 2 && this.props.globalProfile.notif_unread > 0) ? <View style={styles.badge} /> : null}
+              {(i === 4 && this.isNotComplete()) ? <View style={styles.badge} /> : null}
             </TouchableOpacity>
           );
         })}
@@ -65,20 +74,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   badge: {
-		backgroundColor: '#DC1E2D',
-		position: 'absolute',
-    top: 0,
-    left: 25,
-		height: 12,
-		width: 12,
-		borderRadius: 20
-	}
+    backgroundColor: '#DC1E2D',
+    position: 'absolute',
+    top: 5,
+    left: 20,
+    height: 12,
+    width: 12,
+    borderRadius: 20
+  }
 });
 
 const mapStateToProps = (state) => {
   return {
     globalProfile: state.globalReducer.globalProfile
   };
+};
+
+const calculateAge = (birthday) => {
+  return Math.floor((new Date() - new Date(birthday)) / 1000 / 60 / 60 / 24 / 365.25);
 };
 
 export default connect(mapStateToProps, null)(CustomTabBar);
