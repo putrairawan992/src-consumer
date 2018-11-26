@@ -306,6 +306,10 @@ class RegisterComponent extends Component {
 					/>
 				</View>
 				{this.renderKtp()}
+				<Text style={[globalStyles.validationText, { margin: 10 }]}>
+						Pastikan nomor ponsel yang didaftarkan adalah
+nomor ponsel aktif Anda
+				</Text>
 				<View style={globalStyles.phoneRow}>
 					<Input value="+62" editable={false} />
 					<Input
