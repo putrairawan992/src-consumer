@@ -3,7 +3,7 @@ import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator, Touc
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
-import { WideButton, NewsCard } from '@partials';
+import { MenuButton, NewsCard } from '@partials';
 import PermissionHelpers from '@helpers/Permission';
 import CustomAlert from '@helpers/CustomAlert';
 import { trackScreen } from '@helpers/analytic';
@@ -14,6 +14,9 @@ import styles from './styles';
 
 
 const ayoImg = require('@images/ayo-src-logo-w.png');
+const terdekatImg = require('@images/map-mini-icon.png');
+const qrImg = require('@images/qr-icon.png');
+const couponImg = require('@images/coupon-icon.png');
 
 const pageName = this.pageName = 'dashboard';
 
@@ -57,6 +60,14 @@ class DashboardComponent extends Component {
 		if (banner.target_page.type === 'static_page') {
 			Actions.Static({ banner: banner });
 		}
+	}
+
+	redirectMyCoupon() {
+		Actions.MyCoupon();
+	}
+
+	redirectMyQr() {
+		Actions.MyQr();
 	}
 
 	async redirectNearby() {
@@ -161,7 +172,16 @@ class DashboardComponent extends Component {
 						</View> */}
 						<View style={globalStyles.mainContainer}>
 							<View style={globalStyles.menuRow}>
-								<WideButton onPress={this.redirectNearby.bind(this)} />
+								{/* <WideButton onPress={this.redirectNearby.bind(this)} /> */}
+								<MenuButton image={couponImg} onPress={this.redirectMyCoupon.bind(this)}>
+									KUPON SAYA
+								</MenuButton>
+								<MenuButton image={qrImg} onPress={this.redirectMyQr.bind(this)} >
+									KODE QR
+								</MenuButton>
+								<MenuButton image={terdekatImg} onPress={this.redirectNearby.bind(this)}>
+									TERDEKAT
+								</MenuButton>
 							</View>
 							<View style={{ flexDirection: 'row' }} >
 								<Swiper

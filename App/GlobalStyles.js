@@ -246,5 +246,29 @@ export default StyleSheet.create({
 		fontSize: 13,
 		color: '#000',
 		lineHeight: 20
-	}
+	},
+	segment: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#ebebeb'
+
+    },
+    segmentContent: {
+        flex: 1
+    },
+    segmentContentText: {
+        textAlign: 'center',
+        fontSize: 16,
+        fontFamily: 'proximaNova-Regular',
+        color: '#000',
+        marginTop: 16,
+        paddingBottom: 16
+    },
+    segmentContentTextActive: {
+        borderBottomColor: '#DC1E2D',
+        borderBottomWidth: 3,
+        color: '#DC1E2D'
+    },
 });

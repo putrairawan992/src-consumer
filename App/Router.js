@@ -17,6 +17,9 @@ import {
 	SubmitSettingComponent,
 	StaticContentComponent,
 	TermConditionComponent,
+	MyCouponComponent,
+	CouponListComponent,
+	MyQrComponent,
 	LoginPageComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
@@ -179,6 +182,21 @@ class routerComponent extends Component {
 							component={LoginPageComponent}
 							initial={!this.state.isAuth && !this.state.isFirst}
 							hideNavBar
+						/>
+						<Scene
+						key="MyCoupon"
+							component={MyCouponComponent}
+							title="Kupon Saya"
+						/>
+						<Scene
+							key="CouponList"
+							component={CouponListComponent}
+							title="Kupon Saya"
+						/>
+						<Scene
+							key="MyQr"
+							component={MyQrComponent}
+							title="Kode QR saya"
 						/>
 					</Stack>
 				</Router>

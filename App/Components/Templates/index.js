@@ -18,6 +18,9 @@ import PrivacySettingComponent from './PrivacySetting';
 import SubmitSettingComponent from './SubmitSetting';
 import StaticContentComponent from './StaticContent';
 import TermConditionComponent from './TermCondition';
+import MyCouponComponent from './MyCoupon';
+import CouponListComponent from './CouponList';
+import MyQrComponent from './MyQr';
 import LoginPageComponent from './LoginPage';
 
 export {
@@ -41,5 +44,8 @@ export {
 	SubmitSettingComponent,
 	StaticContentComponent,
 	TermConditionComponent,
+	MyCouponComponent,
+	CouponListComponent,
+	MyQrComponent,
 	LoginPageComponent
 };

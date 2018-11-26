@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import LinearGradient from 'react-native-linear-gradient';
 
 const styles = {
 	buttonStyle: {
 		alignItems: 'center',
 		alignSelf: 'center',
-		backgroundColor: '#DC1E2D',
+		backgroundColor: '#FFF',
 		justifyContent: 'center',
 		borderRadius: 16,
 		padding: 24,
@@ -16,8 +15,9 @@ const styles = {
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
 		elevation: 5,
-		width: 80,
-		height: 80
+		height: 'auto',
+		borderColor: '#DC1E2D',
+		borderWidth: 3
 	},
 	textStyle: {
 		fontFamily: 'ProximaNova-Regular',
@@ -45,13 +45,11 @@ class MenuButton extends Component {
 		return (
 			<TouchableWithoutFeedback onPress={this.props.onPress}>
 				<View style={{ flex: 1, margin: 10, marginTop: 50 }}>
-					<LinearGradient
+					<View
 						style={[styles.buttonStyle, this.props.style]}
-						colors={['#DC1E2D', '#B11522']}
-						location={[0, 1]}
 					>
 						{this.renderImage()}
-					</LinearGradient>
+					</View>
 					<Text style={[styles.textStyle, this.props.textStyle]}>
 						{this.props.children}
 					</Text>
