@@ -1,34 +1,63 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
-import { CouponListCard, CouponListCardRetailer } from '@partials';
+import { View, FlatList, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
+import { CouponListCard } from '@partials';
+import * as actions from './actions';
 import styles from './styles';
 
-const dummy = ['qqw', 'qqw', 'qqw', 'qqw', 'qqw', 'qqw', 'qqw', 'qqw', 'qqw', 'qqw'];
-
 class CouponListComponent extends Component {
-    renderItem() {
-        if (this.props.isRetailer) {
-            return (
-                <CouponListCardRetailer
-                    couponName="Paguyuban Bandung Selatan" couponType="KUPON UNDIAN" couponNumber="No. 69811986" couponDate="12/3/2019" srcLogo
-                />
-            );
-        }
+
+    componentWillMount() {
+        this.pageContext = {
+            group_id: this.props.group_id
+        };
+        this.props.loadMyCoupons(true, this.pageContext);
+    }
+    handleLoadMore() {
+        this.props.handleLoadMoreAct(false, this.pageContext);
+    }
+
+    handleRefresh() {
+        this.props.handleRefreshAct(false, this.pageContext);
+    }
+
+    renderItem(item) {
         return (<CouponListCard
-            couponName="Paguyuban Bandung Selatan" couponType="KUPON UNDIAN" couponNumber="No. 69811986" couponDate="12/3/2019" srcLogo
+            item={item.item} srcLogo
         />);
     }
     render() {
+        if (!this.props.baseLoading) {
+            console.log('check coupon', this.props.coupons);
+            return (
+                <View style={styles.container}>
+                    <FlatList
+                        data={this.props.coupons}
+                        renderItem={this.renderItem.bind(this)}
+                        keyExtractor={(i, idx) => idx.toString()}
+                        onEndReached={this.handleLoadMore.bind(this)}
+                        onEndThreshold={0}
+                        refreshing={this.props.isRefreshing}
+                        onRefresh={this.handleRefresh.bind(this)}
+                    />
+                </View>
+            );
+        }
         return (
-            <View style={styles.container}>
-                <FlatList
-                    data={dummy}
-                    keyExtractor={(i, idx) => idx.toString()}
-                    renderItem={this.renderItem.bind(this)}
-                />
+            <View style={[styles.container, { flex: 1 }]}>
+                <ActivityIndicator size="large" color="#DC1E2D" />
             </View>
         );
     }
 }
 
-export default CouponListComponent;
+const mapStateToProps = (state) => {
+    return {
+        coupons: state.couponReducer.coupons,
+        isRefreshing: state.couponReducer.isRefreshing,
+        baseLoading: state.couponReducer.baseLoading,
+        globalProfile: state.globalReducer.globalProfile
+    };
+};
+
+export default connect(mapStateToProps, actions)(CouponListComponent);

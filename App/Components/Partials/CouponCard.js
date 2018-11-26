@@ -54,12 +54,8 @@ const srcSource = require('@images/src-shape.png');
 
 class CouponCard extends Component {
     redirectCouponList() {
-        if (this.props.srcLogo) {
-            Actions.CouponList();
-        }
-        else {
-            Actions.CouponList({ isRetailer: true });
-        }
+        console.log('check group id', this.props.val.group_id);
+        Actions.CouponList({ group_id: this.props.val.group_id });
     }
     renderSrcDiv() {
         if (this.props.srcLogo) {

@@ -31,8 +31,9 @@ const styles = {
         color: '#DC1E2D'
     },
     imageStyle: {
-        height: 60,
-        width: 90
+        height: 40,
+        width: 70,
+        resizeMode: 'cover'
     }
 };
 

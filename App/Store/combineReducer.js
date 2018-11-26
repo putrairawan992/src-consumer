@@ -3,6 +3,7 @@ import SignUpReducer from '@templates/Register/reducer';
 import EditUserReducer from '@templates/EditProfile/reducer';
 import NotificationReducer from '@templates/Notification/reducer';
 import LoginReducer from '@templates/LoginPage/reducer';
+import CouponReducer from '@templates/CouponList/reducer';
 import GlobalReducer from './GlobalReducer/reducer';
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
 	editUserReducer: EditUserReducer,
 	notificationReducer: NotificationReducer,
 	loginReducer: LoginReducer,
+	couponReducer: CouponReducer,
 	globalReducer: GlobalReducer
 });

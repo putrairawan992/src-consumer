@@ -213,6 +213,22 @@ const checkAppVersion = (param) => {
 	});
 };
 
+const getPaguyuban = (param) => {
+	return request({
+		url: 'api/customer/coupon',
+		params: param,
+		method: 'get'
+	});
+};
+
+const getPaguyubanCoupon = (param, context) => {
+	return request({
+		url: 'api/customer/coupon/' + context.group_id,
+		params: param,
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -240,7 +256,9 @@ const CommonService = {
 	storeFCMToken,
 	getNotifications,
 	updateNotification,
-	checkAppVersion
+	checkAppVersion,
+	getPaguyuban,
+	getPaguyubanCoupon
 };
 
 export default CommonService;

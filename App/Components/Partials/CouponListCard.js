@@ -117,17 +117,17 @@ class CouponListCard extends Component {
                     >
                         <Text style={styles.couponType}>KUPON UNDIAN</Text>
                         <View style={styles.couponValue}>
-                            <Text style={styles.couponDetail}>{this.props.couponName}</Text>
-                            <Text style={styles.couponDetail}>{this.props.couponNumber}</Text>
+                            <Text style={styles.couponDetail}>{this.props.item.group_name}</Text>
+                            <Text style={styles.couponDetail}>12345678</Text>
                         </View>
-                        <Text style={styles.couponDisplayName}>JOHN THOR</Text>
+                        <Text style={styles.couponDisplayName}>{this.props.item.customer_name}</Text>
                         {this.renderSrcDiv()}
                     </LinearGradient>
                     <View style={styles.triangleContainer}>
                       <Image source={triangle} style={styles.triangleStyle} />
                     </View>
                     <View style={styles.bottomSection}>
-                        <Text style={styles.couponDate}>Jadwal Pengundian {this.props.couponDate}</Text>
+                        <Text style={styles.couponDate}>Jadwal Pengundian {this.props.item.expiry_date}</Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
