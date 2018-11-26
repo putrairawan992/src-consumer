@@ -26,12 +26,29 @@ class AddressCard extends Component {
 						}}
 					>
 						<View style={{ flexDirection: 'row' }}>
-							{(this.props.item.banners.length > 0) ? <Button
+							{(this.props.item.promo_badge) ? <Button
 								style={globalStyles.labelButton}
 								textStyle={globalStyles.redButtonText}
 							>
 								Promo
 							</Button> : null }
+							{(this.props.item.paguyuban_badge) ?
+										<Button
+											style={[
+												globalStyles.labelButton,
+												{
+													backgroundColor: '#fff',
+													borderWidth: 1,
+													borderColor: '#000'
+												}
+											]}
+											textStyle={[
+												globalStyles.redButtonText,
+												{ color: '#000' }
+											]}
+										>
+											Undian YBKS
+								</Button> : null}
 						</View>
 						<View
 							style={{
