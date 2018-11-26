@@ -14,11 +14,11 @@ class CouponListComponent extends Component {
         this.props.loadMyCoupons(true, this.pageContext);
     }
     handleLoadMore() {
-        this.props.handleLoadMoreAct(false, this.pageContext);
+        this.props.handleLoadMoreAct(this.pageContext);
     }
 
     handleRefresh() {
-        this.props.handleRefreshAct(false, this.pageContext);
+        this.props.handleRefreshAct(this.pageContext);
     }
 
     renderItem(item) {
