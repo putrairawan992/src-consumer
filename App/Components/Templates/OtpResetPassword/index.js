@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import { Input, Button, LinkText, Loader } from '@partials';
@@ -43,10 +43,12 @@ class OtpResetPasswordComponent extends Component {
 		this.clockCall = setInterval(() => {
 			this.decrementClock();
 		}, 1000);
+		AppState.addEventListener('change', this.generateTimer.bind(this));
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.clockCall);
+		AppState.removeEventListener('change', this.generateTimer.bind(this));
 	}
 
 	//Helper function
