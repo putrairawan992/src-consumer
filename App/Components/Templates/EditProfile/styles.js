@@ -5,7 +5,7 @@ export default StyleSheet.create({
 		flexGrow: 1,
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		backgroundColor: '#FFF',
 		paddingTop: 40,
 		paddingHorizontal: 16

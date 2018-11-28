@@ -299,6 +299,9 @@ class EditProfileComponent extends Component {
 							error={this.state.dateError}
 						/>
 					</View>
+					{this.props.isOver && !this.props.globalProfile.id_number ? <Text style={[globalStyles.validationText, { margin: 10, textAlign: 'left' }]}>
+						Lengkapi nomor KTP anda
+				</Text> : null}
 					{this.renderKtp()}
 					<View style={globalStyles.phoneRow}>
 						<Input
