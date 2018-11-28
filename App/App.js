@@ -120,23 +120,23 @@ export default class App extends Component<Props> {
     const checkVersion = await CommonService.checkAppVersion(obj);
     console.log('versi sekarang', checkVersion);
     if (checkVersion.current_version === false && checkVersion.force_update === true) {
-      this.callUpdateAlert();
+      this.callUpdateAlert(checkVersion.message);
     }
     else if (checkVersion.current_version === false && checkVersion.force_update === false) {
-      this.callAdditionalUpdateAlert();
+      this.callAdditionalUpdateAlert(checkVersion.message);
     }
   }
 
-  callUpdateAlert() {
-    CustomAlert(null, 'Anda harus memperbaharui aplikasi anda terlebih dahulu', [{ text: 'OK', 
+  callUpdateAlert(message) {
+    CustomAlert(null, message, [{ text: 'OK', 
       onPress: () => {
-        this.callUpdateAlert();
+        this.callUpdateAlert(message);
         Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
       } }]);
   }
 
-  callAdditionalUpdateAlert() {
-    CustomAlert(null, 'Aplikasi sudah diperbaharui, apakah anda ingin memperbaharui sekarang ?', [{
+  callAdditionalUpdateAlert(message) {
+    CustomAlert(null, message, [{
       text: 'Perbaharui Sekarang',
       onPress: () => {
         Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
