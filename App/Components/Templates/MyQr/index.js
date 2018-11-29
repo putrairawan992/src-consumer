@@ -24,6 +24,7 @@ class MyQrComponent extends Component {
                     logoBackgroundColor='transparent'
                 />
                 </View>
+                <Text style={{ fontFamily: 'ProximaNova-Semibold', fontSize: 18, textAlign: 'center', color: '#000', lineHeight: 24 }}>{this.props.globalProfile.phone} {'\n'}</Text>
                 <Text style={{ fontFamily: 'ProximaNova-Semibold', fontSize: 14, textAlign: 'center', color: '#000', lineHeight: 24 }}>Tunjukkan Kode QR Anda saat belanja di SRC untuk mendapatkan kupon undian berhadiah</Text>
             </View>
         );

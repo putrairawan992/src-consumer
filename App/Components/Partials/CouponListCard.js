@@ -127,7 +127,7 @@ class CouponListCard extends Component {
                       <Image source={triangle} style={styles.triangleStyle} />
                     </View>
                     <View style={styles.bottomSection}>
-                        <Text style={styles.couponDate}>Jadwal Pengundian {this.props.item.expiry_date}</Text>
+                        <Text style={styles.couponDate}>Batas pengumpulan Kupon {this.props.item.expiry_date}</Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
