@@ -131,12 +131,16 @@ export const submitEdit = payload => {
             dispatch({ type: EDIT_PROCCESS });
             CommonService.editProfile(payload)
                 .then(async (res) => {
-                    await setProfileFromRest();
-                    dispatch({ type: EDIT_SUCCESS });
-                    dispatch(refreshProfile());
-                    ToastAndroid.show('Sukses Memperbarui Profil', ToastAndroid.SHORT);
-                    Actions.pop();
-                    resolve(res);
+                    if (res.is_otp === false) {
+                        await setProfileFromRest();
+                        dispatch({ type: EDIT_SUCCESS });
+                        dispatch(refreshProfile());
+                        ToastAndroid.show('Sukses Memperbarui Profil', ToastAndroid.SHORT);
+                        Actions.pop();
+                    }
+                    else {
+                        dispatch(redirectOtp(payload));
+                    }
                 })
                 .catch((err) => {
                     dispatch({ type: EDIT_FAIL });

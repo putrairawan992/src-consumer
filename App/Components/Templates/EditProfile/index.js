@@ -153,12 +153,7 @@ class EditProfileComponent extends Component {
 				email: this.props.email,
 				refferal_code: this.props.referral_code
 			};
-			if (payload.phone !== this.props.globalProfile.phone) {
-				this.props.redirectOtp(payload);
-			}
-			else {
-				this.props.submitEdit(payload);
-			}
+			this.props.submitEdit(payload);
 		}
 	}
 
