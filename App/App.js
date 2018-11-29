@@ -171,6 +171,9 @@ export default class App extends Component<Props> {
     else if (item.data.entity_type === 'newsfeed') {
       Actions.NewsDetail({ news: JSON.parse(item.data.data) });
     }
+    else if (item.data.entity_type === 'kupon') {
+      Actions.MyCoupon();
+    }
   }
 
 

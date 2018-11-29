@@ -59,6 +59,9 @@ class NotificationSegment extends Component {
 		else if (this.props.item.entity_type === 'newsfeed') {
 			Actions.NewsDetail({ news: JSON.parse(this.props.item.data) });
 		}
+		else if (this.props.item.entity_type === 'kupon') {
+			Actions.MyCoupon();
+		}
 	}
 	renderBadge() {
 		if (this.props.item.status === 'unread') {
