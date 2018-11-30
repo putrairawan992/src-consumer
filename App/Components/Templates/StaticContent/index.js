@@ -55,7 +55,7 @@ class StaticContentComponent extends Component {
                                     </View>
                                     <View style={styles.winnerRow}>
                                         <Text style={styles.questText}>Nomor Ponsel</Text>
-                                        <Text style={styles.ansText}>{pemenangVal.phone.substring(3) + 
+                                        <Text style={styles.ansText}>{pemenangVal.phone.substring(0, pemenangVal.phone.length - 3) + 
                                     'XXX'}</Text>
                                     </View>
                                     <View style={styles.winnerRow}>
