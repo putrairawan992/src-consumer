@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { CouponListCard } from '@partials';
 import * as actions from './actions';
@@ -28,9 +28,14 @@ class CouponListComponent extends Component {
     }
     render() {
         if (!this.props.baseLoading) {
-            console.log('check coupon', this.props.coupons);
             return (
                 <View style={styles.container}>
+                 <View style={styles.paguyubanName}>
+                       <Text style={styles.paguyubanNameText}>{this.props.group_name}</Text>
+                       {this.props.rewards.map((value, idx) => {
+                           return <Text style={styles.paguyubanNamePrice} key={idx}>{value}</Text>;
+                       })}
+                 </View>
                     <FlatList
                         data={this.props.coupons}
                         renderItem={this.renderItem.bind(this)}
