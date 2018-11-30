@@ -22,6 +22,7 @@ import MyCouponComponent from './MyCoupon';
 import CouponListComponent from './CouponList';
 import MyQrComponent from './MyQr';
 import LoginPageComponent from './LoginPage';
+import CouponHistoryComponent from './CouponHistory';
 
 export {
 	IntroComponent,
@@ -47,5 +48,6 @@ export {
 	MyCouponComponent,
 	CouponListComponent,
 	MyQrComponent,
-	LoginPageComponent
+	LoginPageComponent,
+	CouponHistoryComponent
 };

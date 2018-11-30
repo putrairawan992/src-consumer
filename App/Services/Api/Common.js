@@ -229,6 +229,13 @@ const getPaguyubanCoupon = (param, context) => {
 	});
 };
 
+const getCouponHistory = () => {
+	return request({
+		url: 'api/customer/coupon/get/riwayat',
+		method: 'get'
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -258,7 +265,8 @@ const CommonService = {
 	updateNotification,
 	checkAppVersion,
 	getPaguyuban,
-	getPaguyubanCoupon
+	getPaguyubanCoupon,
+	getCouponHistory
 };
 
 export default CommonService;

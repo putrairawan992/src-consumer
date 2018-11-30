@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = {
     container: {
@@ -40,13 +41,20 @@ const styles = {
 class CouponInfo extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableOpacity 
+            onPress={() => {
+                Actions.CouponHistory();
+            }}
+            style={styles.container}
+            >
+            <View>
                <Text>{this.props.titleText}</Text>
                <View style={styles.rowView}>
                    <Image source={this.props.imgIcon} style={styles.imageStyle} />
                    <Text style={styles.valueText}>{this.props.value}</Text>
                </View>
             </View>
+            </TouchableOpacity>
         );
     }
 }

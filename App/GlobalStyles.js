@@ -270,5 +270,78 @@ export default StyleSheet.create({
         borderBottomColor: '#DC1E2D',
         borderBottomWidth: 3,
         color: '#DC1E2D'
-    },
+	},
+	TrasnsactionCard: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignContent: 'center',
+		padding: 12,
+		borderWidth: 1,
+		borderColor: '#ececec'
+	},
+	TransactionIcon: { 
+		backgroundColor: '#DC1E2D', 
+		borderRadius: 8, 
+		width: 35, 
+		height: 35, 
+		lineHeight: 35, 
+		justifyContent: 'center', 
+		alignItems: 'center' 
+	},
+	TransactionPreview: {
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		paddingLeft: 12,
+		width: 0,
+		flexGrow: 1
+	},
+	TransactionInvoice: {
+		fontFamily: 'ProximaNova-Bold',
+		fontSize: 18,
+		color: '#4A4A4A',
+		lineHeight: 25
+	},
+	TransactionShopName: {
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 14,
+		color: '#4A4A4A',
+		lineHeight: 21
+	},
+	TransactionDate: {
+		fontFamily: 'ProximaNova-Regular',
+		fontSize: 12,
+		paddingTop: 0,
+		color: '#C6C6C6',
+		marginBottom: 10
+	},
+	PointLogPreview: {
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		width: 0,
+		flexGrow: 1
+	},
+	PointDetails: {
+		backgroundColor: '#F4F8FF',
+		paddingHorizontal: 13,
+		paddingVertical: 10,
+		borderRadius: 8,
+		marginTop: 10,
+		color: '#4a4a4a',
+		fontSize: 14
+	},
+	outputPoint: {
+		color: '#DC1E2D',
+		fontSize: 14,
+		lineHeight: 21
+	},
+	inputPoint: {
+		color: '#639B22',
+		fontSize: 14,
+		lineHeight: 21
+	},
+	PointTime: {
+		color: '#4A4A4A',
+		fontSize: 14,
+		lineHeight: 21
+	},
 });

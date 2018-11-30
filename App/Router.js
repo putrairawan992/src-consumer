@@ -20,7 +20,8 @@ import {
 	MyCouponComponent,
 	CouponListComponent,
 	MyQrComponent,
-	LoginPageComponent
+	LoginPageComponent,
+	CouponHistoryComponent
 } from '@templates';
 import { CustomNavBar } from '@partials';
 import { getProfileFromStorage, checkFirstLaunch, hasSession } from '@helpers/Storage';
@@ -197,6 +198,11 @@ class routerComponent extends Component {
 							key="MyQr"
 							component={MyQrComponent}
 							title="Kode QR saya"
+						/>
+						<Scene
+							key="CouponHistory"
+							component={CouponHistoryComponent}
+							title="Kupon Saya"
 						/>
 					</Stack>
 				</Router>

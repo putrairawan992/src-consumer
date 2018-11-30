@@ -23,6 +23,7 @@ import CouponInfo from './CouponInfo';
 import CouponCard from './CouponCard';
 import CouponListCard from './CouponListCard';
 import CouponListCardRetailer from './CouponListCardRetailer';
+import CouponLogCard from './CouponLogCard';
 
 export {
 	Button,
@@ -49,5 +50,6 @@ export {
 	CouponInfo,
 	CouponCard,
 	CouponListCard,
-	CouponListCardRetailer
+	CouponListCardRetailer,
+	CouponLogCard
 };
