@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignItems: 'stretch',
         flexGrow: 1,
         backgroundColor: '#fff'
     },
@@ -34,5 +34,34 @@ export default StyleSheet.create({
         color: '#4a4a4a',
         lineHeight: 20,
         marginTop: 17
+    },
+    winnerView: {
+        marginTop: 30,
+        flexDirection: 'column'
+    },
+    winnerPrice: {
+        fontFamily: 'ProximaNova-Bold',
+        fontSize: 18,
+        color: '#4a4a4a',
+        textAlign: 'center'
+    },
+    winnerColumn: {
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        backgroundColor: '#fafafa'
+    },
+    winnerRow: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    questText: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 12,
+        flex: 4
+    },
+    ansText: {
+        fontFamily: 'ProximaNova-Bold',
+        fontSize: 12,
+        flex: 3
     }
 });

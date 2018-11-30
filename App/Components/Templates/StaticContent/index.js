@@ -32,8 +32,46 @@ class StaticContentComponent extends Component {
         });
     }
 
+    renderWinner() {
+        if (this.state.data.winner_announcement === 'yes') {
+            return this.state.data.winners.map((value, index) => {
+                return (
+                    <View style={styles.winnerView} key={index}>
+                        <Text style={styles.winnerPrice}>{value.item}</Text>
+                        {value.pemenang.map((pemenangVal, indexPemenang) => {
+                            return (
+                                <View style={styles.winnerColumn} key={indexPemenang}>
+                                    <View style={styles.winnerRow}>
+                                        <Text style={styles.questText}>Pemenang Ke</Text>
+                                        <Text style={styles.ansText}>{indexPemenang + 1}</Text>
+                                    </View>
+                                    <View style={styles.winnerRow}>
+                                        <Text style={styles.questText}>Kupon</Text>
+                                        <Text style={styles.ansText}>{pemenangVal.coupon}</Text>
+                                    </View>
+                                    <View style={styles.winnerRow}>
+                                        <Text style={styles.questText}>Nama</Text>
+                                        <Text style={styles.ansText}>{pemenangVal.name}</Text>
+                                    </View>
+                                    <View style={styles.winnerRow}>
+                                        <Text style={styles.questText}>Nomor Ponsel</Text>
+                                        <Text style={styles.ansText}>{pemenangVal.phone.substring(3) + 
+                                    'XXX'}</Text>
+                                    </View>
+                                    <View style={styles.winnerRow}>
+                                        <Text style={styles.questText}>Toko Asal</Text>
+                                        <Text style={styles.ansText}>{pemenangVal.toko_asal}</Text>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </View>
+                );
+            });
+        }
+    }
+
     render() {
-        console.log('check state', this.state.data);
         if (this.state.loaded) {
             if (this.state.data !== null) {
                 return (
@@ -47,6 +85,7 @@ class StaticContentComponent extends Component {
                             </Text>
                             <HTML html={this.state.data.body} />
                         </View>
+                        {this.renderWinner()}
                     </ScrollView>
                 );
             }
