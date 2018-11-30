@@ -15,18 +15,13 @@ class CouponLogCard extends Component {
 				<View style={globalStyles.TrasnsactionCard}>
 					<View style={globalStyles.PointLogPreview}>
 						<Text style={globalStyles.TransactionShopName}>
-                            {/* Tanggal Transaksi: {moment(this.props.item.created_at).format('D MMMM YYYY')} */}
-                            Tanggal Transaksi : 4 Oktober 2018
+                            Tanggal Transaksi: {moment(this.props.item.created_at).format('D MMMM YYYY')}
 						</Text>
 						<View style={globalStyles.PointDetails}>
                             <Text style={globalStyles.inputPoint}>Undian YBKS</Text>
-							{/* <Text style={(this.props.item.type === 'in') ? globalStyles.inputPoint : globalStyles.outputPoint}>
-								{this.props.item.description}
-                            </Text> */}
-                            <Text style={globalStyles.inputPoint}>Loreem Ipsum Dolor Sit Amet</Text>
+                            <Text style={globalStyles.inputPoint}>{this.props.item.description}</Text>
 							<View style={globalStyles.PointTime}>
-                                {/* <Text>{moment(this.props.item.updated_at).format('DD-MM-YYYY HH:mm')}</Text> */}
-                                <Text>5 Oktober</Text>
+                                <Text>{moment(this.props.item.updated_at).format('DD-MM-YYYY HH:mm')}</Text>
 							</View>
 						</View>
 					</View>
