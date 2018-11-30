@@ -4,8 +4,7 @@ export default StyleSheet.create({
     container: {
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: '#fff',
-        flex: 1
+        backgroundColor: '#fff'
     },
     couponSection: {
         flexDirection: 'row',

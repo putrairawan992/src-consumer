@@ -30,7 +30,7 @@ class CouponHistoryComponent extends Component {
     render() {
         if (this.state.baseLoading) {
             return (
-                <View style={styles.container}>
+                <View style={[styles.container, { flex: 1 }]}>
                     <ActivityIndicator size="large" color="#DC1E2D" />
                 </View>
             );

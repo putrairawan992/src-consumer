@@ -24,6 +24,7 @@ export default StyleSheet.create({
     paguyubanNamePrice: {
         fontFamily: 'ProximaNova-Bold',
         fontSize: 22,
-        color: '#000'
+        color: '#000',
+        textAlign: 'center'
     }
 });

@@ -32,9 +32,9 @@ class CouponListComponent extends Component {
                 <View style={styles.container}>
                  <View style={styles.paguyubanName}>
                        <Text style={styles.paguyubanNameText}>{this.props.group_name}</Text>
-                       {this.props.rewards.map((value, idx) => {
-                           return <Text style={styles.paguyubanNamePrice} key={idx}>{value}</Text>;
-                       })}
+                       <View style={{ padding: 12 }}>
+                       <Text style={styles.paguyubanNamePrice}>{this.props.rewards}</Text>
+                       </View>
                  </View>
                     <FlatList
                         data={this.props.coupons}
