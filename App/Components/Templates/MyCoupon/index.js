@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { CouponInfo, CouponCard } from '@partials';
 import { CommonService } from '@services';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ const coinLogo = require('@images/red-coupon.png');
 class MyCouponComponent extends Component {
     state = {
         pageLoading: false,
-        paguyubans: []
+        paguyubans: [],
+        isRefreshing: false
     }
     async componentWillMount() {
         this.setState({
@@ -20,6 +21,12 @@ class MyCouponComponent extends Component {
         this.setState({
             paguyubans: paguyubans.data,
             pageLoading: false
+        });
+    }
+    async handleRefresh() {
+        const paguyubans = await CommonService.getPaguyuban();
+        this.setState({
+            paguyubans: paguyubans.data,
         });
     }
     renderPaguyubans() {
@@ -33,7 +40,14 @@ class MyCouponComponent extends Component {
     }
     renderMainView() {
         return (
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <ScrollView 
+            contentContainerStyle={styles.scrollContainer}
+                scrollEventThrottle={400}
+                refreshControl={<RefreshControl
+                    refreshing={this.state.isRefreshing}
+                    onRefresh={this.handleRefresh.bind(this)}
+                />}
+            >
                 <CouponInfo titleText="Total Kupon Undian YBKS Anda" imgIcon={coinLogo} value={this.props.globalProfile.coupon} />
                 <Text style={styles.couponDesc}>Kupon Undian adalah Kupon yang dikeluarkan dan dikelola oleh paguyuban SRC yang sudah berizin Dinas Sosial. Tanya pada toko terdekatmu bagaimana cara mendapatkan Kupon Undian.
 </Text>
