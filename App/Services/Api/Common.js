@@ -236,6 +236,22 @@ const getCouponHistory = () => {
 	});
 };
 
+const sendDeleteOtp = (payload) => {
+	return request({
+		url: '/api/general/otp/send-v2',
+		method: 'post',
+		data: payload
+	});
+};
+
+const deleleteProfile = (payload) => {
+	return request({
+		url: '/oauth/user/delete-v2',
+		method: 'post',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -266,7 +282,9 @@ const CommonService = {
 	checkAppVersion,
 	getPaguyuban,
 	getPaguyubanCoupon,
-	getCouponHistory
+	getCouponHistory,
+	sendDeleteOtp,
+	deleleteProfile
 };
 
 export default CommonService;

@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { submitEdit } from '@templates/EditProfile/actions';
 import { checkPermission, getToken, requestPermission } from '@helpers/firebase';
-import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession } from '@helpers/Storage';
+import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession, removeAuthFromStorage } from '@helpers/Storage';
+import { revokeProfile } from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
 
@@ -104,11 +105,26 @@ class OtpResetPasswordComponent extends Component {
 				this.props.submitEdit(finalPayload).then(() => {
 					Actions.pop();
 				})
-				.finally(() => {
-					this.setState({
-						baseLoading: false
+					.finally(() => {
+						this.setState({
+							baseLoading: false
+						});
 					});
-				});
+			}
+			if (this.props.deleteSession) {
+				const finalPayload = {
+					otp_code: this.state.firstInput + this.state.secondInput + this.state.thirdInput + this.state.fourthInput
+				};
+				CommonService.deleteProfile(finalPayload).then(async() => {
+					await removeAuthFromStorage();
+					this.props.revokeProfile();
+					Actions.reset('LoginPage');
+				})
+					.finally(() => {
+						this.setState({
+							baseLoading: false
+						});
+					});
 			}
 			else {
 				CommonService.signIn(verifyPayload).then(async (response) => {
@@ -130,13 +146,18 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	async resendActivationCode() {
+		const currentPromise = this.props.deleteSession ? CommonService.deleteProfile : CommonService.resendActivationCode;
 		this.setState({ baseLoading: true });
 		const currentSession = await hasSession();
 		const resendPayload = {
 			type: this.props.editSession ? this.props.editSession.type : currentSession.type,
 			phone: this.props.editSession ? this.props.editSession.phone : currentSession.phone
 		};
-		CommonService.resendActivationCode(resendPayload).then(async (response) => {
+		const deletePayload = {
+			type: this.props.deleteSession.type
+		};
+		const usedPayload = this.props.deleteSession ? deletePayload : resendPayload;
+		currentPromise(usedPayload).then(async (response) => {
 			await storeExpiryDate(response.expiry_at);
 			this.setState({ baseLoading: false });
 			this.generateTimer();
@@ -292,4 +313,4 @@ const checkPermissionVal = async () => {
 	}
 };
 
-export default connect(null, { submitEdit })(OtpResetPasswordComponent);
+export default connect(null, { submitEdit, revokeProfile })(OtpResetPasswordComponent);
