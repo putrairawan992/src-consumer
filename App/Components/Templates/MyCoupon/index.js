@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { CouponInfo, CouponCard } from '@partials';
+import { setProfileFromRest } from '@helpers/Storage';
 import { CommonService } from '@services';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -24,6 +25,7 @@ class MyCouponComponent extends Component {
         });
     }
     async handleRefresh() {
+        await setProfileFromRest();
         const paguyubans = await CommonService.getPaguyuban();
         this.setState({
             paguyubans: paguyubans.data,
