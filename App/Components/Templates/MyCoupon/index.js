@@ -29,6 +29,7 @@ class MyCouponComponent extends Component {
         const paguyubans = await CommonService.getPaguyuban();
         this.setState({
             paguyubans: paguyubans.data,
+            isRefreshing: false
         });
     }
     renderPaguyubans() {
