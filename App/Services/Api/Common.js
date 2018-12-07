@@ -244,7 +244,7 @@ const sendDeleteOtp = (payload) => {
 	});
 };
 
-const deleleteProfile = (payload) => {
+const deleteProfile = (payload) => {
 	return request({
 		url: '/oauth/user/delete-v2',
 		method: 'post',
@@ -284,7 +284,7 @@ const CommonService = {
 	getPaguyubanCoupon,
 	getCouponHistory,
 	sendDeleteOtp,
-	deleleteProfile
+	deleteProfile
 };
 
 export default CommonService;

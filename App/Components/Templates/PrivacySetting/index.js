@@ -39,7 +39,7 @@ class PrivacySettingComponent extends Component {
                 type: 'delete-account'
             };
             await storeExpiryDate(res.expiry_at);
-            Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', deleteeSession: otpPayload });
+            Actions.OtpResetPassword({ hideNavBar: false, title: 'Kode Verifikasi', deleteSession: otpPayload, phoneNumber: otpPayload.phone });
         })
             .catch(() => {
                 CustomAlert(null, 'Gagal Kirim OTP.', [{ text: 'OK' }]);

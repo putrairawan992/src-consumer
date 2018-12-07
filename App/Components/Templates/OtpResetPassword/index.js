@@ -146,7 +146,7 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	async resendActivationCode() {
-		const currentPromise = this.props.deleteSession ? CommonService.deleteProfile : CommonService.resendActivationCode;
+		const currentPromise = this.props.deleteSession ? CommonService.sendDeleteOtp : CommonService.resendActivationCode;
 		this.setState({ baseLoading: true });
 		const currentSession = await hasSession();
 		const resendPayload = {
@@ -154,7 +154,7 @@ class OtpResetPasswordComponent extends Component {
 			phone: this.props.editSession ? this.props.editSession.phone : currentSession.phone
 		};
 		const deletePayload = {
-			type: this.props.deleteSession.type
+			type: this.props.deleteSession ? this.props.deleteSession.type : null
 		};
 		const usedPayload = this.props.deleteSession ? deletePayload : resendPayload;
 		currentPromise(usedPayload).then(async (response) => {
