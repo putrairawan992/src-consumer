@@ -6,6 +6,7 @@ import { CommonService } from '@services';
 import { removeAuthFromStorage } from '@helpers/Storage';
 import { Actions } from 'react-native-router-flux';
 import { trackScreen } from '@helpers/analytic';
+import DeviceInfo from 'react-native-device-info';
 import globalStyles from '../../../GlobalStyles';
 import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
@@ -116,6 +117,9 @@ class ProfileComponent extends Component {
 							<MenuListButton onPress={this.redirectPrivacy.bind(this)}>Pengaturan Privasi</MenuListButton>
 							<MenuListButton onPress={this.submitLogout.bind(this)}>Keluar</MenuListButton>
 						</View>
+					</View>
+					<View style={styles.versionContainer}>
+						<Text style={{ fontFamily: 'ProximaNova-Regular', fontSize: 14, textAlign: 'center', color: '#000' }}>Versi {DeviceInfo.getVersion()}</Text>
 					</View>
 				</ScrollView>
 				<Loader visible={this.state.baseLoading} text="Logout..." />
