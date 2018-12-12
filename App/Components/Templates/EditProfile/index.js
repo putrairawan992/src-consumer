@@ -191,7 +191,6 @@ class EditProfileComponent extends Component {
 	}
 
 	renderRefferalCode() {
-		if (this.props.already_referral) {
 			return (
 				<View style={globalStyles.phoneRow}>
 					<Input
@@ -202,7 +201,6 @@ class EditProfileComponent extends Component {
 					/>
 				</View>
 			);
-		}
 	}
 
 
