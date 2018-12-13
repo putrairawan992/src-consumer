@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { CouponInfo, CouponCard } from '@partials';
-import { setProfileFromRest } from '@helpers/Storage';
 import { CommonService } from '@services';
 import { connect } from 'react-redux';
+import { refreshProfile } from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
 const coinLogo = require('@images/red-coupon.png');
@@ -25,7 +25,7 @@ class MyCouponComponent extends Component {
         });
     }
     async handleRefresh() {
-        await setProfileFromRest();
+        this.props.refreshProfile();
         const paguyubans = await CommonService.getPaguyuban();
         this.setState({
             paguyubans: paguyubans.data,
@@ -80,4 +80,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(MyCouponComponent);
+export default connect(mapStateToProps, { refreshProfile })(MyCouponComponent);
