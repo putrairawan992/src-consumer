@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { MenuListButton, Loader } from '@partials';
 import { trackScreen } from '@helpers/analytic';
 import { storeExpiryDate } from '@helpers/Storage';
-import { CustomAlert } from '@helpers/CustomAlert';
+import CustomAlert from '@helpers/CustomAlert';
 import globalStyles from '../../../GlobalStyles';
 import styles from './styles';
 
@@ -24,6 +24,10 @@ class PrivacySettingComponent extends Component {
 
     redirectSubmitSetting(type, title) {
         Actions.SubmitSetting({ typeData: type, title: title });
+    }
+
+    openDeleteDialog() {
+        CustomAlert(null, 'Apakah Anda yakin akan menghapus akun dan semua poin yang sudah terkumpul?.', [{ text: 'Tidak' }, { text: 'Ya', onPress: this.redirectDeleteAccount.bind(this) }]);
     }
 
     async redirectDeleteAccount() {
@@ -60,7 +64,7 @@ class PrivacySettingComponent extends Component {
                                 this.redirectSubmitSetting('contacted', 'Jangan Hubungi Saya');
                             }}
                         >Jangan Hubungi Saya</MenuListButton>
-                        <MenuListButton onPress={this.redirectDeleteAccount.bind(this)}>Hapus Akun Saya</MenuListButton>
+                        <MenuListButton onPress={this.openDeleteDialog.bind(this)}>Hapus Akun Saya</MenuListButton>
                         <MenuListButton
                             onPress={() => {
                                 this.redirectSubmitSetting('data_history', 'Permintaan Riwayat Data');
