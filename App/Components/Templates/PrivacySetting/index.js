@@ -27,7 +27,7 @@ class PrivacySettingComponent extends Component {
     }
 
     openDeleteDialog() {
-        CustomAlert(null, 'Apakah Anda yakin akan menghapus akun dan semua poin yang sudah terkumpul?.', [{ text: 'Tidak' }, { text: 'Ya', onPress: this.redirectDeleteAccount.bind(this) }]);
+        CustomAlert(null, 'Anda akan menghapus semua data di akun Anda, termasuk kupon / poin / koin secara permanen.Apakah Anda yakin?', [{ text: 'Tidak' }, { text: 'Ya', onPress: this.redirectDeleteAccount.bind(this) }]);
     }
 
     async redirectDeleteAccount() {
