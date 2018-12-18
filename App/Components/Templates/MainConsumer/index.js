@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Linking } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {
 	DashboardComponent,
@@ -12,6 +13,9 @@ import { CustomTabBar } from '@partials';
 import { trackScreen } from '@helpers/analytic';
 import { connect } from 'react-redux';
 import { getNotifications } from '@templates/Notification/actions';
+import DeviceInfo from 'react-native-device-info';
+import { CommonService } from '@services';
+import CustomAlert from '@helpers/CustomAlert';
 
 class MainConsumerComponent extends Component {
 	componentWillMount() {
@@ -22,6 +26,42 @@ class MainConsumerComponent extends Component {
 	componentWillUnmount() {
 		this.listener = EventRegister.removeEventListener('profileTab');
 	}
+	async checkAppsInfo() {
+		const obj = {
+			version: DeviceInfo.getVersion(),
+			os: 'android',
+			name: 'customer'
+		};
+		const checkVersion = await CommonService.checkAppVersion(obj);
+		console.log('versi sekarang', checkVersion);
+		if (checkVersion.current_version === false && checkVersion.force_update === true) {
+			this.callUpdateAlert(checkVersion.message);
+		}
+		else if (checkVersion.current_version === false && checkVersion.force_update === false) {
+			this.callAdditionalUpdateAlert(checkVersion.message);
+		}
+	}
+
+	callUpdateAlert(message) {
+		CustomAlert(null, message, [{
+			text: 'OK',
+			onPress: () => {
+				this.callUpdateAlert(message);
+				Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
+			}
+		}]);
+	}
+
+	callAdditionalUpdateAlert(message) {
+		CustomAlert(null, message, [{
+			text: 'Perbaharui Sekarang',
+			onPress: () => {
+				Linking.openURL('market://details?id=com.pmi.store.pmiappm05726');
+			}
+		}, {
+			text: 'Lain Kali'
+		}]);
+	}
 	tabChangeHandler(index) {
 		if (index.i === 0) {
 			trackScreen('dashboard');
@@ -31,6 +71,7 @@ class MainConsumerComponent extends Component {
 		}
 		else if (index.i === 2) {
 			trackScreen('notifications');
+			this.checkAppsInfo();
 			this.props.getNotifications();
 		}
 		else if (index.i === 3) {
