@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { CommonService } from '@services';
 import firebase from 'react-native-firebase';
+import DeviceInfo from 'react-native-device-info';
 
 const checkPermission = async () => {
     try {
@@ -33,7 +34,9 @@ const getToken = async () => {
         else {
             console.log('token from current storage', fcmToken);
             const payload = {
-                token: fcmToken
+                token: fcmToken,
+                version: DeviceInfo.getVersion(),
+                type: 'customer'
             };
             await CommonService.storeFCMToken(payload);
         }
