@@ -73,6 +73,14 @@ class NotificationSegment extends Component {
 		else if (this.props.item.entity_type === 'kupon') {
 			Actions.MyCoupon();
 		}
+		else if (this.props.item.entity_type === 'static_page') {
+			const data = {
+				target_page: {
+					slug: JSON.parse(this.props.item.data).static_page_slug
+				}
+			};
+			Actions.Static({ banner: data, title: JSON.parse(this.props.item.data).title });
+		}
 	}
 	renderBadge() {
 		if (this.props.item.status === 'unread') {

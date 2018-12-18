@@ -77,7 +77,7 @@ class StaticContentComponent extends Component {
                 return (
                     <ScrollView contentContainerStyle={styles.container}>
                         <View style={styles.imageContainer}>
-                            <Image source={{ uri: this.state.data.banners[0].image_url }} style={styles.image} />
+                            {this.state.data.banners.length > 0 ? <Image source={{ uri: this.state.data.banners[0].image_url }} style={styles.image} /> : null }
                         </View>
                         <View style={styles.staticContent}>
                             <Text style={styles.staticTitle}>

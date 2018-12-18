@@ -180,6 +180,14 @@ export default class App extends Component<Props> {
     else if (item.data.entity_type === 'force-update') {
       this.checkAppsInfo();
     }
+    else if (item.data.entity_type === 'static_page') {
+			const data = {
+				target_page: {
+					slug: JSON.parse(item.data.data).static_page_slug
+				}
+			};
+			Actions.Static({ banner: data, title: JSON.parse(item.data.data).title });
+		}
   }
 
 
