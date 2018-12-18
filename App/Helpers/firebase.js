@@ -25,7 +25,9 @@ const getToken = async () => {
                 // user has a device token
                 console.log('token from FCM', fcmToken);
                 const payload = {
-                    token: fcmToken
+                    token: fcmToken,
+                    version: DeviceInfo.getVersion(),
+                    type: 'customer'
                 };
                 await CommonService.storeFCMToken(payload);
                 await AsyncStorage.setItem('fcmToken', fcmToken);
