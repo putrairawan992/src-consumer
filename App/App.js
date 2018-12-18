@@ -62,6 +62,9 @@ export default class App extends Component<Props> {
       // Process your notification as required
       store.dispatch(refreshProfile());
       console.log('on notif listener', notification);
+      if (notification.data.entity_type === 'force-update') {
+        this.checkAppsInfo();
+      }
     });
     this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
       // Get the action triggered by the notification being opened
@@ -173,6 +176,9 @@ export default class App extends Component<Props> {
     }
     else if (item.data.entity_type === 'kupon') {
       Actions.MyCoupon();
+    }
+    else if (item.data.entity_type === 'force-update') {
+      this.checkAppsInfo();
     }
   }
 
