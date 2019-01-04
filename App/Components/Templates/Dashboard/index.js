@@ -3,9 +3,10 @@ import { ScrollView, View, Image, Text, ImageBackground, ActivityIndicator, Touc
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
-import { MenuButton, NewsCard } from '@partials';
+import { MenuButton, NewsCard, Button } from '@partials';
 import PermissionHelpers from '@helpers/Permission';
 import CustomAlert from '@helpers/CustomAlert';
+import Modal from 'react-native-modal';
 import { trackScreen } from '@helpers/analytic';
 import { CommonService } from '@services';
 import globalStyles from '../../../GlobalStyles';
@@ -25,11 +26,24 @@ class DashboardComponent extends Component {
 		loaded: false,
 		banners: [],
 		news: [],
-		refreshing: false
+		refreshing: false,
+		checkNotif: null
 	}
-	componentWillMount() {
+	async componentWillMount() {
 		trackScreen(pageName);
 		this.retrieveData();
+		const checkNotif = await CommonService.checkNotif();
+		if (checkNotif.updated === true) {
+			this.setState({
+				checkNotif
+			});
+		}
+	}
+
+	reopenCallBack() {
+		this.setState({
+			checkNotif: { ...this.state.checkNotif, updated: true }
+		 });
 	}
 
 	async refreshView() {
@@ -40,6 +54,35 @@ class DashboardComponent extends Component {
 		this.setState({
 			refreshing: false
 		});
+	}
+
+	redirectTerm(type) {
+		this.setState({
+           checkNotif: { ...this.state.checkNotif, updated: false }
+		});
+		Actions.TermCondition({ termState: type, reopenCallback: this.reopenCallBack.bind(this) });
+	}
+
+	renderModalContent() {
+		const a = this.state.checkNotif.content_types.includes('terms-conditions');
+		const b = this.state.checkNotif.content_types.includes('privacy-policy')
+        if (a && b) {
+			return (
+				<View style={{ marginTop: 12 }}>
+					<Text style={styles.modalText}>Saya Telah membaca dan menyetujui <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'term')}>Syarat & Ketentuan</Text>  serta <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'privacy')}>Kebijakan Privasi</Text></Text>
+				</View>
+			)
+		}
+		else if (a && !b) {
+			<View style={{ marginTop: 12 }}>
+					<Text style={styles.modalText}>Saya Telah membaca dan menyetujui <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'term')}>Syarat & Ketentuan</Text></Text>  
+			</View>
+		}
+		else if (!a && b) {
+			<View style={{ marginTop: 12 }}>
+					<Text style={styles.modalText}>Saya Telah membaca dan menyetujui <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'privacy')}>Kebijakan Privasu</Text></Text>  
+			</View>
+		}
 	}
 
 	retrieveData() {
@@ -125,10 +168,10 @@ class DashboardComponent extends Component {
 				<View style={styles.container}>
 					<ScrollView
 						refreshControl={
-						<RefreshControl
-							refreshing={this.state.refreshing}
-							onRefresh={this.refreshView.bind(this)}
-						/>}
+							<RefreshControl
+								refreshing={this.state.refreshing}
+								onRefresh={this.refreshView.bind(this)}
+							/>}
 					>
 						<ImageBackground
 							style={globalStyles.profileInfo}
@@ -196,6 +239,22 @@ class DashboardComponent extends Component {
 							</View>
 						</View>
 					</ScrollView>
+					<Modal isVisible={this.state.checkNotif ? this.state.checkNotif.updated : false}>
+						<View style={styles.modalContent}>
+							<Text style={styles.modalTextHeader}>Syarat & Ketentuan diperbarui</Text>
+							{this.state.checkNotif ? this.renderModalContent() : false}
+							<Text style={[styles.modalText, { color: '#DC1E2D', textAlign: 'right', alignSelf: 'flex-end', marginTop: 24}]} onPress={async () => {
+							   const payload = {
+								   content_types: this.state.checkNotif.content_types,
+								   from: 'customer'
+							   };
+							   await CommonService.updateContent(payload);
+							   this.setState({
+								   checkNotif: null
+							   });
+							}}>Setuju</Text>
+						</View>
+					</Modal>
 				</View >
 			);
 		}

@@ -24,6 +24,7 @@
     "react-native-linear-gradient": "^2.4.0",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-maps": "^0.21.0",
+    "react-native-modal": "^7.0.2",
     "react-native-permissions": "^1.1.1",
     "react-native-photo-upload": "^1.2.0",
     "react-native-qrcode-svg": "^5.1.1",

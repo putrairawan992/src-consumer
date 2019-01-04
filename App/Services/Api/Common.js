@@ -252,6 +252,21 @@ const deleteProfile = (payload) => {
 	});
 };
 
+const checkNotif = () => {
+	return request({
+		url: 'api/general/content/notif?from=customer',
+		method: 'get'
+	});
+};
+
+const updateContent = (payload) => {
+	return request({
+		url: '/api/general/content/notif',
+		method: 'post',
+		data: payload
+	});
+};
+
 const CommonService = {
 	getCities,
 	getProvinces,
@@ -284,7 +299,9 @@ const CommonService = {
 	getPaguyubanCoupon,
 	getCouponHistory,
 	sendDeleteOtp,
-	deleteProfile
+	deleteProfile,
+	checkNotif,
+	updateContent
 };
 
 export default CommonService;

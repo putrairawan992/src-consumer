@@ -41,6 +41,9 @@ class TermConditionComponent extends Component {
                 <Button
                     style={{ margin: 0, marginTop: 25 }}
                     onPress={() => {
+                        if (this.props.reopenCallback) {
+                            this.props.reopenCallback();
+                        }
                         Actions.pop();
                     }}
                 >Tutup
