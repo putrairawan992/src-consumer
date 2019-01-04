@@ -74,14 +74,14 @@ class DashboardComponent extends Component {
 			)
 		}
 		else if (a && !b) {
-			<View style={{ marginTop: 12 }}>
+			return (<View style={{ marginTop: 12 }}>
 					<Text style={styles.modalText}>Saya Telah membaca dan menyetujui <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'term')}>Syarat & Ketentuan</Text></Text>  
-			</View>
+			</View>);
 		}
 		else if (!a && b) {
-			<View style={{ marginTop: 12 }}>
+			return (<View style={{ marginTop: 12 }}>
 					<Text style={styles.modalText}>Saya Telah membaca dan menyetujui <Text style={[styles.modalText, { color: '#DC1E2D'}]} onPress={this.redirectTerm.bind(this,'privacy')}>Kebijakan Privasu</Text></Text>  
-			</View>
+			</View>);
 		}
 	}
 
