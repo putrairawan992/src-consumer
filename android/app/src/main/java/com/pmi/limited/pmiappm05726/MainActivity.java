@@ -1,4 +1,4 @@
-package com.pmi.store.pmiappm05726;
+package com.pmi.limited.pmiappm05726;
 import android.os.Bundle; // here
 
 import com.facebook.react.ReactActivity;

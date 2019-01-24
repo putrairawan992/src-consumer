@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.pmi.store.pmiappm05726",
+    package = "com.pmi.limited.pmiappm05726",
 )
 
 android_resource(
     name = "res",
-    package = "com.pmi.store.pmiappm05726",
+    package = "com.pmi.limited.pmiappm05726",
     res = "src/main/res",
 )
 

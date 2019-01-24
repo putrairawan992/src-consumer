@@ -1,4 +1,4 @@
-package com.pmi.store.pmiappm05726;
+package com.pmi.limited.pmiappm05726;
 
 import android.app.Application;
 
@@ -76,6 +76,6 @@ public class MainApplication extends Application implements ShareApplication, Re
 
    @Override
      public String getFileProviderAuthority() {
-            return "com.pmi.store.pmiappm05726.provider";
+            return "com.pmi.limited.pmiappm05726.provider";
      }
 }
