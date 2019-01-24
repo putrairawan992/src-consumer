@@ -21,6 +21,7 @@ import CustomAlert from '@helpers/CustomAlert';
 import { refreshProfile } from './Store/GlobalReducer/actions';
 import reducers from './Store/combineReducer';
 import AyoRouter from './Router';
+import PermissionHelpers from "@helpers/Permission";
 
 type Props = {};
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
@@ -52,6 +53,7 @@ export default class App extends Component<Props> {
       });
     };
     await this.checkPermission();
+    await PermissionHelpers.requestReadSmsPermission();
     this.checkAppsInfo();
     this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification) => {
       // Process your notification as required

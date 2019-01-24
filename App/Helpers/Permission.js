@@ -46,9 +46,22 @@ const requestLocationPermission = async () => {
     return true;
 };
 
+const requestReadSmsPermission = async () => {
+    const smsPermissionStatus = await Permissions.check("receiveSms");
+    if (smsPermissionStatus !== "authorized") {
+        const smsGranted = await Permissions.request("receiveSms");
+        if (smsGranted === "authorized") {
+            return true;
+        }
+        return false;
+    }
+    return true;
+};
+
 const PermissionHelpers = {
     requestCameraPermission,
-    requestLocationPermission
+    requestLocationPermission,
+    requestReadSmsPermission
 };
 
 export default PermissionHelpers;

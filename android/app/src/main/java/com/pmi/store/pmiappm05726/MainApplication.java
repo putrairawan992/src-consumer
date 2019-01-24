@@ -3,6 +3,7 @@ package com.pmi.store.pmiappm05726;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.horcrux.svg.SvgPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -39,6 +40,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SmsListenerPackage(),
             new SvgPackage(),
             new RNSensitiveInfoPackage(),
             new RNDeviceInfo(),

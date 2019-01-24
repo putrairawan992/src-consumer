@@ -13,6 +13,7 @@ import { checkPermission, getToken, requestPermission } from '@helpers/firebase'
 import { setAuthorization, setProfileFromRest, getExpiry, storeExpiryDate, hasSession, removeAuthFromStorage } from '@helpers/Storage';
 import { revokeProfile } from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
+import SmsListener from "react-native-android-sms-listener";
 
 
 const pageName = this.pageName = 'otp';
@@ -23,6 +24,8 @@ class OtpResetPasswordComponent extends Component {
 
 		this.focusNextField = this.focusNextField.bind(this);
 		this.inputs = {};
+		this.SMSReadSubscription = {};
+		this._isMounted = false;
 	}
 
 	state = {
@@ -36,11 +39,40 @@ class OtpResetPasswordComponent extends Component {
 	}
 
 	componentWillMount() {
+		this._isMounted = false;
 		this.generateTimer();
 		trackScreen(pageName);
 	}
 
 	componentDidMount() {
+		/** Auto fill otp, get permission first */
+		this._isMounted = true;
+    this.SMSReadSubscription = this._isMounted && SmsListener.addListener(message => {
+      if (message.originatingAddress === "AYO SRC") {
+        console.log(message);
+
+        let otpCodeSMS = "";
+        let otp = "";
+
+        if (message.body.length > 4) {
+          otpCodeSMS = message.body.split(" ")[2];
+          otp = otpCodeSMS.split("");
+        } else {
+          otpCodeSMS = message.body;
+          otp = otpCodeSMS.split("");
+        }
+
+        this._isMounted &&this.setState({
+          firstInput: otp[0],
+          secondInput: otp[1],
+          thirdInput: otp[2],
+          fourthInput: otp[3]
+        });
+
+        this.submitCode();
+      }
+		});
+
 		this.clockCall = setInterval(() => {
 			this.decrementClock();
 		}, 1000);
@@ -49,6 +81,8 @@ class OtpResetPasswordComponent extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.clockCall);
+		this.SMSReadSubscription.remove();
+		this._isMounted = false;
 		AppState.removeEventListener('change', this.generateTimer.bind(this));
 	}
 
@@ -219,6 +253,7 @@ class OtpResetPasswordComponent extends Component {
 				{this.renderTimer()}
 				<View style={styles.inputContainerStyle}>
 					<Input
+						value={this.state.firstInput}
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
@@ -234,6 +269,7 @@ class OtpResetPasswordComponent extends Component {
 						}}
 					/>
 					<Input
+						value={this.state.secondInput}
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
@@ -249,6 +285,7 @@ class OtpResetPasswordComponent extends Component {
 						}}
 					/>
 					<Input
+						value={this.state.thirdInput}
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
@@ -264,6 +301,7 @@ class OtpResetPasswordComponent extends Component {
 						}}
 					/>
 					<Input
+						value={this.state.fourthInput}
 						style={styles.singularInputStyle}
 						maxLength={1}
 						onChangeText={num => {
