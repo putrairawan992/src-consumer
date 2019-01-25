@@ -14,7 +14,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 4,
 		borderColor: 'rgba(0, 0, 0, 0.1)',
-		flex: 0.3,
+		flex: 0.4,
 		flexDirection: 'column'
 	},
 	bottomModal: {
