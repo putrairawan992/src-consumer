@@ -3,7 +3,7 @@ import constants from '@helpers/constants';
 
 const getCities = (provinceId = null, page = null) => {
 	return request({
-		url: 'api/general/city',
+		url: 'api/v2/general/city',
 		method: 'GET',
 		params: {
 			page: page || 'all',
@@ -14,7 +14,7 @@ const getCities = (provinceId = null, page = null) => {
 
 const getProvinces = (page = null) => {
 	return request({
-		url: 'api/general/province',
+		url: 'api/v2/general/province',
 		method: 'GET',
 		params: {
 			page: page || 'all'
@@ -24,7 +24,7 @@ const getProvinces = (page = null) => {
 
 const signUp = (payload) => {
 	return request({
-		url: 'api/customer/user',
+		url: 'api/v2/customer/user',
 		method: 'POST',
 		data: payload
 	});
@@ -32,7 +32,7 @@ const signUp = (payload) => {
 
 const signIn = (payload) => {
 	return request({
-		url: 'api/customer/token-v3',
+		url: 'api/v2/customer/token-v3',
 		method: 'POST',
 		data: { ...constants.oauth_identifier, ...payload }
 	});
@@ -40,7 +40,7 @@ const signIn = (payload) => {
 
 const resendActivationCode = (payload) => {
 	return request({
-		url: 'api/general/otp/send',
+		url: 'api/v2/general/otp/send',
 		method: 'POST',
 		data: payload
 	});
@@ -48,7 +48,7 @@ const resendActivationCode = (payload) => {
 
 const verifyUser = (payload) => {
 	return request({
-		url: 'api/general/otp/verify-account',
+		url: 'api/v2/general/otp/verify-account',
 		method: 'POST',
 		data: payload
 	});
@@ -56,7 +56,7 @@ const verifyUser = (payload) => {
 
 const resetPassword = (payload) => {
 	return request({
-		url: 'api/general/otp/reset-password',
+		url: 'api/v2/general/otp/reset-password',
 		method: 'POST',
 		data: payload
 	});
@@ -72,7 +72,7 @@ const changePassword = (payload) => {
 
 const changeResetPassword = (payload) => {
 	return request({
-		url: 'api/general/otp/change-password',
+		url: 'api/v2/general/otp/change-password',
 		method: 'post',
 		data: payload
 	});
@@ -94,7 +94,7 @@ const signOut = () => {
 
 const editProfile = (payload) => {
 	return request({
-		url: 'api/customer/user/update',
+		url: 'api/v2/customer/user/update',
 		method: 'PUT',
 		data: payload
 	});
@@ -102,21 +102,21 @@ const editProfile = (payload) => {
 
 const getDashboard = () => {
 	return request({
-		url: 'api/customer/home',
+		url: 'api/v2/customer/home',
 		method: 'get'
 	});
 };
 
 const getNewsCategories = () => {
 	return request({
-		url: 'api/general/newsfeed/category',
+		url: 'api/v2/general/newsfeed/category',
 		method: 'get'
 	});
 };
 
 const getNews = (param) => {
 	return request({
-		url: 'api/general/newsfeed',
+		url: 'api/v2/general/newsfeed',
 		method: 'get',
 		params: param
 	});
@@ -124,7 +124,7 @@ const getNews = (param) => {
 
 const getNearby = (param) => {
 	return request({
-		url: 'api/customer/nearby',
+		url: 'api/v2/customer/nearby',
 		method: 'get',
 		params: param
 	});
@@ -132,7 +132,7 @@ const getNearby = (param) => {
 
 const getStaticContent = (param) => {
 	return request({
-		url: 'api/general/content',
+		url: 'api/v2/general/content',
 		method: 'get',
 		params: param
 	});
@@ -140,7 +140,7 @@ const getStaticContent = (param) => {
 
 const likeNews = (param) => {
 	return request({
-		url: 'api/general/newsfeed',
+		url: 'api/v2/general/newsfeed',
 		method: 'post',
 		params: param
 	});
@@ -148,21 +148,21 @@ const likeNews = (param) => {
 
 const likeContent = (context) => {
 	return request({
-		url: 'api/general/content/' + context.content_id + '/like',
+		url: 'api/v2/general/content/' + context.content_id + '/like',
 		method: 'post'
 	});
 };
 
 const dislikeContent = (context) => {
 	return request({
-		url: 'api/general/content/' + context.content_id + '/unlike',
+		url: 'api/v2/general/content/' + context.content_id + '/unlike',
 		method: 'post'
 	});
 };
 
 const submitPrivacy = (payload) => {
 	return request({
-		url: 'api/general/content/privacy',
+		url: 'api/v2/general/content/privacy',
 		method: 'post',
         data: payload
 	});
@@ -178,14 +178,14 @@ const deleteUser = (payload) => {
 
 const getBannerDetail = (context) => {
 	return request({
-		url: 'api/general/page/' + context.slug,
+		url: 'api/v2/general/page/' + context.slug,
 		method: 'get'
 	});
 };
 
 const storeFCMToken = (payload) => {
 	return request({
-		url: 'api/general/user_notif',
+		url: 'api/v2/general/user_notif',
 		method: 'post',
 		data: payload
 	});
@@ -193,21 +193,21 @@ const storeFCMToken = (payload) => {
 
 const getNotifications = () => {
 	return request({
-		url: 'api/general/user_notif',
+		url: 'api/v2/general/user_notif',
 		method: 'get'
 	});
 };
 
 const updateNotification = (context) => {
 	return request({
-		url: 'api/general/user_notif/' + context.id,
+		url: 'api/v2/general/user_notif/' + context.id,
 		method: 'put'
 	});
 };
 
 const checkAppVersion = (param) => {
 	return request({
-		url: 'api/general/mobile-apps/check',
+		url: 'api/v2/general/mobile-apps/check',
 		params: param,
 		method: 'get'
 	});
@@ -215,7 +215,7 @@ const checkAppVersion = (param) => {
 
 const getPaguyuban = (param) => {
 	return request({
-		url: 'api/customer/coupon',
+		url: 'api/v2/customer/coupon',
 		params: param,
 		method: 'get'
 	});
@@ -223,7 +223,7 @@ const getPaguyuban = (param) => {
 
 const getPaguyubanCoupon = (param, context) => {
 	return request({
-		url: 'api/customer/coupon/' + context.group_id,
+		url: 'api/v2/customer/coupon/' + context.group_id,
 		params: param,
 		method: 'get'
 	});
@@ -231,14 +231,14 @@ const getPaguyubanCoupon = (param, context) => {
 
 const getCouponHistory = () => {
 	return request({
-		url: 'api/customer/coupon/get/riwayat',
+		url: 'api/v2/customer/coupon/get/riwayat',
 		method: 'get'
 	});
 };
 
 const sendDeleteOtp = (payload) => {
 	return request({
-		url: '/api/general/otp/send-v2',
+		url: '/api/v2/general/otp/send-v2',
 		method: 'post',
 		data: payload
 	});
@@ -247,21 +247,6 @@ const sendDeleteOtp = (payload) => {
 const deleteProfile = (payload) => {
 	return request({
 		url: '/oauth/user/delete-v2',
-		method: 'post',
-		data: payload
-	});
-};
-
-const checkNotif = () => {
-	return request({
-		url: 'api/general/content/notif?from=customer',
-		method: 'get'
-	});
-};
-
-const updateContent = (payload) => {
-	return request({
-		url: '/api/general/content/notif',
 		method: 'post',
 		data: payload
 	});
@@ -299,9 +284,7 @@ const CommonService = {
 	getPaguyubanCoupon,
 	getCouponHistory,
 	sendDeleteOtp,
-	deleteProfile,
-	checkNotif,
-	updateContent
+	deleteProfile
 };
 
 export default CommonService;

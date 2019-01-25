@@ -153,6 +153,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-android-sms-listener')
     compile project(':react-native-svg')
     compile project(':react-native-sensitive-info')
     compile project(':react-native-device-info')
