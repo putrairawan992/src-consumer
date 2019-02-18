@@ -52,6 +52,17 @@ class HelpComponent extends Component {
         });
     }
 
+    linkSecondWhatsapp() {
+        Linking.canOpenURL('https://api.whatsapp.com/send?phone=6281106000234').then((supported) => {
+            if (!supported) {
+                CustomAlert(null, 'Perangkat tidak mendukung', [{ text: 'OK' }]);
+            }
+            else {
+                return Linking.openURL('https://api.whatsapp.com/send?phone=6281106000234');
+            }
+        });
+    }
+
     searchOnChange(text) {
         const staticParam = {
             type: 'help',
@@ -148,6 +159,23 @@ class HelpComponent extends Component {
                                 <View style={styles.contentItemMain}>
                                     <Text style={styles.contentItemMainTitle}>Melalui WhatsApp</Text>
                                     <Text style={styles.contentItemMainContent}>0819-06000-234</Text>
+                                    <Text style={[styles.contentItemMainContent, { fontSize: 12, color: '#000', fontFamily: 'ProximaNova-Bold', marginTop: 12, maxWidth: 160 }]}>Untuk area Jakarta dan sekitarnya</Text>
+                                </View>
+                                <View style={styles.contentItemSecondary}>
+                                    <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} />
+                                </View>
+                            </View>
+                            <Icon name="keyboard-arrow-right" style={styles.iconStyle} size={36} color="#ececec" />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.buttonStyle, { borderTopWidth: 0 }]} onPress={this.linkSecondWhatsapp.bind(this)}>
+                        <View style={styles.contentItem}>
+                            <Image source={require('@images/whatsapp.png')} style={styles.imageLogo} />
+                            <View style={styles.contentItemContainer}>
+                                <View style={styles.contentItemMain}>
+                                    <Text style={styles.contentItemMainTitle}>Melalui WhatsApp</Text>
+                                    <Text style={styles.contentItemMainContent}>0811-06000-234</Text>
+                                    <Text style={[styles.contentItemMainContent, { fontSize: 12, color: '#000', fontFamily: 'ProximaNova-Bold', marginTop: 12, maxWidth: 160 }]}>Untuk area Jawa Barat dan Jawa Tengah</Text>
                                 </View>
                                 <View style={styles.contentItemSecondary}>
                                     <Text style={[styles.contentItemSecondaryContent, { width: 160 }]} />
