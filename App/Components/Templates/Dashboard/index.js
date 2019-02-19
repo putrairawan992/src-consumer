@@ -14,7 +14,7 @@ import * as globalActions from '../../../Store/GlobalReducer/actions';
 import styles from './styles';
 
 
-const ayoImg = require('@images/ayo-src-logo-w.png');
+const ayoImg = require('@images/login-logo-dev.png');
 const terdekatImg = require('@images/map-mini-icon.png');
 const qrImg = require('@images/qr-icon.png');
 const couponImg = require('@images/coupon-icon.png');
