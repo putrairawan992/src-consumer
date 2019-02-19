@@ -1,4 +1,4 @@
-package com.pmi.limited.pmiappm05726;
+package com.ayosrc.dev;
 
 import android.app.Application;
 
@@ -78,6 +78,6 @@ public class MainApplication extends Application implements ShareApplication, Re
 
    @Override
      public String getFileProviderAuthority() {
-            return "com.pmi.limited.pmiappm05726.provider";
+            return "com.ayosrc.dev.provider";
      }
 }

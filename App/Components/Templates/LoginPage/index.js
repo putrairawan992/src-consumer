@@ -10,7 +10,7 @@ import globalStyles from '../../../GlobalStyles';
 
 const pageName = this.pageName = 'login-page';
 
-const ayoImg = require('@images/login-logo.png');
+const ayoImg = require('@images/login-logo-dev.png');
 
 class LoginPageComponent extends Component {
 
