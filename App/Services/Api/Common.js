@@ -244,6 +244,22 @@ const sendDeleteOtp = (payload) => {
 	});
 };
 
+const checkNotif = () => {
+	return request({
+		url: 'api/v2/general/content/notif?from=customer',
+		method: 'get'
+	});
+};
+
+const updateContent = (payload) => {
+	return request({
+		url: '/api/v2/general/content/notif',
+		method: 'post',
+		data: payload
+	});
+};
+
+
 const deleteProfile = (payload) => {
 	return request({
 		url: '/oauth/user/delete-v2',
@@ -284,7 +300,9 @@ const CommonService = {
 	getPaguyubanCoupon,
 	getCouponHistory,
 	sendDeleteOtp,
-	deleteProfile
+	deleteProfile,
+	checkNotif,
+	updateContent
 };
 
 export default CommonService;
