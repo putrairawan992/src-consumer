@@ -63,7 +63,8 @@ class LoginPageComponent extends Component {
             return (
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 20 }}>
                     <Text style={styles.whiteText}>Hubungi kami:</Text>
-                    <Text style={styles.whiteText}>Telepon: 0804-1000-234 | WhatsApp: 0819-06000234</Text>
+                    <Text style={styles.whiteText}>Telepon: 0804-1000-234</Text>
+                    <Text style={styles.whiteText}>Whatsapp: 08111-315-234 / 0819-060-00234</Text>
                     <Text style={styles.whiteText}>Senin - Jumat (08.00 - 17.00 WIB)</Text>
                 </View>
             );

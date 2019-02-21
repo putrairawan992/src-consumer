@@ -33,10 +33,11 @@ export default StyleSheet.create({
 		width: '100%'
 	},
 	whiteText: {
-		fontFamily: 'ProximaNova-Bold',
+		fontFamily: 'ProximaNova-Regular',
 		color: '#fff',
 		fontSize: 12,
-		textAlign: 'center'
+		textAlign: 'center',
+		lineHeight: 18
     },
     inputStyle: {
         backgroundColor: 'transparent',
